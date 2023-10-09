@@ -3,8 +3,11 @@ import playerlogo from "../../Assets/Images/player/player image.png";
 import allRounderlogo from "../../Assets/Images/player_type_icons/All_rounder.png";
 import batterlogo from "../../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler.png";
+import { useAuctionContext } from "../auctionContext";
+
 
 const AuctionScreen = () => {
+  const {bidPrice} = useAuctionContext()
   return (
     <div className="wrapper">
       <div className="profile" style={{ width: "100%" }}>
@@ -22,12 +25,12 @@ const AuctionScreen = () => {
               <div className="summary-stats">Batsman</div>
             </div>
             <div>
-              <div className="summary-title">BID PRICE</div>
+              <div className="summary-title">Bid Price</div>
               <div
                 style={{ fontSize: "2vw", fontWeight: "bold" }}
                 className="summary-stats"
               >
-                12000
+                {bidPrice}
               </div>
             </div>
             <div>

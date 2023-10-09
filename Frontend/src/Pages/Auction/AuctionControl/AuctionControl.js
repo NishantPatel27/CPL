@@ -3,6 +3,8 @@ import playerlogo from "../../Assets/Images/player/player image.png";
 import allRounderlogo from "../../Assets/Images/player_type_icons/All_rounder.png";
 import batterlogo from "../../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler.png";
+import { useAuctionContext } from "../auctionContext";
+
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
@@ -11,18 +13,20 @@ import { useEffect } from "react";
 const AuctionControl = () => {
   // const playerImage = playerlogo;
   const [playerData, setPlayerData] = useState();
+  
   const { id } = useParams();
-  const [bidprice, setbidprice] = useState(0);
+  const {bidPrice , updateBidPrice} = useAuctionContext()
+  // const [bidprice, setbidprice] = useState(0);
   const [newTeam, setnewTeam] = useState("Knights");
   const [nextPlayerType, setnextPlayerType] = useState("allrounder");
 
-  useEffect(() => {
-    // console.log("new bid price : ", bidprice);
-  }, [bidprice]);
+  // useEffect(() => {
+  //   // console.log("new bid price : ", bidprice);
+  // }, [bidprice]);
 
   function incrementBidPrice(n) {
-    let currentbidprice = bidprice;
-    setbidprice(Number(currentbidprice) + Number(n));
+    let currentbidprice = bidPrice;
+    updateBidPrice(Number(currentbidprice) + Number(n));
   }
 
   useEffect(() => {
@@ -36,13 +40,13 @@ const AuctionControl = () => {
           // console.log("done");
           // console.log("Random Player data:", response.data.data);
           setPlayerData(response.data.data);
-          setbidprice(Number(response.data.data.bidPrice));
+          updateBidPrice(Number(response.data.data.bidPrice));
         })
         .catch((err) => console.log("Error fetching player data:", err));
     } catch (error) {
       console.log("error", error);
     }
-  }, []);
+  }, [updateBidPrice]);
 
   return (
     <div className="wrapper">
@@ -83,12 +87,12 @@ const AuctionControl = () => {
             <label>Biding Price</label>
             <input
               onChange={(e) => {
-                setbidprice(Number(e.target.value));
+                updateBidPrice(Number(e.target.value));
               }}
               id="bid-input"
               className="bid-input"
               type="number"
-              value={bidprice}
+              value={bidPrice}
             />
           </div>
 
