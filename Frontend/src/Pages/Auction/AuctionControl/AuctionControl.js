@@ -3,50 +3,75 @@ import playerlogo from "../../Assets/Images/player/player image.png";
 import allRounderlogo from "../../Assets/Images/player_type_icons/All_rounder.png";
 import batterlogo from "../../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler.png";
-import { useAuctionContext } from "../auctionContext";
-
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 
-const AuctionControl = () => {
+const AuctionControl = ({ socket }) => {
   // const playerImage = playerlogo;
   const [playerData, setPlayerData] = useState();
-  
   const { id } = useParams();
-  const {bidPrice , updateBidPrice} = useAuctionContext()
-  // const [bidprice, setbidprice] = useState(0);
+  const [bidprice, setbidprice] = useState(0);
   const [newTeam, setnewTeam] = useState("Knights");
   const [nextPlayerType, setnextPlayerType] = useState("allrounder");
 
-  // useEffect(() => {
-  //   // console.log("new bid price : ", bidprice);
-  // }, [bidprice]);
-
   function incrementBidPrice(n) {
-    let currentbidprice = bidPrice;
-    updateBidPrice(Number(currentbidprice) + Number(n));
-  }
+    let currentbidprice = bidprice;
 
+    setbidprice(Number(currentbidprice) + Number(n));
+    socket.emit("increment_bid", Number(currentbidprice) + Number(n));
+  }
+  const updatePlayerData = async () => {
+    try {
+      // const updatedPlayer = await axios.put(
+      //   `http://localhost:6001/player/update/${playerData._id}`,
+      //   { withCredentials: true },
+      //   playerData
+      // );
+      const updatedUser = {
+        ...playerData,
+        ["bidPrice"]: bidprice,
+        ["currentTeam"]: newTeam,
+      };
+      const updatedPlayer = await axios({
+        method: "put",
+        url: `http://localhost:6001/player/update/${playerData._id}`,
+        withCredentials: true,
+        data: updatedUser,
+      });
+      console.log(updatedPlayer);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleSelling = async () => {
+    await updatePlayerData(playerData);
+    refreshPlayer();
+  };
+  const refreshPlayer = () => {
+    axios
+      .get("http://localhost:6001/player/random", { withCredentials: true })
+      .then((response) => {
+        // console.log("done");
+        // console.log("Random Player data:", response.data.data);
+        setPlayerData(response.data.data);
+        setbidprice(Number(response.data.data.bidPrice));
+        console.log(socket?.id);
+        socket.emit("player_data", response.data.data);
+      })
+      .catch((err) => console.log("Error fetching player data:", err));
+  };
   useEffect(() => {
     // console.log("id", id);
     // console.log("random fetching");
 
     try {
-      axios
-        .get("http://localhost:6001/player/random", { withCredentials: true })
-        .then((response) => {
-          // console.log("done");
-          // console.log("Random Player data:", response.data.data);
-          setPlayerData(response.data.data);
-          updateBidPrice(Number(response.data.data.bidPrice));
-        })
-        .catch((err) => console.log("Error fetching player data:", err));
+      refreshPlayer();
     } catch (error) {
       console.log("error", error);
     }
-  }, [updateBidPrice]);
+  }, []);
 
   return (
     <div className="wrapper">
@@ -74,7 +99,9 @@ const AuctionControl = () => {
               </div>
             </div>
             <div className="sold-wrapper">
-              <button className="soldbtn">SOLD</button>
+              <button onClick={handleSelling} className="soldbtn">
+                SOLD
+              </button>
             </div>
           </div>
         )}
@@ -87,12 +114,12 @@ const AuctionControl = () => {
             <label>Biding Price</label>
             <input
               onChange={(e) => {
-                updateBidPrice(Number(e.target.value));
+                setbidprice(Number(e.target.value));
               }}
               id="bid-input"
               className="bid-input"
               type="number"
-              value={bidPrice}
+              value={bidprice}
             />
           </div>
 
@@ -139,6 +166,7 @@ const AuctionControl = () => {
                     className="nextplayer-input"
                     onChange={(e) => {
                       setnewTeam(e.target.value);
+                      socket.emit("change_wining_bid_team", e.target.value);
                     }}
                   >
                     <option value="Knights">Knights</option>

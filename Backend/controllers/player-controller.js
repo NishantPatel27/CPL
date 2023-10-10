@@ -54,6 +54,7 @@ exports.createPlayer = async (req, res) => {
 
 // Update Player
 exports.updatePlayer = catchAsync(async (req, res) => {
+  console.log(req.body);
   const playerId = req.params.playerID;
   const data = {
     name: req.body.name,
@@ -166,7 +167,9 @@ exports.getRandomPlayer = catchAsync(async (req, res) => {
   const count = await Player.countDocuments();
   const randomIndex = Math.floor(Math.random() * count);
 
-  const randomPlayer = await Player.findOne().skip(randomIndex);
+  const randomPlayer = await Player.findOne({ currentTeam: "None" }).skip(
+    randomIndex
+  );
 
   if (!randomPlayer) {
     return sendResponse(res, 404, "No players found");

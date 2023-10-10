@@ -90,8 +90,9 @@ exports.listAllUsers = catchAsync(async (req, res) => {
 });
 
 exports.isLoggedIn = async (req, res, next) => {
+  // console.log(req);
   const token = req.cookies.token;
-  console.log("is login", req.cookie);
+  console.log("is login", req.cookies);
 
   if (token) {
     try {

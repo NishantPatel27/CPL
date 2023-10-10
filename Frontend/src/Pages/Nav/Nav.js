@@ -56,7 +56,6 @@ const Nav = () => {
               Admin Users
             </Link>
           </li>
-          <li><Link to='/auction'>Auction Display</Link></li>
           <li>
             <Link to="login">
               <button onClick={logout}>Logout</button>

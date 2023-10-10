@@ -3,6 +3,8 @@
     display:flex;
     padding: 2vw;
     justify-content: space-between;
+    width: 80vw;
+    float: right;
 
 }
 

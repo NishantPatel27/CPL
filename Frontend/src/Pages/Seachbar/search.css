@@ -1,13 +1,13 @@
 .search-bar{
-    background-color: white;
+    /* background-color: red; */
     padding: 1.5vw 2vw;
     box-shadow: 10px 0px 30px 1px #cfcdcd;
     z-index: 1;
     position: fixed;
-    width: 81vw;
+    width:78.65vw;
     display: flex;
     justify-content: space-between;
-    
+    right: 0;
     
 }
 .search-button{

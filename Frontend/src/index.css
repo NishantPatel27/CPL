@@ -16,8 +16,9 @@ body {
 }
 
 .main-wrapper{
-  width: 83.5%;
+  width:84vw;
   float: right;
+  /* background-color: green; */
   /* display: flex; */
   flex-direction: column;
   
