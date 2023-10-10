@@ -8,7 +8,7 @@ io.on("connection", (socket) => {
   //when ceonnect
   console.log("a user connected.");
 
-  socket.on("increment_bid", (newBid) => {
+  socket.on("update_bid", (newBid) => {
     io.emit("get_updated_bid", newBid);
   });
 

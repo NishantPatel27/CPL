@@ -5,13 +5,13 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 const Update = () => {
+  const [image, setImage] = useState({ preview: "", data: "" });
   const [formData, setFormData] = useState({
     name: "",
     phoneNumber: "",
     currentSemester: "1",
     dateOfBirth: "2000-1-01",
     branch: "software",
-    image: null,
     basePrice: "",
     bidPrice: "",
     previousTeam: "None",
@@ -68,16 +68,28 @@ const Update = () => {
         });
     };
   }, []);
-
+  // Image upload
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage(img);
+  };
   // FORM SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formDataJson = JSON.stringify(formData);
-
+    const d = new FormData();
+    d.append("image", image.data);
+    Object.keys(formData).forEach((key) => {
+      console.log(key, formData[key]);
+      d.append(key, formData[key]);
+    });
+    console.log(d);
     axios
-      .put("http://localhost:6001/player/update/" + id, formDataJson, {
+      .put("http://localhost:6001/player/update/" + id, d, {
         headers: {
-          "Content-Type": "application/json",
+          "content-type": "multipart/form-data",
         },
         withCredentials: true,
       })
@@ -191,11 +203,31 @@ const Update = () => {
               </div>
               <div>
                 <label>Players Photo</label>
+
                 <label className="fileupload-lable" htmlFor="playerphoto">
                   {/* <span className="upload-icon">{fileuploadicon}</span> */}
                   Upload image
                 </label>
+                {formData.image && (
+                  <img
+                    src={"/assets/images/players/" + formData?.image}
+                    width="100"
+                    height="100"
+                  />
+                )}
+                {image.preview && (
+                  <img src={image.preview} width="100" height="100" />
+                )}
                 <input
+                  type="file"
+                  name="file"
+                  required
+                  id="playerphoto"
+                  className="form-inputs"
+                  onChange={handleFileChange}
+                ></input>
+
+                {/* <input
                   className="form-inputs"
                   name="image"
                   type="file"
@@ -203,7 +235,7 @@ const Update = () => {
                   required
                   // value={formData.image}
                   onChange={handleInputChange}
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -258,7 +290,7 @@ const Update = () => {
                   <option value="Hurricanes">Hurricanes</option>
                   <option value="Royals">Royals</option>
                   <option value="Blasters">Blasters</option>
-                  <option value="Panther">Panther</option>
+                  <option value="Panthers">Panthers</option>
                   <option value="Empire">Empire</option>
                   <option value="Wolves">Wolves</option>
                   <option value="Super Kings">Super Kings</option>
@@ -286,7 +318,7 @@ const Update = () => {
                   <option value="Empire">Empire</option>
                   <option value="Wolves">Wolves</option>
                   <option value="Super Kings">Super Kings</option>
-                  <option value="Striker">Striker</option>
+                  <option value="Strikers">Strikers</option>
                   <option value="Titans">Titans</option>
                   <option value="Falcons">Falcons</option>
                 </select>

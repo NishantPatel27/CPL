@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import playerlogo from "../../Assets/Images/player/player image.png";
 import allRounderlogo from "../../Assets/Images/player_type_icons/All_rounder.png";
 import batterlogo from "../../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler.png";
 import axios from "axios";
+// import image from "../../../../../Backend/public/images"
+const imgFolder = "../../../../../Backend/public/images";
 const AuctionScreen = ({ socket }) => {
   const [bidPrice, setBidPrice] = useState(0);
   const [playerData, setPlayerData] = useState();
@@ -32,7 +33,10 @@ const AuctionScreen = ({ socket }) => {
   return (
     <div className="wrapper">
       <div className="profile" style={{ width: "100%" }}>
-        <img src={playerlogo} alt="current player logo" />
+        <img
+          src={"/assets/images/players/" + playerData?.image}
+          alt="current player logo"
+        />
 
         <div>
           <h3 className="playerName">{playerData?.name}</h3>

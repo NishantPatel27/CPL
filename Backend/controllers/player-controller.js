@@ -164,7 +164,7 @@ exports.getPlayerById = catchAsync(async (req, res) => {
 
 // Get random player
 exports.getRandomPlayer = catchAsync(async (req, res) => {
-  const count = await Player.countDocuments();
+  const count = await Player.countDocuments({ currentTeam: "None" });
   const randomIndex = Math.floor(Math.random() * count);
 
   const randomPlayer = await Player.findOne({ currentTeam: "None" }).skip(
@@ -172,7 +172,7 @@ exports.getRandomPlayer = catchAsync(async (req, res) => {
   );
 
   if (!randomPlayer) {
-    return sendResponse(res, 404, "No players found");
+    return sendResponse(res, 204, "No players found");
   }
   return sendResponse(res, 200, "Random player found", randomPlayer);
 });
