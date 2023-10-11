@@ -281,7 +281,7 @@ const Update = () => {
                   name="previousTeam"
                   id="previousTeam"
                   className="dropdown"
-                  value={formData.currentTeam}
+                  value={formData.previousTeam}
                   onChange={handleInputChange}
                 >
                   <option value="None">None</option>

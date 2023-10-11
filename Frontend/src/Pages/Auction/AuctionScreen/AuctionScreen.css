@@ -64,6 +64,17 @@
   left: 113vh;
 }
 
+
+
+/* ------------------------------------------------ */
+
+#AC-playerimage{
+    position: absolute;
+        top: 25vh;
+        left: 60vh;
+        height: 30vh;
+}
+
 .AC-playernametext {
   position: absolute;
   top: 56vh;
@@ -107,4 +118,29 @@
 }
 #AC-prevteamtext {
   left: 120vh;
+}
+
+#AC-inningstext,
+#AC-runstext,
+#AC-wicketstext {
+  position: absolute;
+  top: 82vh;
+  left: 35vh;
+  font-size: 3vh;
+}
+#AC-runstext {
+  left: 83vh;
+}
+#AC-wicketstext {
+  left: 120vh;
+}
+
+#AC-bidwinningteam{
+    position: absolute;
+    text-align: center;
+    top: 58vh;
+    left: 130vh;
+    font-size: 2vh;
+    opacity: 1;
+    color: lightgray;
 }
