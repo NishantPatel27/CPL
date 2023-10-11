@@ -3,6 +3,7 @@ import axios from "axios";
 
 const SignUp_URL = "http://localhost:6001/cpl/signup";
 const logIn_URL = "http://localhost:6001/cpl/login";
+const teamLogin_url = "http://localhost:6001/team/login";
 
 const signUp = (name, email, password, confirmPassword, role) => {
   return axios
@@ -49,11 +50,34 @@ const logIn = (email, password) => {
       return response.data;
     });
 };
+const logInTeam = (name, password) => {
+  return axios
+    .post(
+      teamLogin_url,
+      {
+        name,
+        password,
+      },
+      {
+        withCredentials: true,
+      }
+    )
+    .then((response) => {
+      if (response.data.data.token) {
+        // console.log("STORING COOKIE ... ");
+        // console.log("TOKEN IS : ", response.data.data.token);
+        localStorage.setItem("token", response.data.data.token);
+        localStorage.setItem("team", JSON.stringify(response.data.data.myuser));
+      }
+      return response.data;
+    });
+};
 
 const logOut = () => {
   console.log("logout");
   localStorage.removeItem("token");
   localStorage.removeItem("user");
+  localStorage.removeItem("team");
   console.log("cookie removed");
   window.location.reload();
 };
@@ -61,12 +85,17 @@ const logOut = () => {
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
+const getCurrentTeam = () => {
+  return JSON.parse(localStorage.getItem("team"));
+};
 
 const authService = {
   signUp,
   logIn,
   logOut,
   getCurrentUser,
+  logInTeam,
+  getCurrentTeam,
 };
 
 export default authService;

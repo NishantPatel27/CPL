@@ -8,6 +8,7 @@ const teamSchema = new mongoose.Schema({
   captain: String,
   voiceCaptain: String,
   totalPlayer: Number,
+  password: String,
 });
 
 module.exports = mongoose.model("Team", teamSchema);

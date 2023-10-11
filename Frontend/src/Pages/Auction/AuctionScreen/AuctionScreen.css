@@ -1,0 +1,110 @@
+.auction-screen-wrapper {
+  background: rgb(23, 90, 143);
+  background: linear-gradient(
+    124deg,
+    rgba(23, 90, 143, 1) 0%,
+    rgba(52, 36, 105, 1) 50%,
+    rgba(10, 82, 135, 1) 100%
+  );
+  height: 100vh;
+  /* background-image: url("../../Assets/Images/AuctionScreen/playercard.png"); */
+  background-size: cover;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 100vh;
+}
+
+#AC-playerframe {
+  height: 60vh;
+  position: absolute;
+  top: 8vh;
+  left: 18vh;
+}
+
+#AC-basepricebox {
+  height: 17vh;
+  position: absolute;
+  top: 12vh;
+  left: 120vh;
+}
+#AC-bidpricebox {
+  height: 35vh;
+  position: absolute;
+  top: 32vh;
+  left: 121vh;
+}
+#AC-lineA1,
+#AC-lineA2,
+#AC-lineA3 {
+  height: 6vh;
+  position: absolute;
+  top: 71vh;
+  left: 24vh;
+}
+#AC-lineA2 {
+  left: 69vh;
+}
+#AC-lineA3 {
+  left: 112vh;
+}
+
+#AC-lineB1,
+#AC-lineB2,
+#AC-lineB3 {
+  height: 8vh;
+  position: absolute;
+  top: 80vh;
+  left: 24vh;
+}
+#AC-lineB2 {
+  left: 70vh;
+}
+#AC-lineB3 {
+  left: 113vh;
+}
+
+.AC-playernametext {
+  position: absolute;
+  top: 56vh;
+  left: 30%;
+  font-size: 4vh;
+  text-transform: uppercase;
+}
+
+#AC-basepricetext {
+  position: absolute;
+  top: 17vh;
+  left: 128vh;
+  text-align: center;
+  font-size: 3vh;
+}
+
+#AC-bidpricetext {
+  position: absolute;
+  top: 36vh;
+  left: 128.4vh;
+  text-align: center;
+  font-size: 3vh;
+}
+
+#bidpriceamt {
+  position: relative;
+  top: 9vh;
+  font-size: 6vh;
+}
+
+#AC-branchtext,
+#AC-semestertext,
+#AC-prevteamtext {
+  position: absolute;
+  top: 73vh;
+  left: 35vh;
+  font-size: 2vh;
+}
+#AC-semestertext {
+  left: 83vh;
+}
+#AC-prevteamtext {
+  left: 120vh;
+}

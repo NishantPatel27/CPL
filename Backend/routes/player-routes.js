@@ -54,10 +54,4 @@ router.get(
   playerController.getPlayersByType
 );
 
-router.get(
-  "/team/:teamName",
-  authController.isLoggedIn,
-  playerController.getAllPlayerByTeamName
-);
-
 module.exports = router;

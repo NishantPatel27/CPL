@@ -229,8 +229,10 @@ exports.getPlayersByType = catchAsync(async (req, res) => {
 
 exports.getAllPlayerByTeamName = catchAsync(async (req, res) => {
   try {
-    const teamName = req.params.teamName;
-    const players = Player.find({ currentTeam: teamName });
+    const teamName = req.team.name;
+    console.log(req);
+    const players = await Player.find({ currentTeam: teamName });
+    console.log("players:-", players);
     return sendResponse(res, 200, players);
   } catch (e) {
     console.error(e);

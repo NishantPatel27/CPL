@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import socketIO from "socket.io-client";
 
 import Container from "./container/";
+import DashboardTeam from "./Pages/Dashboard/DashboardTeam";
 const socket = socketIO.connect("ws://localhost:8989");
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -29,24 +30,60 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Container Children={<Dashboard />} />} />
-      <Route path="/players" element={<Container Children={<Players />} />} />
-      <Route path="/teams" element={<Container Children={<Teams />} />} />
       <Route
-        path="/auctioncontrol"
-        element={<Container Children={<AuctionControl socket={socket} />} />}
+        path="/"
+        element={
+          <Container
+            Children={
+              Boolean(authService.getCurrentUser()) ? (
+                <Dashboard />
+              ) : (
+                <DashboardTeam />
+              )
+            }
+          />
+        }
       />
+      <Route path="/players" element={<Container Children={<Players />} />} />
+      {Boolean(authService.getCurrentUser()) &&
+        !Boolean(authService.getCurrentTeam()) && (
+          <Route path="/teams" element={<Container Children={<Teams />} />} />
+        )}
+      {Boolean(authService.getCurrentUser()) &&
+        !Boolean(authService.getCurrentTeam()) && (
+          <Route
+            path="/auctioncontrol"
+            element={
+              <Container Children={<AuctionControl socket={socket} />} />
+            }
+          />
+        )}
       {/* <Route
         path="/auctioncontrol"
         element={<AuctionControl socket={socket} />}
       /> */}
-      <Route path="/auction" element={<AuctionScreen socket={socket} />} />
-      <Route path="/form" element={<Container Children={<Form />} />} />
-      <Route path="/signup" element={<Container Children={<Signup />} />} />
+      {Boolean(authService.getCurrentUser()) &&
+        !Boolean(authService.getCurrentTeam()) && (
+          <Route path="/auction" element={<AuctionScreen socket={socket} />} />
+        )}
+      {Boolean(authService.getCurrentUser()) &&
+        !Boolean(authService.getCurrentTeam()) && (
+          <Route path="/form" element={<Container Children={<Form />} />} />
+        )}
+      {Boolean(authService.getCurrentUser()) &&
+        !Boolean(authService.getCurrentTeam()) && (
+          <Route path="/signup" element={<Container Children={<Signup />} />} />
+        )}
       {/* Default redirect for unknown routes */}
       <Route path="*" element={<Navigate to="/" />} />
       <Route path="/login" element={<Container Children={<Loginform />} />} />
-      <Route path="/update/:id" element={<Container Children={<Update />} />} />
+      {Boolean(authService.getCurrentUser()) &&
+        !Boolean(authService.getCurrentTeam()) && (
+          <Route
+            path="/update/:id"
+            element={<Container Children={<Update />} />}
+          />
+        )}
     </Routes>
   );
 }

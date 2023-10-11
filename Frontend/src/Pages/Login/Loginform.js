@@ -60,7 +60,22 @@ const Loginform = ({ flag }) => {
       }
     }
     if (roleDropdown === "team") {
-      toast.success("WELCOME " + teamDropdown);
+      try {
+        const res = await authService.logInTeam(teamDropdown, password);
+        console.log(res);
+        navigate("/", { replace: true });
+        flag(false);
+      } catch (error) {
+        console.log(error);
+        if (error.response.data.status === "Team not found") {
+          toast.error("Team Not found, try another name..");
+          setPassword("");
+        }
+        if (error.response.data.status === "invalid password") {
+          toast.error("Invalid password");
+          setPassword("");
+        }
+      }
     }
   };
 

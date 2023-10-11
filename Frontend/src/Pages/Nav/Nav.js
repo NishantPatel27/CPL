@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import Loginform from "../Login/Loginform";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-
 const Nav = () => {
   const dashIcon = <FontAwesomeIcon icon={faTableColumns} />;
   const peopeIcon = <FontAwesomeIcon icon={faPeopleGroup} />;
@@ -25,45 +24,76 @@ const Nav = () => {
   };
 
   return (
-    <div className="navbar">
-      <img className="logo" src={logo} alt="logo" />
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">
-              {" "}
-              <span className="nav-icons">{dashIcon}</span> Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link to="/players">
-              <span className="nav-icons">{teamIcon}</span> Players
-            </Link>
-          </li>
-          <li>
-            <Link to="/teams">
-              <span className="nav-icons">{peopeIcon}</span> Teams
-            </Link>
-          </li>
-          <li>
-            <Link to="/auctioncontrol">
-              <span className="nav-icons">{auctionIcon}</span> Auction
-            </Link>
-          </li>
-          <li>
-            <Link to="/signup">
-              <span className="nav-icons">{signupIcon}</span>
-              Admin Users
-            </Link>
-          </li>
-          <li>
-            <Link to="login">
-              <button onClick={logout}>Logout</button>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <>
+      {Boolean(authService.getCurrentUser()) && (
+        <>
+          <div className="navbar">
+            <img className="logo" src={logo} alt="logo" />
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">
+                    {" "}
+                    <span className="nav-icons">{dashIcon}</span> Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/players">
+                    <span className="nav-icons">{teamIcon}</span> Players
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/teams">
+                    <span className="nav-icons">{peopeIcon}</span> Teams
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/auctioncontrol">
+                    <span className="nav-icons">{auctionIcon}</span> Auction
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup">
+                    <span className="nav-icons">{signupIcon}</span>
+                    Admin Users
+                  </Link>
+                </li>
+                <li>
+                  <Link to="login">
+                    <button onClick={logout}>Logout</button>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </>
+      )}
+      {Boolean(authService.getCurrentTeam()) && (
+        <div className="navbar">
+          <img className="logo" src={logo} alt="logo" />
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">
+                  {" "}
+                  <span className="nav-icons">{dashIcon}</span> Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link to="/players">
+                  <span className="nav-icons">{teamIcon}</span> Players
+                </Link>
+              </li>
+              <li>
+                <Link to="login">
+                  <button onClick={logout}>Logout</button>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
+    </>
   );
 };
 export default Nav;

@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user-model");
+const Team = require("../models/teams-model");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const sendResponse = require("./../utils/response");
@@ -111,6 +112,28 @@ exports.isLoggedIn = async (req, res, next) => {
     new AppError("You are not authorized to perform this action", 401)
   );
 };
+exports.isLoggedInTeam = async (req, res, next) => {
+  // console.log(req);
+  const token = req.cookies.token;
+  console.log("is login", req.cookies);
+
+  if (token) {
+    try {
+      const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
+      const currentTeam = await Team.findOne({ _id: decoded.teamId });
+      if (!currentTeam) {
+        return next(new AppError("Team not found", 404));
+      }
+      req.team = currentTeam;
+      return next();
+    } catch (err) {
+      return next(new AppError("Invalid token", 401));
+    }
+  }
+  return next(
+    new AppError("You are not authorized to perform this action", 401)
+  );
+};
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
@@ -123,5 +146,33 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
+
+exports.loginTeam = catchAsync(async (req, res) => {
+  const team = await Team.findOne({ name: req.body.name });
+  console.log(req.body);
+  if (!team) {
+    return sendResponse(res, 401, "User not found");
+  }
+  const isAuthenticated = req.body.password === team.password;
+  if (isAuthenticated) {
+    const token = jwt.sign(
+      { teamId: team.id, role: "team" },
+      process.env.SECRET,
+      { expiresIn: "1h" }
+    );
+    console.log("JWT token generated:", token);
+    console.log("Setting cookie...");
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000 * 2,
+      // sameSite: 'strict'
+    });
+    console.log("Cookie set.");
+    myuser = { name: team.name, role: "team" };
+    return sendResponse(res, 200, "Team login successfully", { token, myuser });
+  } else {
+    return sendResponse(res, 401, "invalid password");
+  }
+});
 
 // module.exports = { registerUser, loginUser, isLoggedIn, restrictTo };
