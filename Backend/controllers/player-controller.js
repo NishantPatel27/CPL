@@ -15,7 +15,7 @@ exports.createPlayer = async (req, res) => {
   // }
   console.log(req.body);
   const data = {
-    image: req.file?.image || "none",
+    image: req.file?.filename || "none",
     name: req.body.name,
     currentSemester: req.body.currentSemester,
     dateOfBirth: req.body.dateOfBirth,
@@ -54,11 +54,12 @@ exports.createPlayer = async (req, res) => {
 
 // Update Player
 exports.updatePlayer = catchAsync(async (req, res) => {
+  console.log("Here");
   console.log(req.body);
   const playerId = req.params.playerID;
   const data = {
     name: req.body.name,
-    image: req.file?.filename || "none",
+    image: Boolean(req.file?.filename) ? req.file?.filename : req.body.image,
     currentSemester: req.body.currentSemester,
     dateOfBirth: req.body.dateOfBirth,
     phoneNumber: req.body.phoneNumber,
@@ -101,9 +102,20 @@ exports.updatePlayer = catchAsync(async (req, res) => {
     updatedPlayer.image = req.file.filename;
     await updatedPlayer.save();
     if (oldImageFileName && oldImageFileName !== "none") {
+      // const oldImagePath = path.join(
+      //   __dirname,
+      //   "../public/images/players",
+      //   oldImageFileName
+      // );
       const oldImagePath = path.join(
         __dirname,
-        "../public/images/players",
+        "..",
+        "..",
+        "Frontend",
+        "public",
+        "assets",
+        "images",
+        "players",
         oldImageFileName
       );
       try {
@@ -126,9 +138,20 @@ exports.deletePlayer = catchAsync(async (req, res) => {
     return sendResponse(res, 404, "Player not found");
   }
   if (player.image) {
+    // const Path = path.join(
+    //   __dirname,
+    //   "../public/images/players/",
+    //   player.image
+    // );
     const Path = path.join(
       __dirname,
-      "../public/images/players/",
+      "..",
+      "..",
+      "Frontend",
+      "public",
+      "assets",
+      "images",
+      "players",
       player.image
     );
     try {
@@ -200,6 +223,17 @@ exports.getPlayersByType = catchAsync(async (req, res) => {
     return sendResponse(res, 200, `${type} players found`, players);
   } catch (err) {
     console.error(err);
+    return sendResponse(res, 500, "Internal Server Error");
+  }
+});
+
+exports.getAllPlayerByTeamName = catchAsync(async (req, res) => {
+  try {
+    const teamName = req.params.teamName;
+    const players = Player.find({ currentTeam: teamName });
+    return sendResponse(res, 200, players);
+  } catch (e) {
+    console.error(e);
     return sendResponse(res, 500, "Internal Server Error");
   }
 });

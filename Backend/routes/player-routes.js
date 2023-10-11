@@ -26,7 +26,7 @@ router.get(
 router.post(
   "/add",
   authController.isLoggedIn,
-  upload.single("image"),
+  upload.single("file"),
   resizeImagePlayer,
   playerController.createPlayer
 );
@@ -35,7 +35,7 @@ router.post(
 router.put(
   "/update/:playerID",
   authController.isLoggedIn,
-  upload.single("image"),
+  upload.single("file"),
   resizeImagePlayer,
   playerController.updatePlayer
 );
@@ -52,6 +52,12 @@ router.get(
   "/:playerType",
   authController.isLoggedIn,
   playerController.getPlayersByType
+);
+
+router.get(
+  "/team/:teamName",
+  authController.isLoggedIn,
+  playerController.getAllPlayerByTeamName
 );
 
 module.exports = router;

@@ -34,7 +34,7 @@ const Form = () => {
     HighestWicket: "0",
     overs: "0",
   });
-
+  const [image, setImage] = useState({ preview: "", data: "" });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -42,16 +42,28 @@ const Form = () => {
       [name]: value,
     });
   };
+  // Image upload
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage(img);
+  };
 
   // FORM SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formDataJson = JSON.stringify(formData);
-
+    const d = new FormData();
+    d.append("file", image.data);
+    Object.keys(formData).forEach((key) => {
+      console.log(key, formData[key]);
+      d.append(key, formData[key]);
+    });
     axios
-      .post("http://localhost:6001/player/add", formDataJson, {
+      .post("http://localhost:6001/player/add", d, {
         headers: {
-          "Content-Type": "application/json",
+          "content-type": "multipart/form-data",
         },
         withCredentials: true,
       })
@@ -195,13 +207,15 @@ const Form = () => {
                   Upload image
                 </label>
                 <input
-                  className="form-inputs"
-                  name="image"
                   type="file"
+                  name="file"
                   id="playerphoto"
-                  value={formData.image}
-                  onChange={handleInputChange}
+                  className="form-inputs"
+                  onChange={handleFileChange}
                 />
+                {image.preview && (
+                  <img src={image.preview} width="100" height="100" />
+                )}
               </div>
             </div>
           </div>

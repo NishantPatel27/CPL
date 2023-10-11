@@ -80,7 +80,7 @@ const Update = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const d = new FormData();
-    d.append("image", image.data);
+    d.append("file", image.data);
     Object.keys(formData).forEach((key) => {
       console.log(key, formData[key]);
       d.append(key, formData[key]);
@@ -221,7 +221,6 @@ const Update = () => {
                 <input
                   type="file"
                   name="file"
-                  required
                   id="playerphoto"
                   className="form-inputs"
                   onChange={handleFileChange}
