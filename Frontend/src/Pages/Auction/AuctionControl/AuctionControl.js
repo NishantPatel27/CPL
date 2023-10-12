@@ -14,23 +14,21 @@ const AuctionControl = ({ socket }) => {
   const { id } = useParams();
   const [bidprice, setbidprice] = useState(0);
   const [newTeam, setnewTeam] = useState("Knights");
-  const [nextPlayerType, setnextPlayerType] = useState("allrounder");
+  const [nextPlayerType, setnextPlayerType] = useState("any"); // important to keep any
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [loaderText, setLoaderText] = useState("");
+
   function incrementBidPrice(n) {
     let currentbidprice = bidprice;
     setbidprice(Number(currentbidprice) + Number(n));
   }
+
   const updatePlayerData = async () => {
     setIsLoading(true);
     setLoaderText("Selling the player...");
+    socket.emit("change_selling_status", "selling_started");
     try {
-      const updatedUser = {
-        ...playerData,
-        ["bidPrice"]: bidprice,
-        ["currentTeam"]: newTeam,
-      };
       const updatedPlayer = await axios({
         method: "post",
         url: `http://localhost:6001/auction/sell`,
@@ -41,14 +39,21 @@ const AuctionControl = ({ socket }) => {
           currentTeam: newTeam,
         },
       });
+
       console.log("Sold player", updatedPlayer);
       if (updatedPlayer.status === 200) {
         socket.emit("sell_player", updatedPlayer.data);
         setPlayerData();
+        socket.emit("change_selling_status", "selling_successfull");
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         toast.success("Player sold successfully..");
-        refreshPlayer();
+        await refreshPlayer(nextPlayerType);
+        socket.emit("change_selling_status", "none");
       } else {
         setIsLoading(true);
+        socket.emit("change_selling_status", "selling_error");
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        socket.emit("change_selling_status", "none");
         setLoaderText("Loading next player...");
         toast.error(updatedPlayer.statusText);
       }
@@ -56,18 +61,24 @@ const AuctionControl = ({ socket }) => {
       console.log(e);
       setIsLoading(false);
       setLoaderText("");
-      toast.error(e);
+      socket.emit("change_selling_status", "selling_error");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      socket.emit("change_selling_status", "none");
+      toast.error(e.response.data.status);
     }
   };
   const handleSelling = async () => {
     await updatePlayerData(playerData);
   };
-  const refreshPlayer = () => {
+  const refreshPlayer = (type) => {
     setLoaderText("Loading next player...");
     setIsLoading(true);
     axios
-      .get("http://localhost:6001/player/random", { withCredentials: true })
+      .get(`http://localhost:6001/player/random/${type}`, {
+        withCredentials: true,
+      })
       .then((response) => {
+        console.log(response);
         if (response.status === 200) {
           setPlayerData(response.data.data);
           setbidprice(Number(response.data.data.bidPrice));
@@ -89,18 +100,33 @@ const AuctionControl = ({ socket }) => {
   };
   useEffect(() => {
     try {
-      refreshPlayer();
+      refreshPlayer(nextPlayerType);
     } catch (error) {
       setLoaderText("");
       setIsLoading(false);
       setMessage(error);
       console.log("error", error);
     }
+
+    return () => {
+      socket.emit("player_data", {});
+    };
   }, []);
 
   useEffect(() => {
     socket.emit("update_bid", Number(bidprice));
   }, [bidprice]);
+
+  const handleSkip = async () => {
+    try {
+      refreshPlayer(nextPlayerType);
+    } catch (error) {
+      setLoaderText("");
+      setIsLoading(false);
+      setMessage(error);
+      console.log("error", error);
+    }
+  };
   return (
     <div className="wrapper">
       {!isLoading ? (
@@ -112,7 +138,6 @@ const AuctionControl = ({ socket }) => {
                   src={"/assets/images/players/" + playerData?.image}
                   alt="current player logo"
                 />
-
                 <div>
                   <h3 className="playerName">{playerData.name}</h3>
                   <div className="player-summary">
@@ -190,7 +215,9 @@ const AuctionControl = ({ socket }) => {
                 </div>
 
                 <div className="update-bid-wrapper">
-                  <button className="update-bid-btn">Update Price</button>
+                  <button onClick={handleSkip} className="update-bid-btn">
+                    Skip
+                  </button>
                 </div>
 
                 <div className="nextplayer">

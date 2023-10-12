@@ -7,9 +7,9 @@ const router = express.Router();
 
 // get random player
 router.get(
-  "/random",
+  "/random/:playerType",
   authController.isLoggedIn,
-  playerController.getRandomPlayer
+  playerController.getRandomPlayerByPlayerType
 );
 
 // Get all players

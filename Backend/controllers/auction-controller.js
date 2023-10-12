@@ -17,7 +17,8 @@ const sellPlayer = async (req, res) => {
       )
     );
   } catch (e) {
-    return sendResponse(res, 400, "error", e);
+    console.log("Here:-", e);
+    return sendResponse(res, 400, e.stack.split("\n")[0].toString());
   }
 };
 async function updatePlayerAndTeam(playerId, bidPrice, newTeamName) {
@@ -64,13 +65,10 @@ async function updatePlayerAndTeam(playerId, bidPrice, newTeamName) {
     // Handle errors and abort the transaction
     console.error("Transaction failed:", error);
     if (session) {
-      session.abortTransaction();
+      await session.abortTransaction();
+      await session.endSession();
     }
     throw error;
-  } finally {
-    if (session) {
-      session.endSession();
-    }
   }
 }
 

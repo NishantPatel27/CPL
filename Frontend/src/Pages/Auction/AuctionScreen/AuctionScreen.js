@@ -17,6 +17,17 @@ const imgFolder = "../../../../../Backend/public/images";
 const AuctionScreen = ({ socket }) => {
   const [bidPrice, setBidPrice] = useState(0);
   const [playerData, setPlayerData] = useState();
+  const [sellStatus, setSellStatus] = useState("none");
+  useEffect(() => {
+    socket.emit("get_focused_player", "get me focused player");
+    socket.on("get_focused_player", (player) => {
+      setPlayerData(player);
+    });
+    socket.on("new_selling_status", (status) => {
+      console.log("current Status:-", status);
+      setSellStatus(status);
+    });
+  }, []);
 
   useEffect(() => {
     // fetch;
@@ -26,6 +37,7 @@ const AuctionScreen = ({ socket }) => {
       setPlayerData(playerData);
       console.log(playerData);
     });
+
     socket.on("get_updated_wining_bid_team", (newTeam) => {
       setPlayerData((oldData) => ({
         ...oldData,
@@ -39,9 +51,37 @@ const AuctionScreen = ({ socket }) => {
       }));
     });
   }, []);
-
+  const renderLogo = () => {
+    if (sellStatus === "selling_started") {
+      return (
+        <h1
+          style={{
+            color: "red",
+            fontSize: "78px",
+            fontWeight: "900",
+          }}
+        >
+          Selling the player..
+        </h1>
+      );
+    } else if (sellStatus === "selling_successfull") {
+      return <img src="/assets/images/sold.png" />;
+    }
+    return <></>;
+  };
   return (
-    <div className="auction-screen-wrapper">
+    <div style={{ position: "relative" }} className="auction-screen-wrapper">
+      <div
+        style={{
+          position: "absolute",
+          top: "20%",
+          left: "10%",
+          zIndex: "99",
+          rotate: "-20deg",
+        }}
+      >
+        {renderLogo()}
+      </div>
       <div className="black-blend"></div>
       {/* player Frame */}
       <img id="AC-playerframe" src={playerFramecut} alt="" />

@@ -187,12 +187,10 @@ exports.getPlayerById = catchAsync(async (req, res) => {
 
 // Get random player
 exports.getRandomPlayer = catchAsync(async (req, res) => {
-  const count = await Player.countDocuments({ currentTeam: "None" });
-  const randomIndex = Math.floor(Math.random() * count);
-
-  const randomPlayer = await Player.findOne({ currentTeam: "None" }).skip(
-    randomIndex
-  );
+  const randomPlayer = await Player.aggregate([
+    { $match: { currentTeam: "None" } },
+    { $sample: { size: 1 } },
+  ]);
 
   if (!randomPlayer) {
     return sendResponse(res, 204, "No players found");
@@ -206,6 +204,37 @@ function paginate(query, page = 1, perPage = 1) {
   const skip = (page - 1) * perPage;
   return query.skip(skip).limit(perPage);
 }
+
+exports.getRandomPlayerByPlayerType = catchAsync(async (req, res) => {
+  try {
+    const type = req.params.playerType;
+    let filter = { currentTeam: "None" };
+
+    if (type !== "any") {
+      filter.playerType = type;
+    }
+
+    const players = await Player.find(filter);
+
+    if (!players || players.length === 0) {
+      return sendResponse(res, 204, "No players found");
+    }
+
+    const randomPlayer = await Player.aggregate([
+      { $match: filter },
+      { $sample: { size: 1 } },
+    ]);
+
+    if (!randomPlayer || randomPlayer.length === 0) {
+      return sendResponse(res, 204, "No players found");
+    }
+
+    return sendResponse(res, 200, "Random player found", randomPlayer[0]);
+  } catch (err) {
+    console.error(err);
+    return sendResponse(res, 500, "Internal Server Error");
+  }
+});
 
 exports.getPlayersByType = catchAsync(async (req, res) => {
   try {
