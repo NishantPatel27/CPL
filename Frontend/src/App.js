@@ -5,6 +5,7 @@ import Nav from "./Pages/Nav/Nav";
 import Searchbar from "./Pages/Seachbar/Searchbar";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Players from "./Pages/Players/Players";
+import PlayersTeam from "./Pages/Players/PlayersTeam";
 import Teams from "./Pages/Teams/Teams";
 import AuctionControl from "./Pages/Auction/AuctionControl/AuctionControl";
 import AuctionScreen from "./Pages/Auction/AuctionScreen/AuctionScreen";
@@ -36,15 +37,28 @@ function App() {
           <Container
             Children={
               Boolean(authService.getCurrentUser()) ? (
-                <Dashboard />
+                <Dashboard socket={socket} />
               ) : (
-                <DashboardTeam />
+                <DashboardTeam socket={socket} />
               )
             }
           />
         }
       />
-      <Route path="/players" element={<Container Children={<Players />} />} />
+      <Route
+        path="/players"
+        element={
+          <Container
+            Children={
+              Boolean(authService.getCurrentUser()) ? (
+                <Players />
+              ) : (
+                <PlayersTeam />
+              )
+            }
+          />
+        }
+      />
       {Boolean(authService.getCurrentUser()) &&
         !Boolean(authService.getCurrentTeam()) && (
           <Route path="/teams" element={<Container Children={<Teams />} />} />

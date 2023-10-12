@@ -32,12 +32,18 @@ const AuctionControl = ({ socket }) => {
         ["currentTeam"]: newTeam,
       };
       const updatedPlayer = await axios({
-        method: "put",
-        url: `http://localhost:6001/player/update/${playerData._id}`,
+        method: "post",
+        url: `http://localhost:6001/auction/sell`,
         withCredentials: true,
-        data: updatedUser,
+        data: {
+          playerId: playerData._id,
+          bidPrice: bidprice,
+          currentTeam: newTeam,
+        },
       });
+      console.log("Sold player", updatedPlayer);
       if (updatedPlayer.status === 200) {
+        socket.emit("sell_player", updatedPlayer.data);
         setPlayerData();
         toast.success("Player sold successfully..");
         refreshPlayer();
@@ -77,7 +83,7 @@ const AuctionControl = ({ socket }) => {
       .catch((err) => {
         setLoaderText("");
         setIsLoading(false);
-        setMessage(err);
+        setMessage(err.response.data);
         console.log("Error fetching player data:", err);
       });
   };

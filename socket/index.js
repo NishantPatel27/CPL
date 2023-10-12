@@ -19,6 +19,10 @@ io.on("connection", (socket) => {
   socket.on("player_data", (playerData) => {
     io.emit("get_player_data", playerData);
   });
+
+  socket.on("sell_player", (data) => {
+    io.emit("get_sold_data", data);
+  });
   //when disconnect
   socket.on("disconnect", () => {
     console.log("a user disconnected!");

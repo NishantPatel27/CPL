@@ -21,18 +21,19 @@ import {
   faPeopleGroup,
   faPersonRays,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import authService from "../../Services/auth.service";
 import { ToastContainer, toast } from "react-toastify";
 
-const DashboardTeam = () => {
+const DashboardTeam = ({ socket }) => {
   const playersIcon = <FontAwesomeIcon icon={faPeopleGroup} />;
   const teamsIcon = <FontAwesomeIcon icon={faCubes} />;
   const SoldIcon = <FontAwesomeIcon icon={faDollarSign} />;
   const pendingIcon = <FontAwesomeIcon icon={faPersonRays} />;
   const [team, setTeam] = useState();
-  const [players, setPlayers] = useState();
+  const [players, setPlayers] = useState([]);
   const [progress, setProgress] = useState(0);
+  const playersRef = useRef([]);
   const fetchTeamDetails = async () => {
     try {
       const res = await axios.get(
@@ -51,7 +52,8 @@ const DashboardTeam = () => {
         console.log(players);
         if (players.status === 200) {
           toast.success("Player details fetched successfully..");
-          setPlayers(players.data.status);
+          playersRef.current = [...players.data.status];
+          setPlayers([...players.data.status]);
         }
       }
       console.log(res);
@@ -60,6 +62,18 @@ const DashboardTeam = () => {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    socket.on("get_sold_data", (data) => {
+      console.log(players);
+      if (data.data.team.name === authService.getCurrentTeam().name) {
+        // console.log(players);
+        setPlayers([...playersRef.current, data.data.player]);
+        setTeam(data.data.team);
+      }
+      // fetchTeamDetails();
+    });
+  }, []);
 
   useEffect(() => {
     if (players?.length > 0) {
@@ -103,7 +117,7 @@ const DashboardTeam = () => {
           }}
         >
           <div style={{ background: "#D1E8FF", padding: "2rem" }}>
-            <h3>6/13 players</h3>
+            <h3>{players?.length}/13 players</h3>
             <div style={{ width: "700px" }}>
               <div className="mainDiv">
                 <div
@@ -116,7 +130,7 @@ const DashboardTeam = () => {
             </div>
           </div>
           <div style={{ background: "#E8E8E8", padding: "2rem" }}>
-            <h3>20,000 Point left</h3>
+            <h3>{team?.bidPointBalance.toLocaleString()} Point left</h3>
             <div style={{ width: "700px" }}>
               <div className="mainDiv">
                 <div
@@ -136,28 +150,48 @@ const DashboardTeam = () => {
           >
             <div className="dashboard-players-table table">
               <div className="table-head">
-                <p className="table-head">Players</p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
+                  <p className="table-head">Players</p>
+                  <div className="submit-btn">
+                    <Link to="/players">
+                      <button
+                        style={{ width: "80px", padding: "1rem" }}
+                        className="submit"
+                      >
+                        View All
+                      </button>
+                    </Link>
+                  </div>
+                </div>
               </div>
               <table>
-                {players.map((e) => (
-                  <tr key={e._id}>
-                    {/* <td>
+                {players
+                  .slice(0, Math.min(players?.length || 0, 5))
+                  .map((e) => (
+                    <tr key={e._id}>
+                      {/* <td>
                 <img className="team-logo" src={knightslogo} alt="logo" />
               </td> */}
-                    <td>
-                      <img
-                        width={50}
-                        height={50}
-                        style={{ borderRadius: "50%" }}
-                        src={"/assets/images/players/" + e?.image}
-                      />
-                    </td>
-                    <td>{e.name}</td>
-                    <td>{e.battingHand}</td>
-                    <td>AVG {e.average}</td>
-                    <td>₹ {e.bidPrice}</td>
-                  </tr>
-                ))}
+                      <td>
+                        <img
+                          width={50}
+                          height={50}
+                          style={{ borderRadius: "50%" }}
+                          src={"/assets/images/players/" + e?.image}
+                        />
+                      </td>
+                      <td>{e.name}</td>
+                      <td>{e.battingHand}</td>
+                      <td>AVG {e.average}</td>
+                      <td>₹ {e.bidPrice}</td>
+                    </tr>
+                  ))}
               </table>
             </div>
           </div>

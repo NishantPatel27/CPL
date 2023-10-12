@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limit");
 const userRouter = require("./routes/user-routes");
 const teamRouter = require("./routes/team-routes");
 const playerRouter = require("./routes/player-routes");
+const auctionRouter = require("./routes/auction-routes");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use(cookieParser());
 app.use("/cpl", userRouter);
 app.use("/team", teamRouter);
 app.use("/player", playerRouter);
+app.use("/auction", auctionRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
