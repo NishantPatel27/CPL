@@ -67,16 +67,13 @@ const AuctionScreen = ({ socket }) => {
       <img id="AC-lineB3" src={reactanglebox} alt="" />
 
       <img
+        id="AC-playerimage"
         src={"/assets/images/players/" + playerData?.image}
         alt="current player logo"
       />
 
       <div>
         <h3 className="AC-playernametext">{playerData?.name}</h3>
-        <div>
-          <div className="">Bid Wining Team</div>
-          <div className="">{playerData?.currentTeam}</div>
-        </div>
 
         <div id="AC-basepricetext">
           <div className="">Base Price</div>
@@ -101,18 +98,13 @@ const AuctionScreen = ({ socket }) => {
           <div id="AC-prevteamtext">Prev Team : {playerData?.previousTeam}</div>
         </div>
 
-        <div>
-          <div className="">Type</div>
-          <div className="">{playerData?.playerType}</div>
-        </div>
+        <div id="AC-inningstext">Innings : {playerData?.innings}</div>
+        <div id="AC-runstext">Runs : {playerData?.totalRuns}</div>
+        <div id="AC-wicketstext">Wickets : {playerData?.totalWickets}</div>
 
-        <div>
-          <div className="">Runs</div>
-          <div className="">{playerData?.totalRuns}</div>
-        </div>
-        <div>
-          <div className="">Wicket</div>
-          <div className="">{playerData?.totalWickets}</div>
+        <div id="AC-bidwinningteam">
+          BY <br></br>
+          {playerData?.currentTeam}
         </div>
       </div>
     </div>
