@@ -53,6 +53,11 @@ const Nav = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link target="_blank" to="/auction">
+                    Auction Screen
+                  </Link>
+                </li>
+                <li>
                   <Link to="/signup">
                     <span className="nav-icons">{signupIcon}</span>
                     Admin Users

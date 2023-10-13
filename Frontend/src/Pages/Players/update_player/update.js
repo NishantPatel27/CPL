@@ -289,11 +289,12 @@ const Update = () => {
                   <option value="Hurricanes">Hurricanes</option>
                   <option value="Royals">Royals</option>
                   <option value="Blasters">Blasters</option>
+                  <option value="Stars">Stars</option>
                   <option value="Panthers">Panthers</option>
                   <option value="Empire">Empire</option>
-                  <option value="Wolves">Wolves</option>
+                  <option value="Wolves XI">Wolves XI</option>
                   <option value="Super Kings">Super Kings</option>
-                  <option value="Striker">Striker</option>
+                  <option value="Strikers">Strikers</option>
                   <option value="Titans">Titans</option>
                   <option value="Falcons">Falcons</option>
                 </select>
@@ -313,9 +314,10 @@ const Update = () => {
                   <option value="Hurricanes">Hurricanes</option>
                   <option value="Royals">Royals</option>
                   <option value="Blasters">Blasters</option>
-                  <option value="Panther">Panther</option>
+                  <option value="Stars">Stars</option>
+                  <option value="Panthers">Panthers</option>
                   <option value="Empire">Empire</option>
-                  <option value="Wolves">Wolves</option>
+                  <option value="Wolves XI">Wolves XI</option>
                   <option value="Super Kings">Super Kings</option>
                   <option value="Strikers">Strikers</option>
                   <option value="Titans">Titans</option>
@@ -334,9 +336,8 @@ const Update = () => {
                   onChange={handleInputChange}
                 >
                   <option value="batsman">Batsman</option>
-                  <option value="bolwer">Bowler</option>
+                  <option value="bowler">Bowler</option>
                   <option value="allrounder">All Rounder</option>
-                  <option value="wicketKeeper">Wicket keeper</option>
                 </select>
               </div>
             </div>

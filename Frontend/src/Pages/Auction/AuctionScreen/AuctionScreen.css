@@ -68,41 +68,77 @@
 
 /* ------------------------------------------------ */
 
-#AC-playerimage{
+#AC-playerimage-wrapper{
     position: absolute;
-        top: 25vh;
-        left: 60vh;
-        height: 30vh;
+    top: 19.8vh;
+    left: 50vh;
+    height: 36vh;
+    /* background-color: rgba(255, 255, 255, 1); */
+    width: 36vh;
+    border-radius: 50%;
+    text-align: center;
+    /* background-color: rgb(249, 249, 62); */
+}
+#AC-playerimage{
+  height: 36vh;
+}
+
+#cpllogo{
+  position: absolute;
+  top:16vh;
+  left: 87vh;
+}
+#vibranium_logo{
+  position: absolute;
+  top:17.5vh;
+  left: 30vh;
+  height: 6vh;
+}
+
+#AC-playerIcon{
+  height: 6vh;
+  position: absolute;
+  top:46vh;
+  left: 107vh;
 }
 
 .AC-playernametext {
   position: absolute;
   top: 56vh;
-  left: 30%;
+  left: 40vh;
   font-size: 4vh;
   text-transform: uppercase;
+  /* background-color: red; */
+  width: 500px;
+  text-align: center;
 }
 
 #AC-basepricetext {
   position: absolute;
-  top: 17vh;
-  left: 128vh;
+  top: 16vh;
+  left: 131vh;
   text-align: center;
-  font-size: 3vh;
+  font-size: 2vh;
+}
+#AC-basepriceamt{
+  /* background-color: red; */
+  font-size: 5vh;
 }
 
 #AC-bidpricetext {
   position: absolute;
   top: 36vh;
-  left: 128.4vh;
+  left: 123vh;
   text-align: center;
   font-size: 3vh;
 }
 
 #bidpriceamt {
   position: relative;
-  top: 9vh;
-  font-size: 6vh;
+  top: 4vh;
+  font-size: 8vh;
+  /* background-color: red; */
+  width: 250px;
 }
 
 #AC-branchtext,
@@ -137,10 +173,12 @@
 
 #AC-bidwinningteam{
     position: absolute;
+    /* background-color: red; */
     text-align: center;
-    top: 58vh;
-    left: 130vh;
-    font-size: 2vh;
+    top: 56vh;
+    left: 126vh;
+    font-size: 3vh;
     opacity: 1;
+    width: 200px;
     color: lightgray;
 }

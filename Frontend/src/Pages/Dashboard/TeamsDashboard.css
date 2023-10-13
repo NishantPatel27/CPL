@@ -1,0 +1,60 @@
+.TM-wrapper{
+    /* background-color: blue; */
+    width: 83.5vw;
+    float: right;
+    height: 10vw;
+    margin-top: 6.5vw;
+}
+
+.TM-header{
+    /* background-color: red; */
+    margin-left: 3vw;
+}
+
+
+.TM-inner_wrapper{
+    /* background-color: grey; */
+    display: flex;
+    justify-content: space-evenly;
+}
+.TM-progress-wrapper{
+    /* background-color: brown; */
+    padding: 3vw;
+}
+
+/* .TM-players-table{
+    background-color: green;
+} */
+
+.TM-pgbr1,.TM-pgbr2{
+    padding:  2vw;
+}
+
+.TM-pgbr1{
+    background-color: #D1E8FF;
+    margin-bottom: 3vw;
+}
+.TM-pgbr2{
+    background-color: #E8E8E8;
+}
+
+#players-progress-wrapper{
+    background-color: #F4F7FA;
+    height: 25px;
+    width: 300px;
+    border-radius: 2px;
+}
+#bid-progress-wrapper{
+    background-color: #F4F7FA;
+    height: 25px;
+    width: 300px;
+    border-radius: 2px;
+}
+#players-progress-bar{
+    background-color: #00376F;
+    height: 25px;
+}
+#bid-progress-bar{
+    background-color: #6A3BB8;
+    height: 25px;
+}
