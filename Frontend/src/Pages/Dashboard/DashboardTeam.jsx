@@ -10,6 +10,11 @@ const DashboardTeam = () => {
   const [team, setTeam] = useState();
   const [players, setPlayers] = useState();
   const [progress, setProgress] = useState(0);
+  
+  const [PointsLeft, setPointsLeft] = useState(0);
+  const [totalPlayer, settotalPlayer] = useState(0);
+
+
   const fetchTeamDetails = async () => {
     try {
       const res = await axios.get(
@@ -29,6 +34,16 @@ const DashboardTeam = () => {
         if (players.status === 200) {
           // toast.success("Player details fetched successfully..");
           setPlayers(players.data.status);
+          settotalPlayer(players.data.status.length);
+          
+          let points = players.data.status.reduce((arr,curr) => {
+            
+            arr += curr.bidPrice;
+            return arr
+          },0);
+          setPointsLeft(points);
+
+
         }
       }
       console.log(res);
@@ -39,8 +54,8 @@ const DashboardTeam = () => {
   };
 
   useEffect(() => {
-    if (players?.length > 0) {
-      setProgress((players?.length / 13) * 100);
+    if (totalPlayer > 0) {
+      setProgress((totalPlayer / 13) * 100);
     }
   }, [players]);
   useEffect(() => {
@@ -61,7 +76,7 @@ const DashboardTeam = () => {
 
         <div className="TM-progress-wrapper">
           <div className="TM-pgbr1">
-            <h3>6/13 players</h3>
+            <h3>{totalPlayer}/13 players</h3>
            
               <div id="players-progress-wrapper">
                 <div id="players-progress-bar" style={{ width: `${progress}%`}}>
@@ -70,7 +85,7 @@ const DashboardTeam = () => {
           
           </div>
           <div className="TM-pgbr2">
-            <h3>23,000 Points left</h3>
+            <h3>{50000 - PointsLeft} Points left</h3>
            
               <div id="bid-progress-wrapper">
                 <div id="bid-progress-bar" style={{ width: `${progress}%`}}>

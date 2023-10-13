@@ -45,6 +45,8 @@ const Players = () => {
     fetchData();
   }, []);
 
+
+  
   return (
     <div className="card">
       <div className="header">
@@ -57,12 +59,16 @@ const Players = () => {
         <table>
           <thead>
             <tr>
+              <th>#</th>
               <th>Name</th>
               <th>Semester</th>
+              <th>Branch</th>
+              <th>Phone number</th>
               <th>Type</th>
-              <th>Base Price</th>
               <th>Bid Price</th>
+              <th>Avg</th>
               <th>ECO</th>
+              <th>SR</th>
             </tr>
           </thead>
           <tbody>
@@ -71,8 +77,19 @@ const Players = () => {
               data.map((player) => {
                 return (
                   <tr key={player._id}>
+                    <td>
+                       <img
+                       alt="playerimg"
+                        width={50}
+                        height={50}
+                        style={{ borderRadius: "50%" }}
+                        src={"/assets/images/players/" + player?.image}
+                      />
+                    </td>
                     <td>{player.name}</td>
                     <td>{player.currentSemester}</td>
+                    <td>{player.branch}</td>
+                    <td>{player.phoneNumber}</td>
                     <td>
                       <img
                         style={{
@@ -84,9 +101,10 @@ const Players = () => {
                         alt="current player logo"
                       />
                     </td>
-                    <td>{player.basePrice}</td>
                     <td>{player.bidPrice}</td>
+                    <td>{player.average}</td>
                     <td>{player.economyRate}</td>
+                    <td>{player.strikeRate}</td>
                   </tr>
                 );
               })}
