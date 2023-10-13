@@ -1,9 +1,12 @@
 import "./TeamsDashboard.css";
 import axios from "axios";
 
+
 import { useEffect, useState } from "react";
 import authService from "../../Services/auth.service";
 import { ToastContainer, toast } from "react-toastify";
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "./config.env" });
 
 const DashboardTeam = () => {
  
@@ -18,14 +21,14 @@ const DashboardTeam = () => {
   const fetchTeamDetails = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:6001/team/" + authService.getCurrentTeam().name,
+        process.env.REACT_APP_BACKEND_URL+"/team/" + authService.getCurrentTeam().name,
         { withCredentials: true }
       );
       if (res.status === 200) {
         toast.success("Team details fetched successfully..");
         setTeam(res.data.data);
         const players = await axios.get(
-          "http://localhost:6001/team/player/all",
+          process.env.REACT_APP_BACKEND_URL+"/team/player/all",
           {
             withCredentials: true,
           }

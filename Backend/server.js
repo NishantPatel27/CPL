@@ -11,7 +11,7 @@ process.on("uncaughtException", (err) => {
 
 dotenv.config({ path: "./config.env" });
 
-const DB = process.env.DATABASE;
+const DB = process.env.DATABASE
 mongoose
   .connect(DB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("The DB is Connected"))

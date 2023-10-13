@@ -7,6 +7,8 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "../../config.env" });
 
 const Signup = () => {
   const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;
@@ -16,7 +18,9 @@ const Signup = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:6001/cpl/users", { withCredentials: true })
+      .get(process.env.REACT_APP_BACKEND_URL + "/cpl/users", {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log("users data:", response.data.data);
         setData(response.data.data);

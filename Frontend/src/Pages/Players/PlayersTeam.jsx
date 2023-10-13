@@ -10,7 +10,8 @@ import batterlogo from "../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../Assets/Images/player_type_icons/bowler.png";
 import allrounderlogo from "../Assets/Images/player_type_icons/All_rounder.png";
 import { ToastContainer, toast } from "react-toastify";
-
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "./config.env" });
 const Players = () => {
   const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
@@ -30,7 +31,7 @@ const Players = () => {
   const [data, setData] = useState([]);
   const fetchData = async () => {
     try {
-      const players = await axios.get("http://localhost:6001/team/player/all", {
+      const players = await axios.get(process.env.REACT_APP_BACKEND_URL+"/team/player/all", {
         withCredentials: true,
       });
       if (players.status === 200) {

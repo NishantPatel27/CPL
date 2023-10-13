@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "../../../../config.env" });
 const Form = () => {
   const fileuploadicon = <FontAwesomeIcon icon={faArrowUpFromBracket} />;
 
@@ -61,7 +62,7 @@ const Form = () => {
       d.append(key, formData[key]);
     });
     axios
-      .post("http://localhost:6001/player/add", d, {
+      .post(process.env.REACT_APP_BACKEND_URL + "/player/add", d, {
         headers: {
           "content-type": "multipart/form-data",
         },

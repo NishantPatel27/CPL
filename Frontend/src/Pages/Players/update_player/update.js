@@ -4,6 +4,8 @@ import { useDebugValue } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "./config.env" });
 const Update = () => {
   const [image, setImage] = useState({ preview: "", data: "" });
   const [formData, setFormData] = useState({
@@ -45,7 +47,9 @@ const Update = () => {
   //for pre filled form
   useEffect(() => {
     axios
-      .get("http://localhost:6001/player/" + id, { withCredentials: true })
+      .get(process.env.REACT_APP_BACKEND_URL + "/player/" + id, {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log("data is : DOB ", response.data.data);
 
@@ -57,9 +61,13 @@ const Update = () => {
     //handnle form
     const handleInput = () => {
       axios
-        .put(`http://localhost:6001/player/update/${id}`, formData, {
-          withCredentials: true,
-        })
+        .put(
+          `${process.env.REACT_APP_BACKEND_URL}/player/update/${id}`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        )
         .then((response) => {
           console.log("data is updated", response.data);
         })
@@ -87,7 +95,7 @@ const Update = () => {
     });
     console.log(d);
     axios
-      .put("http://localhost:6001/player/update/" + id, d, {
+      .put(process.env.REACT_APP_BACKEND_URL + "/player/update/" + id, d, {
         headers: {
           "content-type": "multipart/form-data",
         },

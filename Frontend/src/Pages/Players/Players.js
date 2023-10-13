@@ -9,7 +9,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import batterlogo from "../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../Assets/Images/player_type_icons/bowler.png";
 import allrounderlogo from "../Assets/Images/player_type_icons/All_rounder.png";
-
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "../../../config.env" });
 const Players = () => {
   const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
@@ -29,7 +30,9 @@ const Players = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:6001/player/", { withCredentials: true })
+      .get(process.env.REACT_APP_BACKEND_URL + "/player/", {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log("Player data:", response.data.data);
         setData(response.data.data);

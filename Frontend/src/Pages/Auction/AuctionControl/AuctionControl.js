@@ -8,6 +8,9 @@ import axios from "axios";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "../../../../config.env" });
+
 const AuctionControl = ({ socket }) => {
   // const playerImage = playerlogo;
   const [playerData, setPlayerData] = useState();
@@ -31,7 +34,7 @@ const AuctionControl = ({ socket }) => {
     try {
       const updatedPlayer = await axios({
         method: "post",
-        url: `http://localhost:6001/auction/sell`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/auction/sell`,
         withCredentials: true,
         data: {
           playerId: playerData._id,
@@ -74,7 +77,7 @@ const AuctionControl = ({ socket }) => {
     setLoaderText("Loading next player...");
     setIsLoading(true);
     axios
-      .get(`http://localhost:6001/player/random/${type}`, {
+      .get(`${process.env.REACT_APP_BACKEND_URL}/player/random/${type}`, {
         withCredentials: true,
       })
       .then((response) => {
