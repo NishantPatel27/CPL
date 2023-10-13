@@ -322,7 +322,6 @@ const Update = () => {
                   <option value="Falcons">Falcons</option>
                 </select>
               </div>
-
               <div>
                 <label htmlFor="playertype">Player Type</label>
 
@@ -334,11 +333,12 @@ const Update = () => {
                   onChange={handleInputChange}
                 >
                   <option value="batsman">Batsman</option>
-                  <option value="bolwer">Bowler</option>
+                  <option value="bowler">Bowler</option>
                   <option value="allrounder">All Rounder</option>
                   <option value="wicketKeeper">Wicket keeper</option>
                 </select>
               </div>
+              sss
             </div>
           </div>
         </fieldset>

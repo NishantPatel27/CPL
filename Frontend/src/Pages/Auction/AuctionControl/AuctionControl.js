@@ -18,7 +18,7 @@ const AuctionControl = ({ socket }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [loaderText, setLoaderText] = useState("");
-
+  const [stats, setStats] = useState();
   function incrementBidPrice(n) {
     let currentbidprice = bidprice;
     setbidprice(Number(currentbidprice) + Number(n));
@@ -116,7 +116,22 @@ const AuctionControl = ({ socket }) => {
   useEffect(() => {
     socket.emit("update_bid", Number(bidprice));
   }, [bidprice]);
-
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:6001/player/stat/details"
+      );
+      console.log(response);
+      if (response.status === 200) {
+        setStats(response.data.status);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchStats();
+  }, []);
   const handleSkip = async () => {
     try {
       refreshPlayer(nextPlayerType);
@@ -281,7 +296,7 @@ const AuctionControl = ({ socket }) => {
                     {/* SOLD PLAYERS */}
                     <div className="soldplayer-stats stats-box">
                       SOLD PLAYERS
-                      <div className="player-digit">145</div>
+                      <div className="player-digit">{stats?.countSold}</div>
                       <div className="icon-wrapper">
                         <div>
                           <img
@@ -289,7 +304,7 @@ const AuctionControl = ({ socket }) => {
                             src={batterlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.batsmanCountSold}</span>
                         </div>
                         <div>
                           <img
@@ -297,7 +312,7 @@ const AuctionControl = ({ socket }) => {
                             src={allRounderlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.allRounderCountSold}</span>
                         </div>
                         <div>
                           <img
@@ -305,7 +320,7 @@ const AuctionControl = ({ socket }) => {
                             src={bowlerlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.bowlerCountSold}</span>
                         </div>
                       </div>
                     </div>
@@ -313,7 +328,7 @@ const AuctionControl = ({ socket }) => {
                     {/* UNSOLD PLAYER */}
                     <div className="soldplayer-stats stats-box">
                       UNSOLD PLAYERS
-                      <div className="player-digit">145</div>
+                      <div className="player-digit">{stats?.countUnsold}</div>
                       <div className="icon-wrapper">
                         <div>
                           <img
@@ -321,7 +336,7 @@ const AuctionControl = ({ socket }) => {
                             src={batterlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.batsmanCountUnsold}</span>
                         </div>
                         <div>
                           <img
@@ -329,7 +344,7 @@ const AuctionControl = ({ socket }) => {
                             src={allRounderlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.allRounderCountUnsold}</span>
                         </div>
                         <div>
                           <img
@@ -337,7 +352,7 @@ const AuctionControl = ({ socket }) => {
                             src={bowlerlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.bowlerCountUnsold}</span>
                         </div>
                       </div>
                     </div>

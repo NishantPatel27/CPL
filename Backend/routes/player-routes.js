@@ -40,6 +40,8 @@ router.put(
   playerController.updatePlayer
 );
 
+router.get("/stat/details", playerController.getPlayerDetails);
+
 // Delete a single player by id
 router.delete(
   "/delete/:playerID",
