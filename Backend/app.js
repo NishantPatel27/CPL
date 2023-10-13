@@ -35,10 +35,10 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());
 
 // routes
-app.use("/cpl", userRouter);
-app.use("/team", teamRouter);
-app.use("/player", playerRouter);
-app.use("/auction", auctionRouter);
+app.use(`${process.env.API_PREFIX}/cpl`, userRouter);
+app.use(`${process.env.API_PREFIX}/team`, teamRouter);
+app.use(`${process.env.API_PREFIX}/player`, playerRouter);
+app.use(`${process.env.API_PREFIX}/auction`, auctionRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

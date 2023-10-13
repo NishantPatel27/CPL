@@ -11,8 +11,7 @@ process.on("uncaughtException", (err) => {
 
 dotenv.config({ path: "./config.env" });
 
-const DB =
-  "mongodb+srv://guaimcpl:guaim123@cluster0.3xaiqqn.mongodb.net/?retryWrites=true&w=majority";
+const DB = process.env.DATABASE;
 mongoose
   .connect(DB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("The DB is Connected"))
