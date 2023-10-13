@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+// const http = require("http");
+// const socketIO = require("socket.io");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
@@ -12,12 +14,16 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 const app = express();
 
-// Open Socket on 8989 port
-// const io = require("socket.io")(8989, {
-//   cors: {
-//     origin: process.env.APP_URL,
-//   },
-// });
+app.use(
+  cors({
+    origin: process.env.APP_URL,
+    credentials: true,
+  })
+);
+
+// Socket
+// const server = http.createServer(app);
+// const io = socketIO(server);
 
 // let focused_player = {};
 // io.on("connection", (socket) => {
@@ -57,13 +63,6 @@ const app = express();
 //     console.log("a user disconnected!");
 //   });
 // });
-
-app.use(
-  cors({
-    origin: process.env.APP_URL,
-    credentials: true,
-  })
-);
 
 app.use(morgan("dev"));
 

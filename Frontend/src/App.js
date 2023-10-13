@@ -18,7 +18,7 @@ import socketIO from "socket.io-client";
 
 import Container from "./container/";
 import DashboardTeam from "./Pages/Dashboard/DashboardTeam";
-const socket = socketIO.connect("ws://localhost:8989");
+const socket = socketIO.connect(process.env.REACT_APP_BASE_URL);
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loginFlag, setLoginFlag] = useState(!token);
