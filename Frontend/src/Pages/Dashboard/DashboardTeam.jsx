@@ -61,8 +61,14 @@ const DashboardTeam = ({ socket }) => {
 
   useEffect(() => {
     if (players?.length > 0) {
-      
-      setProgress((players?.length / specialTeam(team?.name) ? 12 : 13) * 100);
+      if(specialTeam(team?.name)){
+
+        setProgress((players?.length /  12 ) * 100);
+      }
+      else{
+        setProgress((players?.length /  13 ) * 100);
+
+      }
     }
   }, [players]);
 

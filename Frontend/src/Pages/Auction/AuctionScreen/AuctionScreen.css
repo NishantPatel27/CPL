@@ -96,10 +96,10 @@
 }
 
 #AC-playerIcon{
-  height: 6vh;
+  height: 7vh;
   position: absolute;
   top:46vh;
-  left: 107vh;
+  left: 103vh;
 }
 
 .AC-playernametext {
@@ -180,5 +180,5 @@
     font-size: 3vh;
     opacity: 1;
     width: 200px;
-    color: lightgray;
+    color: rgb(243, 242, 242);
 }

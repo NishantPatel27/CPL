@@ -3,18 +3,12 @@ import "./Players.css";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import batterlogo from "../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../Assets/Images/player_type_icons/bowler.png";
 import allrounderlogo from "../Assets/Images/player_type_icons/All_rounder.png";
 import { ToastContainer, toast } from "react-toastify";
-// const dotenv = require("dotenv");
-// dotenv.config({ path: "./config.env" });
+
 const Players = () => {
-  const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;
-  const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
 
   function playerTypeicon(type) {
     if (type === "allrounder") {
@@ -35,7 +29,7 @@ const Players = () => {
         withCredentials: true,
       });
       if (players.status === 200) {
-        toast.success("Player details fetched successfully..");
+        // toast.success("Player details fetched successfully..");
         setData([...players.data.status]);
       }
     } catch (e) {
@@ -81,7 +75,6 @@ const Players = () => {
                     <td>
                        <img
                        alt="playerimg"
-                        width={50}
                         height={50}
                         style={{ borderRadius: "50%" }}
                         src={"/assets/images/players/" + player?.image}

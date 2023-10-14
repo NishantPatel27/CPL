@@ -8,9 +8,9 @@ import boxA1 from "../../Assets/Images/AuctionScreen/course_box_cut.svg";
 import boxA2 from "../../Assets/Images/AuctionScreen/course_box_cut2.svg";
 import reactanglebox from "../../Assets/Images/AuctionScreen/reactangle-box.svg";
 
-import allRounderlogo from "../../Assets/Images/player_type_icons/All_rounder.png";
-import batterlogo from "../../Assets/Images/player_type_icons/batter.png";
-import bowlerlogo from "../../Assets/Images/player_type_icons/bowler.png";
+import allRounderlogo from "../../Assets/Images/player_type_icons/all_rounder_white.svg";
+import batterlogo from "../../Assets/Images/player_type_icons/batter_white.svg";
+import bowlerlogo from "../../Assets/Images/player_type_icons/bowler_white.svg";
 
 import cpl_logo from "../../Assets/Images/logo/logo.png";
 import vibranium_logo from "../../Assets/Images/logo/vibranium.png";

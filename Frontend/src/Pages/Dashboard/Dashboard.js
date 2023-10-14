@@ -2,19 +2,6 @@ import "./Dashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-import knightslogo from "../Assets/Images/teams_logo/the knights.png";
-import Hurricaneslogo from "../Assets/Images/teams_logo/final hurricanes logo.png";
-import royalslogo from "../Assets/Images/teams_logo/royals.png";
-import Empirelogo from "../Assets/Images/teams_logo/team empire.png";
-import Wolveslogo from "../Assets/Images/teams_logo/wolves 11.png";
-import superkingslogo from "../Assets/Images/teams_logo/super kings.png";
-import Blasterlogo from "../Assets/Images/teams_logo/blasters.png";
-import Strikerslogo from "../Assets/Images/teams_logo/strikers.png";
-import starslogo from "../Assets/Images/teams_logo/start.png";
-import Titanslogo from "../Assets/Images/teams_logo/titans.png";
-import Pantherslogo from "../Assets/Images/teams_logo/panther.png";
-import Falconslogo from "../Assets/Images/teams_logo/falcons.png";
-
 import {
   faCubes,
   faDollarSign,
@@ -84,61 +71,61 @@ const Dashboard = () => {
               <tr>
                 <td>Knights </td>
                 <td>
-                  <img className="team-logo" src={knightslogo} alt="logo" />
+                  {/* <img className="team-logo" src={knightslogo} alt="logo" /> */}
                 </td>
                 <td>Empire</td>
                 <td>
-                  <img className="team-logo" src={Empirelogo} alt="logo" />
+                  {/* <img className="team-logo" src={Empirelogo} alt="logo" /> */}
                 </td>
               </tr>
               <tr>
                 <td>Hurricanes</td>
                 <td>
-                  <img className="team-logo" src={Hurricaneslogo} alt="logo" />
+                  {/* <img className="team-logo" src={Hurricaneslogo} alt="logo" /> */}
                 </td>
                 <td>Wolves</td>
                 <td>
-                  <img className="team-logo" src={Wolveslogo} alt="logo" />
+                  {/* <img className="team-logo" src={Wolveslogo} alt="logo" /> */}
                 </td>
               </tr>
               <tr>
                 <td>Royals </td>
                 <td>
-                  <img className="team-logo" src={royalslogo} alt="logo" />
+                  {/* <img className="team-logo" src={royalslogo} alt="logo" /> */}
                 </td>
                 <td>Super kings</td>
                 <td>
-                  <img className="team-logo" src={superkingslogo} alt="logo" />
+                  {/* <img className="team-logo" src={superkingslogo} alt="logo" /> */}
                 </td>
               </tr>
               <tr>
                 <td>Blaster</td>
                 <td>
-                  <img className="team-logo" src={Blasterlogo} alt="logo" />
+                  {/* <img className="team-logo" src={Blasterlogo} alt="logo" /> */}
                 </td>
                 <td>Strikers</td>
                 <td>
-                  <img className="team-logo" src={Strikerslogo} alt="logo" />
+                  {/* <img className="team-logo" src={Strikerslogo} alt="logo" /> */}
                 </td>
               </tr>
               <tr>
                 <td>Star</td>
                 <td>
-                  <img className="team-logo" src={starslogo} alt="logo" />
+                  {/* <img className="team-logo" src={starslogo} alt="logo" /> */}
                 </td>
                 <td>Titans</td>
                 <td>
-                  <img className="team-logo" src={Titanslogo} alt="logo" />
+                  {/* <img className="team-logo" src={Titanslogo} alt="logo" /> */}
                 </td>
               </tr>
               <tr>
                 <td>Panthers</td>
                 <td>
-                  <img className="team-logo" src={Pantherslogo} alt="logo" />
+                  {/* <img className="team-logo" src={Pantherslogo} alt="logo" /> */}
                 </td>
                 <td>Falcons</td>
                 <td>
-                  <img className="team-logo" src={Falconslogo} alt="logo" />
+                  {/* <img className="team-logo" src={Falconslogo} alt="logo" /> */}
                 </td>
               </tr>
             </table>
@@ -155,7 +142,7 @@ const Dashboard = () => {
           <table>
             <tr>
               <td>
-                <img className="team-logo" src={knightslogo} alt="logo" />
+                {/* <img className="team-logo" src={knightslogo} alt="logo" /> */}
               </td>
               <td>Yusuf Pathan</td>
               <td>SR 39.44</td>
@@ -165,7 +152,7 @@ const Dashboard = () => {
             </tr>
             <tr>
               <td>
-                <img className="team-logo" src={knightslogo} alt="logo" />
+                {/* <img className="team-logo" src={knightslogo} alt="logo" /> */}
               </td>
               <td>KL Rahul</td>
               <td>SR 39.44</td>
@@ -175,7 +162,7 @@ const Dashboard = () => {
             </tr>
             <tr>
               <td>
-                <img className="team-logo" src={knightslogo} alt="logo" />
+                {/* <img className="team-logo" src={knightslogo} alt="logo" /> */}
               </td>
               <td>Virat Kholi</td>
               <td>SR 39.44</td>
@@ -185,7 +172,7 @@ const Dashboard = () => {
             </tr>
             <tr>
               <td>
-                <img className="team-logo" src={knightslogo} alt="logo" />
+                {/* <img className="team-logo" src={knightslogo} alt="logo" /> */}
               </td>
               <td>MS Dhoni</td>
               <td>SR 39.44</td>
@@ -195,7 +182,7 @@ const Dashboard = () => {
             </tr>
             <tr>
               <td>
-                <img className="team-logo" src={knightslogo} alt="logo" />
+                {/* <img className="team-logo" src={knightslogo} alt="logo" /> */}
               </td>
               <td>Rahul Sharma</td>
               <td>SR 39.44</td>
@@ -205,7 +192,7 @@ const Dashboard = () => {
             </tr>
             <tr>
               <td>
-                <img className="team-logo" src={knightslogo} alt="logo" />
+                {/* <img className="team-logo" src={knightslogo} alt="logo" /> */}
               </td>
               <td>Rahul David</td>
               <td>SR 39.44</td>
