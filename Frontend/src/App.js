@@ -25,7 +25,6 @@ const socket = socketIO(process.env.REACT_APP_BACKEND_URL);
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loginFlag, setLoginFlag] = useState(!token);
-  const [logOutFlag, setLogOutFlag] = useState(localStorage.getItem("token"));
 
   if (loginFlag) {
     // If not logged in, show the Loginform

@@ -18,6 +18,9 @@ const Searchbar = () => {
       setrole(getUser.role);
       // console.log("current user is  : ", getUser);
     }
+    if (authService.getCurrentTeam()) {
+      setname(authService.getCurrentTeam().name);
+    }
   }, []);
 
   return (

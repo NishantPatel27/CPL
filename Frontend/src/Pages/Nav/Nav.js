@@ -91,7 +91,9 @@ const Nav = () => {
               </li>
               <li>
                 <Link to="login">
-                  <button onClick={logout}>Logout</button>
+                  <button id="NB-logoutbtn" onClick={logout}>
+                    LOGOUT
+                  </button>
                 </Link>
               </li>
             </ul>

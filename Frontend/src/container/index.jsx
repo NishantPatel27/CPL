@@ -1,6 +1,7 @@
 import Nav from "../Pages/Nav/Nav";
 import Searchbar from "../Pages/Seachbar/Searchbar";
 
+
 function Container({ Children }) {
   return (
     <div className="">

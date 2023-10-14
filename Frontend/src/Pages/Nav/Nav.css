@@ -31,3 +31,13 @@
 .nav-icons{
    margin-right: 10px;
 }
+
+#NB-logoutbtn{
+   background-color: white;
+   padding: .4vw 4vw;
+   border: none;
+   font-weight: 700;
+   font-size: 1vw;
+   margin-top: 50vh;
+   border-radius: 4px;
+}

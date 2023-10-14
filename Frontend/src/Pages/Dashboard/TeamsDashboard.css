@@ -58,3 +58,7 @@
     background-color: #6A3BB8;
     height: 25px;
 }
+
+.TM-table-tr{
+    border-bottom:  1px solid rgb(120, 119, 119);
+}

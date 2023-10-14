@@ -1,21 +1,19 @@
 import "./TeamsDashboard.css";
 import axios from "axios";
-
-
-import { useEffect, useState } from "react";
-import authService from "../../Services/auth.service";
+import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-// const dotenv = require("dotenv");
-// dotenv.config({ path: "./config.env" });
+import authService from "../../Services/auth.service";
 
-const DashboardTeam = () => {
+const DashboardTeam = ({ socket }) => {
  
   const [team, setTeam] = useState();
   const [players, setPlayers] = useState();
   const [progress, setProgress] = useState(0);
+  const [teamprogress, setteamProgress] = useState(0);
   
-  const [PointsLeft, setPointsLeft] = useState(0);
-  const [totalPlayer, settotalPlayer] = useState(0);
+  const playersRef = useRef([]);
+
 
 
   const fetchTeamDetails = async () => {
@@ -25,8 +23,9 @@ const DashboardTeam = () => {
         { withCredentials: true }
       );
       if (res.status === 200) {
-        toast.success("Team details fetched successfully..");
+        // toast.success("Team details fetched successfully..");
         setTeam(res.data.data);
+
         const players = await axios.get(
           process.env.REACT_APP_BACKEND_URL+"/team/player/all",
           {
@@ -35,18 +34,9 @@ const DashboardTeam = () => {
         );
         console.log(players);
         if (players.status === 200) {
-          // toast.success("Player details fetched successfully..");
-          setPlayers(players.data.status);
-          settotalPlayer(players.data.status.length);
           
-          let points = players.data.status.reduce((arr,curr) => {
-            
-            arr += curr.bidPrice;
-            return arr
-          },0);
-          setPointsLeft(points);
-
-
+          playersRef.current = [...players.data.status];
+          setPlayers([...players.data.status]);
         }
       }
       console.log(res);
@@ -57,10 +47,43 @@ const DashboardTeam = () => {
   };
 
   useEffect(() => {
-    if (totalPlayer > 0) {
-      setProgress((totalPlayer / 13) * 100);
+    socket.on("get_sold_data", (data) => {
+      console.log(players);
+
+      if (data.data.team.name === authService.getCurrentTeam().name) {
+        setPlayers([...playersRef.current, data.data.player]);
+        setTeam(data.data.team);
+      }
+
+      // fetchTeamDetails();
+    });
+  }, []);
+
+  useEffect(() => {
+    if (players?.length > 0) {
+      
+      setProgress((players?.length / specialTeam(team?.name) ? 12 : 13) * 100);
     }
   }, [players]);
+
+  useEffect(() => {
+    if (team?.bidPointBalance > 0) {
+      let balance = 50000 - team?.bidPointBalance
+      // setteamProgress(( balance / 50000) * 100);
+      setteamProgress(( balance / 50000) * 100);
+    }
+  }, [team]);
+
+
+  let specialTeam = (name) =>{
+    if(name === "Titans" || name === "Knights" || name === "Stars"){
+      return 1;
+    }
+    else{
+      return 0;
+    }
+  }
+
   useEffect(() => {
     fetchTeamDetails();
   }, []);
@@ -79,7 +102,7 @@ const DashboardTeam = () => {
 
         <div className="TM-progress-wrapper">
           <div className="TM-pgbr1">
-            <h3>{totalPlayer}/13 players</h3>
+            <h3>{players?.length}/{specialTeam(team?.name) ? 12 : 13} players</h3>
            
               <div id="players-progress-wrapper">
                 <div id="players-progress-bar" style={{ width: `${progress}%`}}>
@@ -88,10 +111,10 @@ const DashboardTeam = () => {
           
           </div>
           <div className="TM-pgbr2">
-            <h3>{50000 - PointsLeft} Points left</h3>
+            <h3>{team?.bidPointBalance.toLocaleString()} Points left</h3>
            
               <div id="bid-progress-wrapper">
-                <div id="bid-progress-bar" style={{ width: `${progress}%`}}>
+                <div id="bid-progress-bar" style={{ width: `${teamprogress}%`}}>
                 </div>
               </div>
           
@@ -102,16 +125,22 @@ const DashboardTeam = () => {
         {/* PLAYER TABLE */}
 
         <div>
-          <h2>PLAYER TABLE</h2>
           {Boolean(players) && (
           <div>
             <div className="dashboard-players-table table">
               <div className="table-head">
                 <p className="table-head">Players</p>
+                <div className="submit-btn">
+                    <Link to="/players">
+                      <button>
+                        View All
+                      </button>
+                    </Link>
+                  </div>
               </div>
               <table>
                 <thead>
-                  <tr>
+                  <tr className="TM-table-tr" >
                   
                       <th>#</th>
                       <th>Name</th>
@@ -122,13 +151,13 @@ const DashboardTeam = () => {
                   </tr>
                 </thead>
                 {players.map((e) => (
-                  <tr key={e._id}>
+                  <tr className="TM-table-tr" key={e._id}>
                     
                     <td>
                       <img
                        alt="playerimg"
-                        width={50}
-                        height={50}
+                        // width={40}
+                        height={40}
                         style={{ borderRadius: "50%" }}
                         src={"/assets/images/players/" + e?.image}
                       />
@@ -146,7 +175,7 @@ const DashboardTeam = () => {
         </div>
         
       </div>
-      {/* <ToastContainer position="top-center" autoClose={3000} /> */}
+      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 };

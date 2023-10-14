@@ -33,7 +33,7 @@ async function updatePlayerAndTeam(playerId, bidPrice, newTeamName) {
       playerId,
       {
         currentTeam: newTeamName,
-        bidAmount: bidPrice,
+        bidPrice: bidPrice,
       },
       { new: true, session }
     );
