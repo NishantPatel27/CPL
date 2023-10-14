@@ -21,11 +21,29 @@ const AuctionControl = ({ socket }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [loaderText, setLoaderText] = useState("");
+  const [stats, setStats] = useState();
 
   function incrementBidPrice(n) {
     let currentbidprice = bidprice;
     setbidprice(Number(currentbidprice) + Number(n));
   }
+
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/player/stat/details`
+      );
+      console.log(response);
+      if (response.status === 200) {
+        setStats(response.data.status);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchStats();
+  }, []);
 
   const updatePlayerData = async () => {
     setIsLoading(true);
@@ -50,6 +68,9 @@ const AuctionControl = ({ socket }) => {
         socket.emit("change_selling_status", "selling_successfull");
         await new Promise((resolve) => setTimeout(resolve, 2000));
         toast.success("Player sold successfully..");
+
+        fetchStats();
+
         await refreshPlayer(nextPlayerType);
         socket.emit("change_selling_status", "none");
       } else {
@@ -248,11 +269,11 @@ const AuctionControl = ({ socket }) => {
                             <option value="Knights">Knights</option>
                             <option value="Hurricanes">Hurricanes</option>
                             <option value="Royals">Royals</option>
-                            <option value="Blasters">Blasters</option>
-                            <option value="Stars">Stars</option>
+                            <option value="Blaster">Blaster</option>
+                            <option value="Star">Star</option>
                             <option value="Panthers">Panthers</option>
                             <option value="Empire">Empire</option>
-                            <option value="Wolves XI">Wolves XI</option>
+                            <option value="Wolves">Wolves</option>
                             <option value="Super Kings">Super Kings</option>
                             <option value="Strikers">Strikers</option>
                             <option value="Titans">Titans</option>
@@ -284,7 +305,7 @@ const AuctionControl = ({ socket }) => {
                     {/* SOLD PLAYERS */}
                     <div className="soldplayer-stats stats-box">
                       SOLD PLAYERS
-                      <div className="player-digit">145</div>
+                      <div className="player-digit">{stats?.countSold}</div>
                       <div className="icon-wrapper">
                         <div>
                           <img
@@ -292,7 +313,7 @@ const AuctionControl = ({ socket }) => {
                             src={batterlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.batsmanCountSold}</span>
                         </div>
                         <div>
                           <img
@@ -300,7 +321,7 @@ const AuctionControl = ({ socket }) => {
                             src={allRounderlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.allRounderCountSold}</span>
                         </div>
                         <div>
                           <img
@@ -308,7 +329,7 @@ const AuctionControl = ({ socket }) => {
                             src={bowlerlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.bowlerCountSold}</span>
                         </div>
                       </div>
                     </div>
@@ -316,7 +337,7 @@ const AuctionControl = ({ socket }) => {
                     {/* UNSOLD PLAYER */}
                     <div className="soldplayer-stats stats-box">
                       UNSOLD PLAYERS
-                      <div className="player-digit">145</div>
+                      <div className="player-digit">{stats?.countUnsold}</div>
                       <div className="icon-wrapper">
                         <div>
                           <img
@@ -324,7 +345,7 @@ const AuctionControl = ({ socket }) => {
                             src={batterlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.batsmanCountUnsold}</span>
                         </div>
                         <div>
                           <img
@@ -332,7 +353,7 @@ const AuctionControl = ({ socket }) => {
                             src={allRounderlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.allRounderCountUnsold}</span>
                         </div>
                         <div>
                           <img
@@ -340,7 +361,7 @@ const AuctionControl = ({ socket }) => {
                             src={bowlerlogo}
                             alt="current player logo"
                           />
-                          <span>149</span>
+                          <span>{stats?.bowlerCountUnsold}</span>
                         </div>
                       </div>
                     </div>

@@ -198,8 +198,103 @@ exports.getRandomPlayer = catchAsync(async (req, res) => {
   return sendResponse(res, 200, "Random player found", randomPlayer);
 });
 
-// Get player by playerType
+//player LIVE STATS
+exports.getPlayerDetails = catchAsync(async (req, res) => {
+  try {
+    const aggregateQueryForUnsold = Player.aggregate([
+      {
+        $match: {
+          currentTeam: "None",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          countUnsold: {
+            $count: {},
+          },
+          bowlerCountUnsold: {
+            $sum: {
+              $cond: [{ $eq: ["$playerType", "bowler"] }, 1, 0],
+            },
+          },
+          batsmanCountUnsold: {
+            $sum: {
+              $cond: [{ $eq: ["$playerType", "batsman"] }, 1, 0],
+            },
+          },
+          allRounderCountUnsold: {
+            $sum: {
+              $cond: [{ $eq: ["$playerType", "allrounder"] }, 1, 0],
+            },
+          },
+          wicketkeeperCountUnsold: {
+            $sum: {
+              $cond: [{ $eq: ["$playerType", "wicketKeeper"] }, 1, 0],
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ]);
+    const aggregateQueryForSold = Player.aggregate([
+      {
+        $match: { currentTeam: { $ne: "None" } },
+      },
+      {
+        $group: {
+          _id: null,
 
+          countSold: {
+            $count: {},
+          },
+          bowlerCountSold: {
+            $sum: {
+              $cond: [{ $eq: ["$playerType", "bowler"] }, 1, 0],
+            },
+          },
+          batsmanCountSold: {
+            $sum: {
+              $cond: [{ $eq: ["$playerType", "batsman"] }, 1, 0],
+            },
+          },
+          allRounderCountSold: {
+            $sum: {
+              $cond: [{ $eq: ["$playerType", "allrounder"] }, 1, 0],
+            },
+          },
+          wicketkeeperCountSold: {
+            $sum: {
+              $cond: [{ $eq: ["$playerType", "wicketKeeper"] }, 1, 0],
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ]);
+    const result1 = await aggregateQueryForSold.exec();
+    const result2 = await aggregateQueryForUnsold.exec();
+    console.log(result1);
+    console.log(result2);
+    return sendResponse(res, 200, {
+      ...result1[0],
+      ...result2[0],
+    });
+  } catch (e) {
+    console.error(e);
+    return sendResponse(res, 500, "Internal Server Error");
+  }
+});
+
+// Get player by playerType
 function paginate(query, page = 1, perPage = 1) {
   const skip = (page - 1) * perPage;
   return query.skip(skip).limit(perPage);
