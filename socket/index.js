@@ -2,7 +2,7 @@ const io = require("socket.io")(8989, {
   cors: {
     origin: "*",
   },
-}); 
+});
 
 let focused_player = {};
 // let state = "none" selling_started, selling_successfull, selling_error
