@@ -8,6 +8,9 @@ import axios from "axios";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "../../../../config.env" });
+
 const AuctionControl = ({ socket }) => {
   // const playerImage = playerlogo;
   const [playerData, setPlayerData] = useState();
@@ -24,6 +27,23 @@ const AuctionControl = ({ socket }) => {
     setbidprice(Number(currentbidprice) + Number(n));
   }
 
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/player/stat/details`
+      );
+      console.log(response);
+      if (response.status === 200) {
+        setStats(response.data.status);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
   const updatePlayerData = async () => {
     setIsLoading(true);
     setLoaderText("Selling the player...");
@@ -31,7 +51,7 @@ const AuctionControl = ({ socket }) => {
     try {
       const updatedPlayer = await axios({
         method: "post",
-        url: `http://localhost:6001/auction/sell`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/auction/sell`,
         withCredentials: true,
         data: {
           playerId: playerData._id,
@@ -47,6 +67,9 @@ const AuctionControl = ({ socket }) => {
         socket.emit("change_selling_status", "selling_successfull");
         await new Promise((resolve) => setTimeout(resolve, 2000));
         toast.success("Player sold successfully..");
+
+        fetchStats();
+
         await refreshPlayer(nextPlayerType);
         socket.emit("change_selling_status", "none");
       } else {
@@ -74,7 +97,7 @@ const AuctionControl = ({ socket }) => {
     setLoaderText("Loading next player...");
     setIsLoading(true);
     axios
-      .get(`http://localhost:6001/player/random/${type}`, {
+      .get(`${process.env.REACT_APP_BACKEND_URL}/player/random/${type}`, {
         withCredentials: true,
       })
       .then((response) => {

@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "../../../config.env" });
 const Teams = () => {
   const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
@@ -13,7 +14,9 @@ const Teams = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:6001/team/", { withCredentials: true })
+      .get(process.env.REACT_APP_BACKEND_URL + "/team/", {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log("Team data:", response.data.data);
         setData(response.data.data);

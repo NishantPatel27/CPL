@@ -11,6 +11,10 @@ import reactanglebox from "../../Assets/Images/AuctionScreen/reactangle-box.svg"
 import allRounderlogo from "../../Assets/Images/player_type_icons/All_rounder.png";
 import batterlogo from "../../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler.png";
+
+import cpl_logo from "../../Assets/Images/logo/logo.png";
+import vibranium_logo from "../../Assets/Images/logo/vibranium.png";
+
 import axios from "axios";
 // import image from "../../../../../Backend/public/images"
 const imgFolder = "../../../../../Backend/public/images";
@@ -28,6 +32,18 @@ const AuctionScreen = ({ socket }) => {
       setSellStatus(status);
     });
   }, []);
+
+  function playerTypeicon(type) {
+    if (type === "allrounder") {
+      return allRounderlogo;
+    }
+    if (type === "batsman") {
+      return batterlogo;
+    }
+    if (type === "bowler") {
+      return bowlerlogo;
+    }
+  }
 
   useEffect(() => {
     // fetch;
@@ -71,6 +87,7 @@ const AuctionScreen = ({ socket }) => {
   };
   return (
     <div style={{ position: "relative" }} className="auction-screen-wrapper">
+      {/* SOLD LOGO */}
       <div
         style={{
           position: "absolute",
@@ -82,6 +99,10 @@ const AuctionScreen = ({ socket }) => {
       >
         {renderLogo()}
       </div>
+
+      <img alt="cpllogo" id="cpllogo" src={cpl_logo} />
+      <img alt="vibranium_logo" id="vibranium_logo" src={vibranium_logo} />
+
       <div className="black-blend"></div>
       {/* player Frame */}
       <img id="AC-playerframe" src={playerFramecut} alt="" />
@@ -106,18 +127,26 @@ const AuctionScreen = ({ socket }) => {
       {/* Semester  */}
       <img id="AC-lineB3" src={reactanglebox} alt="" />
 
-      <img
-        id="AC-playerimage"
-        src={"/assets/images/players/" + playerData?.image}
-        alt="current player logo"
-      />
+      <div id="AC-playerimage-wrapper">
+        <img
+          id="AC-playerimage"
+          src={"/assets/images/players/" + playerData?.image}
+          alt="current player logo"
+        />
+      </div>
 
       <div>
         <h3 className="AC-playernametext">{playerData?.name}</h3>
 
+        <img
+          id="AC-playerIcon"
+          src={playerTypeicon(playerData?.playerType)}
+          alt="current player logo"
+        />
+
         <div id="AC-basepricetext">
-          <div className="">Base Price</div>
-          <div className="">{playerData?.basePrice}</div>
+          <div>Base Price</div>
+          <div id="AC-basepriceamt">{playerData?.basePrice}</div>
         </div>
 
         <div id="AC-bidpricetext">

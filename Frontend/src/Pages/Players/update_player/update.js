@@ -4,6 +4,8 @@ import { useDebugValue } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "./config.env" });
 const Update = () => {
   const [image, setImage] = useState({ preview: "", data: "" });
   const [formData, setFormData] = useState({
@@ -45,7 +47,9 @@ const Update = () => {
   //for pre filled form
   useEffect(() => {
     axios
-      .get("http://localhost:6001/player/" + id, { withCredentials: true })
+      .get(process.env.REACT_APP_BACKEND_URL + "/player/" + id, {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log("data is : DOB ", response.data.data);
 
@@ -57,9 +61,13 @@ const Update = () => {
     //handnle form
     const handleInput = () => {
       axios
-        .put(`http://localhost:6001/player/update/${id}`, formData, {
-          withCredentials: true,
-        })
+        .put(
+          `${process.env.REACT_APP_BACKEND_URL}/player/update/${id}`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        )
         .then((response) => {
           console.log("data is updated", response.data);
         })
@@ -87,7 +95,7 @@ const Update = () => {
     });
     console.log(d);
     axios
-      .put("http://localhost:6001/player/update/" + id, d, {
+      .put(process.env.REACT_APP_BACKEND_URL + "/player/update/" + id, d, {
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -289,11 +297,12 @@ const Update = () => {
                   <option value="Hurricanes">Hurricanes</option>
                   <option value="Royals">Royals</option>
                   <option value="Blasters">Blasters</option>
+                  <option value="Stars">Stars</option>
                   <option value="Panthers">Panthers</option>
                   <option value="Empire">Empire</option>
-                  <option value="Wolves">Wolves</option>
+                  <option value="Wolves XI">Wolves XI</option>
                   <option value="Super Kings">Super Kings</option>
-                  <option value="Striker">Striker</option>
+                  <option value="Strikers">Strikers</option>
                   <option value="Titans">Titans</option>
                   <option value="Falcons">Falcons</option>
                 </select>
@@ -313,9 +322,10 @@ const Update = () => {
                   <option value="Hurricanes">Hurricanes</option>
                   <option value="Royals">Royals</option>
                   <option value="Blasters">Blasters</option>
-                  <option value="Panther">Panther</option>
+                  <option value="Stars">Stars</option>
+                  <option value="Panthers">Panthers</option>
                   <option value="Empire">Empire</option>
-                  <option value="Wolves">Wolves</option>
+                  <option value="Wolves XI">Wolves XI</option>
                   <option value="Super Kings">Super Kings</option>
                   <option value="Strikers">Strikers</option>
                   <option value="Titans">Titans</option>
@@ -335,7 +345,6 @@ const Update = () => {
                   <option value="batsman">Batsman</option>
                   <option value="bowler">Bowler</option>
                   <option value="allrounder">All Rounder</option>
-                  <option value="wicketKeeper">Wicket keeper</option>
                 </select>
               </div>
               sss

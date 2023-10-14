@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "../../../../config.env" });
 const Form = () => {
   const fileuploadicon = <FontAwesomeIcon icon={faArrowUpFromBracket} />;
 
@@ -61,7 +62,7 @@ const Form = () => {
       d.append(key, formData[key]);
     });
     axios
-      .post("http://localhost:6001/player/add", d, {
+      .post(process.env.REACT_APP_BACKEND_URL + "/player/add", d, {
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -269,11 +270,12 @@ const Form = () => {
                   <option value="Hurricanes">Hurricanes</option>
                   <option value="Royals">Royals</option>
                   <option value="Blasters">Blasters</option>
-                  <option value="Panther">Panther</option>
+                  <option value="Stars">Stars</option>
+                  <option value="Panthers">Panthers</option>
                   <option value="Empire">Empire</option>
-                  <option value="Wolves">Wolves</option>
+                  <option value="Wolves XI">Wolves XI</option>
                   <option value="Super Kings">Super Kings</option>
-                  <option value="Striker">Striker</option>
+                  <option value="Strikers">Strikers</option>
                   <option value="Titans">Titans</option>
                   <option value="Falcons">Falcons</option>
                 </select>
@@ -292,11 +294,12 @@ const Form = () => {
                   <option value="Hurricanes">Hurricanes</option>
                   <option value="Royals">Royals</option>
                   <option value="Blasters">Blasters</option>
-                  <option value="Panther">Panther</option>
+                  <option value="Stars">Stars</option>
+                  <option value="Panthers">Panthers</option>
                   <option value="Empire">Empire</option>
-                  <option value="Wolves">Wolves</option>
+                  <option value="Wolves XI">Wolves XI</option>
                   <option value="Super Kings">Super Kings</option>
-                  <option value="Striker">Striker</option>
+                  <option value="Strikers">Strikers</option>
                   <option value="Titans">Titans</option>
                   <option value="Falcons">Falcons</option>
                 </select>
@@ -312,9 +315,8 @@ const Form = () => {
                   onChange={handleInputChange}
                 >
                   <option value="batsman">Batsman</option>
-                  <option value="bolwer">Bowler</option>
+                  <option value="bowler">Bowler</option>
                   <option value="allrounder">All Rounder</option>
-                  <option value="wicketKeeper">Wicket keeper</option>
                 </select>
               </div>
             </div>

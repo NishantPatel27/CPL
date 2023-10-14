@@ -10,7 +10,8 @@ import batterlogo from "../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../Assets/Images/player_type_icons/bowler.png";
 import allrounderlogo from "../Assets/Images/player_type_icons/All_rounder.png";
 import { ToastContainer, toast } from "react-toastify";
-
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "./config.env" });
 const Players = () => {
   const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
@@ -30,7 +31,7 @@ const Players = () => {
   const [data, setData] = useState([]);
   const fetchData = async () => {
     try {
-      const players = await axios.get("http://localhost:6001/team/player/all", {
+      const players = await axios.get(process.env.REACT_APP_BACKEND_URL+"/team/player/all", {
         withCredentials: true,
       });
       if (players.status === 200) {
@@ -45,6 +46,8 @@ const Players = () => {
     fetchData();
   }, []);
 
+
+  
   return (
     <div className="card">
       <div className="header">
@@ -57,12 +60,16 @@ const Players = () => {
         <table>
           <thead>
             <tr>
+              <th>#</th>
               <th>Name</th>
               <th>Semester</th>
+              <th>Branch</th>
+              <th>Phone number</th>
               <th>Type</th>
-              <th>Base Price</th>
               <th>Bid Price</th>
+              <th>Avg</th>
               <th>ECO</th>
+              <th>SR</th>
             </tr>
           </thead>
           <tbody>
@@ -71,8 +78,19 @@ const Players = () => {
               data.map((player) => {
                 return (
                   <tr key={player._id}>
+                    <td>
+                       <img
+                       alt="playerimg"
+                        width={50}
+                        height={50}
+                        style={{ borderRadius: "50%" }}
+                        src={"/assets/images/players/" + player?.image}
+                      />
+                    </td>
                     <td>{player.name}</td>
                     <td>{player.currentSemester}</td>
+                    <td>{player.branch}</td>
+                    <td>{player.phoneNumber}</td>
                     <td>
                       <img
                         style={{
@@ -84,9 +102,10 @@ const Players = () => {
                         alt="current player logo"
                       />
                     </td>
-                    <td>{player.basePrice}</td>
                     <td>{player.bidPrice}</td>
+                    <td>{player.average}</td>
                     <td>{player.economyRate}</td>
+                    <td>{player.strikeRate}</td>
                   </tr>
                 );
               })}

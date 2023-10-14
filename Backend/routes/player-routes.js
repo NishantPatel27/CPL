@@ -22,6 +22,8 @@ router.get(
   playerController.getPlayerById
 );
 
+router.get("/stat/details", playerController.getPlayerDetails);
+
 // Create new player
 router.post(
   "/add",

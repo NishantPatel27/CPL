@@ -1,59 +1,52 @@
-import "./Dashboard.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-
-import knightslogo from "../Assets/Images/teams_logo/the knights.png";
-import Hurricaneslogo from "../Assets/Images/teams_logo/final hurricanes logo.png";
-import royalslogo from "../Assets/Images/teams_logo/royals.png";
-import Empirelogo from "../Assets/Images/teams_logo/team empire.png";
-import Wolveslogo from "../Assets/Images/teams_logo/wolves 11.png";
-import superkingslogo from "../Assets/Images/teams_logo/super kings.png";
-import Blasterlogo from "../Assets/Images/teams_logo/blasters.png";
-import Strikerslogo from "../Assets/Images/teams_logo/strikers.png";
-import starslogo from "../Assets/Images/teams_logo/start.png";
-import Titanslogo from "../Assets/Images/teams_logo/titans.png";
-import Pantherslogo from "../Assets/Images/teams_logo/panther.png";
-import Falconslogo from "../Assets/Images/teams_logo/falcons.png";
+import "./TeamsDashboard.css";
 import axios from "axios";
-import {
-  faCubes,
-  faDollarSign,
-  faPeopleGroup,
-  faPersonRays,
-} from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
+
+
+import { useEffect, useState } from "react";
 import authService from "../../Services/auth.service";
 import { ToastContainer, toast } from "react-toastify";
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "./config.env" });
 
-const DashboardTeam = ({ socket }) => {
-  const playersIcon = <FontAwesomeIcon icon={faPeopleGroup} />;
-  const teamsIcon = <FontAwesomeIcon icon={faCubes} />;
-  const SoldIcon = <FontAwesomeIcon icon={faDollarSign} />;
-  const pendingIcon = <FontAwesomeIcon icon={faPersonRays} />;
+const DashboardTeam = () => {
+ 
   const [team, setTeam] = useState();
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState();
   const [progress, setProgress] = useState(0);
-  const playersRef = useRef([]);
+  
+  const [PointsLeft, setPointsLeft] = useState(0);
+  const [totalPlayer, settotalPlayer] = useState(0);
+
+
   const fetchTeamDetails = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:6001/team/" + authService.getCurrentTeam().name,
+        process.env.REACT_APP_BACKEND_URL+"/team/" + authService.getCurrentTeam().name,
         { withCredentials: true }
       );
       if (res.status === 200) {
         toast.success("Team details fetched successfully..");
         setTeam(res.data.data);
         const players = await axios.get(
-          "http://localhost:6001/team/player/all",
+          process.env.REACT_APP_BACKEND_URL+"/team/player/all",
           {
             withCredentials: true,
           }
         );
         console.log(players);
         if (players.status === 200) {
-          toast.success("Player details fetched successfully..");
-          playersRef.current = [...players.data.status];
-          setPlayers([...players.data.status]);
+          // toast.success("Player details fetched successfully..");
+          setPlayers(players.data.status);
+          settotalPlayer(players.data.status.length);
+          
+          let points = players.data.status.reduce((arr,curr) => {
+            
+            arr += curr.bidPrice;
+            return arr
+          },0);
+          setPointsLeft(points);
+
+
         }
       }
       console.log(res);
@@ -64,20 +57,8 @@ const DashboardTeam = ({ socket }) => {
   };
 
   useEffect(() => {
-    socket.on("get_sold_data", (data) => {
-      console.log(players);
-      if (data.data.team.name === authService.getCurrentTeam().name) {
-        // console.log(players);
-        setPlayers([...playersRef.current, data.data.player]);
-        setTeam(data.data.team);
-      }
-      // fetchTeamDetails();
-    });
-  }, []);
-
-  useEffect(() => {
-    if (players?.length > 0) {
-      setProgress((players?.length / 13) * 100);
+    if (totalPlayer > 0) {
+      setProgress((totalPlayer / 13) * 100);
     }
   }, [players]);
   useEffect(() => {
@@ -85,119 +66,87 @@ const DashboardTeam = ({ socket }) => {
   }, []);
 
   return (
-    <div className="card">
-      {/* <h1>Dashboard</h1> */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+    <div className="TM-wrapper">
+      <div className="TM-header">
         <div>
           <h1>Welcome back, {team?.name}</h1>
         </div>
-        <div style={{ flex: 1, marginLeft: "1rem" }}>
-          <hr />
-        </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          // justifyContent: "space-between",
-          paddingLeft: "18em",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
-            alignItems: "center",
-            width: "25%",
-          }}
-        >
-          <div style={{ background: "#D1E8FF", padding: "2rem" }}>
-            <h3>{players?.length}/13 players</h3>
-            <div style={{ width: "700px" }}>
-              <div className="mainDiv">
-                <div
-                  className="childDiv"
-                  style={{ width: `${progress}%`, background: "#00376F" }}
-                >
-                  <span> </span>
+
+      <div className="TM-inner_wrapper">
+
+        {/* PROGRESS BAR */}
+
+        <div className="TM-progress-wrapper">
+          <div className="TM-pgbr1">
+            <h3>{totalPlayer}/13 players</h3>
+           
+              <div id="players-progress-wrapper">
+                <div id="players-progress-bar" style={{ width: `${progress}%`}}>
                 </div>
               </div>
-            </div>
+          
           </div>
-          <div style={{ background: "#E8E8E8", padding: "2rem" }}>
-            <h3>{team?.bidPointBalance.toLocaleString()} Point left</h3>
-            <div style={{ width: "700px" }}>
-              <div className="mainDiv">
-                <div
-                  className="childDiv"
-                  style={{ width: `${progress}%`, background: "#6A3BB8" }}
-                >
-                  <span> </span>
+          <div className="TM-pgbr2">
+            <h3>{50000 - PointsLeft} Points left</h3>
+           
+              <div id="bid-progress-wrapper">
+                <div id="bid-progress-bar" style={{ width: `${progress}%`}}>
                 </div>
               </div>
-            </div>
+          
           </div>
+         
         </div>
-        {Boolean(players) && (
-          <div
-            style={{ width: "70%", marginLeft: "8em" }}
-            className="tables-div"
-          >
+
+        {/* PLAYER TABLE */}
+
+        <div>
+          <h2>PLAYER TABLE</h2>
+          {Boolean(players) && (
+          <div>
             <div className="dashboard-players-table table">
               <div className="table-head">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                  }}
-                >
-                  <p className="table-head">Players</p>
-                  <div className="submit-btn">
-                    <Link to="/players">
-                      <button
-                        style={{ width: "80px", padding: "1rem" }}
-                        className="submit"
-                      >
-                        View All
-                      </button>
-                    </Link>
-                  </div>
-                </div>
+                <p className="table-head">Players</p>
               </div>
               <table>
-                {players
-                  .slice(0, Math.min(players?.length || 0, 5))
-                  .map((e) => (
-                    <tr key={e._id}>
-                      {/* <td>
-                <img className="team-logo" src={knightslogo} alt="logo" />
-              </td> */}
-                      <td>
-                        <img
-                          width={50}
-                          height={50}
-                          style={{ borderRadius: "50%" }}
-                          src={"/assets/images/players/" + e?.image}
-                        />
-                      </td>
-                      <td>{e.name}</td>
-                      <td>{e.battingHand}</td>
-                      <td>AVG {e.average}</td>
-                      <td>₹ {e.bidPrice}</td>
-                    </tr>
-                  ))}
+                <thead>
+                  <tr>
+                  
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Batting hand</th>
+                      <th>Avg</th>
+                      <th>bid price</th>
+                  
+                  </tr>
+                </thead>
+                {players.map((e) => (
+                  <tr key={e._id}>
+                    
+                    <td>
+                      <img
+                       alt="playerimg"
+                        width={50}
+                        height={50}
+                        style={{ borderRadius: "50%" }}
+                        src={"/assets/images/players/" + e?.image}
+                      />
+                    </td>
+                    <td>{e.name}</td>
+                    <td>{e.battingHand}</td>
+                    <td>{e.average}</td>
+                    <td>₹ {e.bidPrice}</td>
+                  </tr>
+                ))}
               </table>
             </div>
           </div>
-        )}
+        )} 
+        </div>
+        
       </div>
-      <ToastContainer position="top-center" autoClose={3000} />
+      {/* <ToastContainer position="top-center" autoClose={3000} /> */}
     </div>
   );
 };
