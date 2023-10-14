@@ -139,22 +139,7 @@ const AuctionControl = ({ socket }) => {
   useEffect(() => {
     socket.emit("update_bid", Number(bidprice));
   }, [bidprice]);
-  const fetchStats = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:6001/player/stat/details"
-      );
-      console.log(response);
-      if (response.status === 200) {
-        setStats(response.data.status);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  useEffect(() => {
-    fetchStats();
-  }, []);
+
   const handleSkip = async () => {
     try {
       refreshPlayer(nextPlayerType);
