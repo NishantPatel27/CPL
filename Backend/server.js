@@ -1,3 +1,4 @@
+// server.js
 const dotenv = require("dotenv");
 const app = require("./app");
 const mongoose = require("mongoose");
@@ -5,7 +6,7 @@ const mongoose = require("mongoose");
 const httpServer = require("http").createServer(app);
 const options = {
   cors: {
-    origin: "*",
+    origin: "http://localhost:3000",
   },
 };
 const io = require("socket.io")(httpServer, options);
