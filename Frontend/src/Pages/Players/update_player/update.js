@@ -207,6 +207,11 @@ const Update = () => {
                   <option value="itims">ITIMS</option>
                   <option value="animation">Animation</option>
                   <option value="digital design">Digital Desing</option>
+                  <option value="services">Services</option>
+                  <option value="interior spatial">Interior Spatial</option>
+                  <option value="new media">New media</option>
+                  <option value="product design">Product Design</option>
+                  <option value="-">None</option>
                 </select>
               </div>
               <div>

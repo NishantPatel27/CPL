@@ -146,13 +146,19 @@ const AuctionScreen = ({ socket }) => {
 
         <div id="AC-basepricetext">
           <div>Base Price</div>
-          <div id="AC-basepriceamt">{playerData?.basePrice}</div>
+          <div id="AC-basepriceamt">
+            {playerData && playerData.basePrice
+              ? playerData.basePrice.toLocaleString()
+              : 0}
+          </div>
         </div>
 
         <div id="AC-bidpricetext">
           <div className="">LIVE BID</div>
           <div id="bidpriceamt" className="">
-            {playerData?.bidPrice || 0}
+            {playerData && playerData.bidPrice
+              ? playerData.bidPrice.toLocaleString()
+              : 0}
           </div>
         </div>
 

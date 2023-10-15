@@ -50,7 +50,7 @@ const Teams = () => {
                   <tr key={team._id}>
                     <td>{team.name}</td>
                     <td>{team.totalPlayer}</td>
-                    <td>{team.bidPointBalance}</td>
+                    <td>{team.bidPointBalance.toLocaleString()}</td>
                     <td>{team.captain}</td>
                     <td>{team.average}</td>
                     <td>{team.strikeRate}</td>

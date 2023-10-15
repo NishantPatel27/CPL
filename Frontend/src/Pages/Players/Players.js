@@ -87,8 +87,8 @@ const Players = () => {
                         alt="current player logo"
                       />
                     </td>
-                    <td>{player.basePrice}</td>
-                    <td>{player.bidPrice}</td>
+                    <td>{player.basePrice.toLocaleString()}</td>
+                    <td>{player.bidPrice.toLocaleString()}</td>
                     <td>
                       <span
                         style={{
