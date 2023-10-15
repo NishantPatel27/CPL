@@ -203,6 +203,7 @@ const Form = () => {
                   <option value="interior spatial">Interior Spatial</option>
                   <option value="new media">New media</option>
                   <option value="product design">Product Design</option>
+                  <option value="B design">B Design</option>
                   <option value="-">None</option>
                 </select>
               </div>

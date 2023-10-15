@@ -310,6 +310,7 @@ const Update = () => {
                   <option value="Strikers">Strikers</option>
                   <option value="Titans">Titans</option>
                   <option value="Falcons">Falcons</option>
+                  <option value="B design">B Design</option>
                 </select>
               </div>
               <div>
