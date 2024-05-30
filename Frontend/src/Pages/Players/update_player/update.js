@@ -172,10 +172,15 @@ const Update = () => {
                   onChange={handleInputChange}
                 >
                   <option value="1">Semester 1</option>
+                  <option value="2">Semester 2</option>
                   <option value="3">Semester 3</option>
+                  <option value="4">Semester 4</option>
                   <option value="5">Semester 5</option>
+                  <option value="6">Semester 6</option>
                   <option value="7">Semester 7</option>
+                  <option value="8">Semester 8</option>
                   <option value="9">Semester 9</option>
+                  <option value="10">Semester 10</option>
                 </select>
               </div>
             </div>
@@ -223,6 +228,7 @@ const Update = () => {
                 </label>
                 {formData.image && (
                   <img
+                    alt="player pic"
                     src={"/assets/images/players/" + formData?.image}
                     width="100"
                     height="100"
@@ -238,16 +244,6 @@ const Update = () => {
                   className="form-inputs"
                   onChange={handleFileChange}
                 ></input>
-
-                {/* <input
-                  className="form-inputs"
-                  name="image"
-                  type="file"
-                  id="playerphoto"
-                  required
-                  // value={formData.image}
-                  onChange={handleInputChange}
-                /> */}
               </div>
             </div>
           </div>
@@ -353,7 +349,6 @@ const Update = () => {
                   <option value="allrounder">All Rounder</option>
                 </select>
               </div>
-              sss
             </div>
           </div>
         </fieldset>
