@@ -61,14 +61,7 @@ const DashboardTeam = ({ socket }) => {
 
   useEffect(() => {
     if (players?.length > 0) {
-      if(specialTeam(team?.name)){
-
-        setProgress((players?.length /  12 ) * 100);
-      }
-      else{
-        setProgress((players?.length /  13 ) * 100);
-
-      }
+      setProgress((players?.length /  12 ) * 100);
     }
   }, [players]);
 
@@ -81,14 +74,6 @@ const DashboardTeam = ({ socket }) => {
   }, [team]);
 
 
-  let specialTeam = (name) =>{
-    if(name === "Titans" || name === "Knights" || name === "Stars"){
-      return 1;
-    }
-    else{
-      return 0;
-    }
-  }
 
   useEffect(() => {
     fetchTeamDetails();
@@ -97,9 +82,15 @@ const DashboardTeam = ({ socket }) => {
   return (
     <div className="TM-wrapper">
       <div className="TM-header">
-        <div>
+        
           <h1>Welcome back, {team?.name}</h1>
-        </div>
+          <img
+          id="TM-teamlogo"
+          src={"/assets/images/All_team_logo/"+team?.logo}
+          alt="current player logo"
+        />
+          
+          
       </div>
 
       <div className="TM-inner_wrapper">
@@ -108,7 +99,7 @@ const DashboardTeam = ({ socket }) => {
 
         <div className="TM-progress-wrapper">
           <div className="TM-pgbr1">
-            <h3>{players?.length}/{specialTeam(team?.name) ? 12 : 13} players</h3>
+            <h3>{players?.length} / 12 players</h3>
            
               <div id="players-progress-wrapper">
                 <div id="players-progress-bar" style={{ width: `${progress}%`}}>
@@ -150,12 +141,34 @@ const DashboardTeam = ({ socket }) => {
                   
                       <th>#</th>
                       <th>Name</th>
-                      <th>Batting hand</th>
-                      <th>Avg</th>
-                      <th>bid price</th>
+                      <th>Position</th>
+                      <th>Semester</th>
+                      <th>Bid price</th>
                   
                   </tr>
                 </thead>
+                <tr>
+                  <td>1</td>
+                  <td>{team?.mentor}</td>
+                  <td><b>Mentor</b></td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>{team?.captain}</td>
+                  <td><b>Captain</b></td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>{team?.viceCaptain}</td>
+                  <td><b>Vice Captain</b></td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+               
                 {players.map((e) => (
                   <tr className="TM-table-tr" key={e._id}>
                     

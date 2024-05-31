@@ -55,6 +55,7 @@ const logIn = (email, password) => {
     });
 };
 const logInTeam = (name, password) => {
+  console.log(name, password);
   return axios
     .post(
       teamLogin_url,

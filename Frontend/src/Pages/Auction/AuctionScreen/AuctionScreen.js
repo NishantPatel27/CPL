@@ -163,18 +163,18 @@ const AuctionScreen = ({ socket }) => {
         </div>
 
         <div id="AC-branchtext">
-          <div>course : {playerData?.branch}</div>
+          <div>{playerData?.branch}</div>
         </div>
 
         <div>
           <div id="AC-semestertext">Semester {playerData?.currentSemester}</div>
         </div>
         <div>
-          <div id="AC-prevteamtext">Prev Team : {playerData?.previousTeam}</div>
+          <div id="AC-prevteamtext">Group A</div>
         </div>
 
-        <div id="AC-inningstext">Innings : {playerData?.innings}</div>
-        <div id="AC-runstext">Runs : {playerData?.totalRuns}</div>
+        <div id="AC-inningstext">{playerData?.playerType}</div>
+        <div id="AC-runstext">RH Bastman</div>
         <div id="AC-wicketstext">Wickets : {playerData?.totalWickets}</div>
 
         <div id="AC-bidwinningteam">
