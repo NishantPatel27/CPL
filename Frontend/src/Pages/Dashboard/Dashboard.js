@@ -1,6 +1,8 @@
 import "./Dashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 import {
   faCubes,
@@ -14,6 +16,24 @@ const Dashboard = () => {
   const teamsIcon = <FontAwesomeIcon icon={faCubes} />;
   const SoldIcon = <FontAwesomeIcon icon={faDollarSign} />;
   const pendingIcon = <FontAwesomeIcon icon={faPersonRays} />;
+  const [stats, setStats] = useState();
+
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/player/stat/details`
+      );
+      console.log(response);
+      if (response.status === 200) {
+        setStats(response.data.status);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchStats();
+  }, []);
 
   return (
     <div className="card">
@@ -22,7 +42,9 @@ const Dashboard = () => {
       <div className="dashboard-cards">
         <div className="stats-card">
           <div>
-            <p className="card-numbers">234</p>
+            <p className="card-numbers">
+              {stats?.countSold + stats?.countUnsold}
+            </p>
             <p className="card-text">Total Players</p>
           </div>
           <div>
@@ -31,7 +53,7 @@ const Dashboard = () => {
         </div>
         <div className="stats-card">
           <div>
-            <p className="card-numbers">12</p>
+            <p className="card-numbers">10</p>
             <p className="card-text">Total Teams</p>
           </div>
           <div>
@@ -40,8 +62,8 @@ const Dashboard = () => {
         </div>
         <div className="stats-card">
           <div>
-            <p className="card-numbers">125</p>
-            <p className="card-text">Players Sold</p>
+            <p className="card-numbers">{stats?.countSold}</p>
+            <p className="card-text">Sold Sold</p>
           </div>
           <div>
             <span className="card-icons">{SoldIcon}</span>
@@ -49,8 +71,8 @@ const Dashboard = () => {
         </div>
         <div className="stats-card">
           <div>
-            <p className="card-numbers">125</p>
-            <p className="card-text">Players Unsold</p>
+            <p className="card-numbers">{stats?.countUnsold}</p>
+            <p className="card-text">Unsold Players</p>
           </div>
           <div>
             <span className="card-icons">{pendingIcon}</span>

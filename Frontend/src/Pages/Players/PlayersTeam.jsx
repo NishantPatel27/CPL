@@ -6,7 +6,6 @@ import axios from "axios";
 import batterlogo from "../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../Assets/Images/player_type_icons/bowler.png";
 import allrounderlogo from "../Assets/Images/player_type_icons/All_rounder.png";
-import { ToastContainer, toast } from "react-toastify";
 
 const Players = () => {
 
@@ -55,6 +54,7 @@ const Players = () => {
           <thead>
             <tr>
               <th>#</th>
+              <th>Image</th>
               <th>Name</th>
               <th>Semester</th>
               <th>Branch</th>
@@ -69,9 +69,10 @@ const Players = () => {
           <tbody>
             {data &&
               data.length > 0 &&
-              data.map((player) => {
+              data.map((player,index) => {
                 return (
                   <tr key={player._id}>
+                    <td>{index+1}</td>
                     <td>
                        <img
                        alt="playerimg"
@@ -105,7 +106,6 @@ const Players = () => {
           </tbody>
         </table>
       </div>
-      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 };

@@ -84,7 +84,7 @@ const logOut = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("team");
   console.log("cookie removed");
-  window.location.reload();
+  window.location.replace("http://localhost:3000/");
 };
 
 const getCurrentUser = () => {

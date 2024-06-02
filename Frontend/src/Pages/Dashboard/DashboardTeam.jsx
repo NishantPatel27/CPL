@@ -11,6 +11,7 @@ const DashboardTeam = ({ socket }) => {
   const [players, setPlayers] = useState();
   const [progress, setProgress] = useState(0);
   const [teamprogress, setteamProgress] = useState(0);
+  let [counter, setcounter] = useState(4);
   
   const playersRef = useRef([]);
 
@@ -67,9 +68,8 @@ const DashboardTeam = ({ socket }) => {
 
   useEffect(() => {
     if (team?.bidPointBalance > 0) {
-      let balance = 50000 - team?.bidPointBalance
-      // setteamProgress(( balance / 50000) * 100);
-      setteamProgress(( balance / 50000) * 100);
+      let balance =  (team?.bidPointBalance * 100) / 50000
+      setteamProgress(balance);
     }
   }, [team]);
 
@@ -117,6 +117,14 @@ const DashboardTeam = ({ socket }) => {
           
           </div>
          
+          <div className="TM-pgbr3">
+            <h3>Mentor : {team?.mentor}</h3>
+            <h3>Captian : {team?.captain}</h3>
+            <h3>Vice Captian : {team?.viceCaptain}</h3>
+           
+              
+          </div>
+         
         </div>
 
         {/* PLAYER TABLE */}
@@ -143,14 +151,16 @@ const DashboardTeam = ({ socket }) => {
                       <th>Name</th>
                       <th>Position</th>
                       <th>Semester</th>
+                      <th>Type</th>
                       <th>Bid price</th>
                   
                   </tr>
                 </thead>
-                <tr>
+                {/* <tr>
                   <td>1</td>
                   <td>{team?.mentor}</td>
                   <td><b>Mentor</b></td>
+                  <td>-</td>
                   <td>-</td>
                   <td>-</td>
                 </tr>
@@ -160,6 +170,7 @@ const DashboardTeam = ({ socket }) => {
                   <td><b>Captain</b></td>
                   <td>-</td>
                   <td>-</td>
+                  <td>-</td>
                 </tr>
                 <tr>
                   <td>3</td>
@@ -167,24 +178,30 @@ const DashboardTeam = ({ socket }) => {
                   <td><b>Vice Captain</b></td>
                   <td>-</td>
                   <td>-</td>
-                </tr>
+                  <td>-</td>
+                </tr> */}
                
-                {players.map((e) => (
+                {players.map((e,index) => (
                   <tr className="TM-table-tr" key={e._id}>
                     
                     <td>
-                      <img
+                     {index + 1}
+                    </td>
+                   
+                    <td> 
+                      {/* <img
                        alt="playerimg"
                         // width={40}
                         height={40}
                         style={{ borderRadius: "50%" }}
                         src={"/assets/images/players/" + e?.image}
-                      />
-                    </td>
-                    <td>{e.name}</td>
-                    <td>{e.battingHand}</td>
-                    <td>{e.average}</td>
+                      /> */}
+                      {e.name}</td>
+                    <td>Player</td>
+                    <td>{e.currentSemester }</td>
+                    <td>{e.playerType }</td>
                     <td>₹ {e.bidPrice}</td>
+                   
                   </tr>
                 ))}
               </table>

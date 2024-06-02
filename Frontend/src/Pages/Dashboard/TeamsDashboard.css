@@ -22,11 +22,16 @@
     /* background-color: grey; */
     display: flex;
     justify-content: space-between;
-    margin: 2vw 5vw;
+    margin: 1vw 5vw;
 }
 .TM-progress-wrapper{
     /* background-color: brown; */
     padding: 0vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+
 }
 
 
@@ -36,10 +41,15 @@
 
 .TM-pgbr1{
     background-color: #D1E8FF;
-    margin-bottom: 3vw;
+    margin-bottom: 1vw;
 }
 .TM-pgbr2{
     background-color: #E8E8E8;
+    margin-bottom: 1vw;
+}
+.TM-pgbr3{
+    background-color: #E8E8E8;
+    padding: 1vw 2vw;
 }
 
 #players-progress-wrapper{
