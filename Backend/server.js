@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const httpServer = require("http").createServer(app);
 const options = {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.APP_URL,
   },
 };
 const io = require("socket.io")(httpServer, options);

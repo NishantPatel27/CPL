@@ -51,7 +51,7 @@ const Teams = () => {
                     <td>{team.name}</td>
                     <td>{team.totalPlayer}</td>
                     <td>{team.bidPointBalance.toLocaleString()}</td>
-                    <td>{team.captain}</td>
+                    <td>{team.mentor}</td>
                     <td>{team.average}</td>
                     <td>{team.strikeRate}</td>
                     <td>{team.economyRate}</td>

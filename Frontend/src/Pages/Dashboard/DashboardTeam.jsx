@@ -11,7 +11,7 @@ const DashboardTeam = ({ socket }) => {
   const [players, setPlayers] = useState();
   const [progress, setProgress] = useState(0);
   const [teamprogress, setteamProgress] = useState(0);
-  let [counter, setcounter] = useState(4);
+
   
   const playersRef = useRef([]);
 
