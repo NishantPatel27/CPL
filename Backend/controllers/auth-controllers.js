@@ -28,7 +28,7 @@ exports.registerUser = catchAsync(async (req, res) => {
     const token = jwt.sign(
       { user: user.id, role: user.role },
       process.env.SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1y" }
     );
 
     res.cookie("token", token, {
@@ -67,7 +67,7 @@ exports.loginUser = catchAsync(async (req, res) => {
     const token = jwt.sign(
       { user: user.id, role: user.role },
       process.env.SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1y" }
     );
     console.log("JWT token generated:", token);
     console.log("Setting cookie...");
@@ -158,7 +158,7 @@ exports.loginTeam = catchAsync(async (req, res) => {
     const token = jwt.sign(
       { teamId: team.id, role: "team" },
       process.env.SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1y" }
     );
     console.log("JWT token generated:", token);
     console.log("Setting cookie...");

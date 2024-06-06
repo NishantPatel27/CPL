@@ -12,6 +12,15 @@ router.get(
   playerController.getRandomPlayerByPlayerType
 );
 
+// move to next round
+router.patch("/nextRound",playerController.nextRound)
+
+router.get(
+    "/randomPlayer",
+    authController.isLoggedIn,
+    playerController.getRandomPlayer
+);
+
 // Get all players
 router.get("/", authController.isLoggedIn, playerController.listAllPlayers);
 
@@ -58,6 +67,4 @@ router.get(
   playerController.getPlayersByType
 );
 
-// move to next round
-router.patch("/nextRound",authController.isLoggedIn,playerController.nextRound)
 module.exports = router;

@@ -13,7 +13,6 @@ exports.createPlayer = async (req, res) => {
   //     // If no file is uploaded, respond with a 400 Bad Request status
   //     return res.status(400).json({ success: false, message: 'No file uploaded' });
   // }
-  console.log(req.body);
   const data = {
     image: req.file?.filename || "none",
     name: req.body.name,
@@ -27,9 +26,7 @@ exports.createPlayer = async (req, res) => {
     playerType: req.body.playerType,
     battingHand: req.body.battingHand,
     bowlingStyle: req.body.bowlingStyle,
-    status: req.body.status,
   };
-  console.log("hello-----------------------------------------", data);
 
   const { error, value } = playerSchemaValidation.validate(data);
 
@@ -38,14 +35,12 @@ exports.createPlayer = async (req, res) => {
   }
 
   return sendResponse(res, 200, "Player created successfully", {
-    team: await Player.create(value),
+    team: await Player.create(Object.assign(value,{status:null})),
   });
 };
 
 // Update Player
 exports.updatePlayer = catchAsync(async (req, res) => {
-  console.log("Here");
-  console.log(req.body);
   const playerId = req.params.playerID;
   const data = {
     name: req.body.name,
@@ -60,7 +55,6 @@ exports.updatePlayer = catchAsync(async (req, res) => {
     playerType: req.body.playerType,
     battingHand: req.body.battingHand,
     bowlingStyle: req.body.bowlingStyle,
-    status: req.body.status,
   };
   const { error, value } = playerSchemaValidation.validate(data);
   if (error) {
@@ -168,10 +162,9 @@ exports.getPlayerById = catchAsync(async (req, res) => {
 // Get random player
 exports.getRandomPlayer = catchAsync(async (req, res) => {
   const randomPlayer = await Player.aggregate([
-    { $match: { currentTeam: "None" } },
+    { $match: { currentTeam: "None" ,status:null} },
     { $sample: { size: 1 } },
   ]);
-
   if (!randomPlayer) {
     return sendResponse(res, 204, "No players found");
   }
@@ -262,8 +255,6 @@ exports.getPlayerDetails = catchAsync(async (req, res) => {
     ]);
     const result1 = await aggregateQueryForSold.exec();
     const result2 = await aggregateQueryForUnsold.exec();
-    console.log(result1);
-    console.log(result2);
     return sendResponse(res, 200, {
       ...result1[0],
       ...result2[0],
@@ -282,13 +273,13 @@ function paginate(query, page = 1, perPage = 1) {
 
 exports.getRandomPlayerByPlayerType = catchAsync(async (req, res) => {
   try {
-    const id = req.params.playerId
-    const player = await Player.findById(id)
-    if (!player){
-      return sendResponse(res, 204, "player not found");
+    if (req.params.playerId !== "652b9ef11f1cc22b42569818"){
+      const playerId = req.params.playerId
+      const player = await Player.findByIdAndUpdate(playerId,{status:'skip'}, {new: true})
+      if (!player){
+        return sendResponse(res, 204, "player not found");
+      }
     }
-    await Player.updateOne({ _id: id }, {status:'skip'});
-
     const type = req.params.playerType;
     let filter = { currentTeam: "None",status: null };
 
@@ -346,9 +337,7 @@ exports.nextRound = catchAsync(async (req,res)=>{
 exports.getAllPlayerByTeamName = catchAsync(async (req, res) => {
   try {
     const teamName = req.team.name;
-    console.log(req);
     const players = await Player.find({ currentTeam: teamName });
-    console.log("players:-", players);
     return sendResponse(res, 200, players);
   } catch (e) {
     console.error(e);
@@ -438,8 +427,6 @@ exports.getPlayerDetails = catchAsync(async (req, res) => {
     ]);
     const result1 = await aggregateQueryForSold.exec();
     const result2 = await aggregateQueryForUnsold.exec();
-    console.log(result1);
-    console.log(result2);
     return sendResponse(res, 200, {
       ...result1[0],
       ...result2[0],
