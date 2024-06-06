@@ -120,6 +120,10 @@
     display: flex;    
 }
 
+.right-side{
+    display: flex;
+    justify-content: space-evenly;
+}
 .nextplayer-input{
     padding: .5vw 1vw;
     border: none;

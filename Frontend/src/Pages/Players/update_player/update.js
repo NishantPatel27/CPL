@@ -12,25 +12,27 @@ const Update = () => {
     name: "",
     phoneNumber: "",
     currentSemester: "1",
-    dateOfBirth: "2000-1-01",
+    // dateOfBirth: "2000-1-01",
     branch: "software",
     basePrice: "",
     bidPrice: "",
     previousTeam: "None",
     currentTeam: "None",
     playerType: "batsman",
-    totalRuns: "0",
-    innings: "0",
-    strikeRate: "0",
-    average: "0",
-    totalWickets: "0",
-    economyRate: "0",
-    battingHand: "None",
-    fours: "0",
-    sixes: "0",
-    bowlingStyle: "None",
-    HighestWicket: "0",
-    overs: "0",
+    course:"cs",
+    status:'sold'
+    // totalRuns: "0",
+    // innings: "0",
+    // strikeRate: "0",
+    // average: "0",
+    // totalWickets: "0",
+    // economyRate: "0",
+    // battingHand: "None",
+    // fours: "0",
+    // sixes: "0",
+    // bowlingStyle: "None",
+    // HighestWicket: "0",
+    // overs: "0",
   });
 
   const handleInputChange = (e) => {
@@ -186,18 +188,18 @@ const Update = () => {
             </div>
 
             <div className="row">
-              <div>
-                <label htmlFor="DOB">Date of Birth</label>
-                <input
-                  className="form-inputs"
-                  type="date"
-                  name="dateOfBirth"
-                  id="DOB"
-                  required
-                  value={formData.dateOfBirth.slice(0, 10)}
-                  onChange={handleInputChange}
-                />
-              </div>
+              {/*<div>*/}
+              {/*  <label htmlFor="DOB">Date of Birth</label>*/}
+              {/*  <input*/}
+              {/*    className="form-inputs"*/}
+              {/*    type="date"*/}
+              {/*    name="dateOfBirth"*/}
+              {/*    id="DOB"*/}
+              {/*    required*/}
+              {/*    value={formData.dateOfBirth.slice(0, 10)}*/}
+              {/*    onChange={handleInputChange}*/}
+              {/*  />*/}
+              {/*</div>*/}
               <div>
                 <label htmlFor="branch">Branch</label>
 
