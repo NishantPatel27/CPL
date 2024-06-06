@@ -55,6 +55,7 @@ const logIn = (email, password) => {
     });
 };
 const logInTeam = (name, password) => {
+  console.log(name, password);
   return axios
     .post(
       teamLogin_url,
@@ -83,7 +84,7 @@ const logOut = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("team");
   console.log("cookie removed");
-  window.location.reload();
+  window.location.replace("http://localhost:3000/");
 };
 
 const getCurrentUser = () => {

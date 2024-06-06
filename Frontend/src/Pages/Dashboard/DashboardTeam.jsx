@@ -11,6 +11,7 @@ const DashboardTeam = ({ socket }) => {
   const [players, setPlayers] = useState();
   const [progress, setProgress] = useState(0);
   const [teamprogress, setteamProgress] = useState(0);
+
   
   const playersRef = useRef([]);
 
@@ -61,34 +62,18 @@ const DashboardTeam = ({ socket }) => {
 
   useEffect(() => {
     if (players?.length > 0) {
-      if(specialTeam(team?.name)){
-
-        setProgress((players?.length /  12 ) * 100);
-      }
-      else{
-        setProgress((players?.length /  13 ) * 100);
-
-      }
+      setProgress((players?.length /  12 ) * 100);
     }
   }, [players]);
 
   useEffect(() => {
     if (team?.bidPointBalance > 0) {
-      let balance = 50000 - team?.bidPointBalance
-      // setteamProgress(( balance / 50000) * 100);
-      setteamProgress(( balance / 50000) * 100);
+      let balance =  (team?.bidPointBalance * 100) / 50000
+      setteamProgress(balance);
     }
   }, [team]);
 
 
-  let specialTeam = (name) =>{
-    if(name === "Titans" || name === "Knights" || name === "Stars"){
-      return 1;
-    }
-    else{
-      return 0;
-    }
-  }
 
   useEffect(() => {
     fetchTeamDetails();
@@ -97,9 +82,15 @@ const DashboardTeam = ({ socket }) => {
   return (
     <div className="TM-wrapper">
       <div className="TM-header">
-        <div>
+        
           <h1>Welcome back, {team?.name}</h1>
-        </div>
+          <img
+          id="TM-teamlogo"
+          src={"/assets/images/All_team_logo/"+team?.logo}
+          alt="current player logo"
+        />
+          
+          
       </div>
 
       <div className="TM-inner_wrapper">
@@ -108,7 +99,7 @@ const DashboardTeam = ({ socket }) => {
 
         <div className="TM-progress-wrapper">
           <div className="TM-pgbr1">
-            <h3>{players?.length}/{specialTeam(team?.name) ? 12 : 13} players</h3>
+            <h3>{players?.length} / 12 players</h3>
            
               <div id="players-progress-wrapper">
                 <div id="players-progress-bar" style={{ width: `${progress}%`}}>
@@ -124,6 +115,14 @@ const DashboardTeam = ({ socket }) => {
                 </div>
               </div>
           
+          </div>
+         
+          <div className="TM-pgbr3">
+            <h3>Mentor : {team?.mentor}</h3>
+            <h3>Captian : {team?.captain}</h3>
+            <h3>Vice Captian : {team?.viceCaptain}</h3>
+           
+              
           </div>
          
         </div>
@@ -150,28 +149,59 @@ const DashboardTeam = ({ socket }) => {
                   
                       <th>#</th>
                       <th>Name</th>
-                      <th>Batting hand</th>
-                      <th>Avg</th>
-                      <th>bid price</th>
+                      <th>Position</th>
+                      <th>Semester</th>
+                      <th>Type</th>
+                      <th>Bid price</th>
                   
                   </tr>
                 </thead>
-                {players.map((e) => (
+                {/* <tr>
+                  <td>1</td>
+                  <td>{team?.mentor}</td>
+                  <td><b>Mentor</b></td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>{team?.captain}</td>
+                  <td><b>Captain</b></td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>{team?.viceCaptain}</td>
+                  <td><b>Vice Captain</b></td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr> */}
+               
+                {players.map((e,index) => (
                   <tr className="TM-table-tr" key={e._id}>
                     
                     <td>
-                      <img
+                     {index + 1}
+                    </td>
+                   
+                    <td> 
+                      {/* <img
                        alt="playerimg"
                         // width={40}
                         height={40}
                         style={{ borderRadius: "50%" }}
                         src={"/assets/images/players/" + e?.image}
-                      />
-                    </td>
-                    <td>{e.name}</td>
-                    <td>{e.battingHand}</td>
-                    <td>{e.average}</td>
+                      /> */}
+                      {e.name}</td>
+                    <td>Player</td>
+                    <td>{e.currentSemester }</td>
+                    <td>{e.playerType }</td>
                     <td>₹ {e.bidPrice}</td>
+                   
                   </tr>
                 ))}
               </table>

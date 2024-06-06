@@ -57,6 +57,7 @@ const Players = () => {
         <table>
           <thead>
             <tr>
+              <th>#</th>
               <th>Name</th>
               <th>Semester</th>
               <th>Type</th>
@@ -71,9 +72,10 @@ const Players = () => {
           <tbody>
             {data &&
               data.length > 0 &&
-              data.map((player) => {
+              data.map((player, index) => {
                 return (
                   <tr key={player._id}>
+                    <td>{index + 1}</td>
                     <td>{player.name}</td>
                     <td>{player.currentSemester}</td>
                     <td>

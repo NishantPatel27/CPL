@@ -28,7 +28,7 @@ router.get("/", authController.isLoggedIn, teamController.listAllTeams);
 // router.get("/:teamID", authController.isLoggedIn, teamController.getTeamById);
 router.get(
   "/:teamName",
-  authController.isLoggedInTeam,
+  // authController.isLoggedInTeam,
   teamController.getTeamByName
 );
 router.post("/login", authController.loginTeam);

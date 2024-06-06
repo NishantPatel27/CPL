@@ -54,6 +54,7 @@ async function updatePlayerAndTeam(playerId, bidPrice, newTeamName) {
       },
       {
         bidPointBalance: Number(team.bidPointBalance) - Number(bidPrice),
+        totalPlayer: Number(team.totalPlayer) + 1,
       },
       { new: true, session }
     );

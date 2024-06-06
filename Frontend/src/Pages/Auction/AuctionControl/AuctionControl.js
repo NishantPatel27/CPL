@@ -60,7 +60,7 @@ const AuctionControl = ({ socket }) => {
         },
       });~
 
-      console.log("Sold player", updatedPlayer);
+      // console.log("Sold player", updatedPlayer);
       if (updatedPlayer.status === 200) {
         socket.emit("sell_player", updatedPlayer.data);
         setPlayerData();
@@ -266,18 +266,18 @@ const AuctionControl = ({ socket }) => {
                             }}
                           >
                             <option value="None">None</option>
-                            <option value="Knights">Knights</option>
-                            <option value="Hurricanes">Hurricanes</option>
-                            <option value="Royals">Royals</option>
-                            <option value="Blasters">Blasters</option>
-                            <option value="Stars">Stars</option>
-                            <option value="Panthers">Panthers</option>
-                            <option value="Empire">Empire</option>
-                            <option value="Wolves XI">Wolves XI</option>
-                            <option value="Super Kings">Super Kings</option>
-                            <option value="Strikers">Strikers</option>
-                            <option value="Titans">Titans</option>
-                            <option value="Falcons">Falcons</option>
+                            <option value="ROYAL CHALLENGERS">
+                              ROYAL CHALLENGERS
+                            </option>
+                            <option value="KINGS XI">KINGS XI</option>
+                            <option value="TITANS">TITANS</option>
+                            <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
+                            <option value="INDIANS">INDIANS</option>
+                            <option value="ROYALS">ROYALS</option>
+                            <option value="SUNRISES">SUNRISES</option>
+                            <option value="CAPITALS">CAPITALS</option>
+                            <option value="SUPER GIANTS">SUPER GIANTS</option>
+                            <option value="SUPER KINGS">SUPER KINGS</option>
                           </select>
                         </td>
                       </tr>

@@ -2,16 +2,19 @@ import Nav from "../Pages/Nav/Nav";
 import Searchbar from "../Pages/Seachbar/Searchbar";
 
 
-function Container({ Children }) {
+function Container({ Children,isUserLoggedIn ,isTeamLoggedIn }) {
+  const isLoggedIn = isUserLoggedIn || isTeamLoggedIn;
   return (
     <div className="">
-      <div className="main-content">
-        <Nav />
-        <div className="main-wrapper">
-          <Searchbar />
-          {Children}
+      {isLoggedIn && (
+        <div className="main-content">
+          <Nav />
+          <div className="main-wrapper">
+            <Searchbar />
+            {Children}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
