@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 const { promisify } = require("util");
 const validator = require("./../validator");
 
-dotenv.config({ path: "./config..env" });
+dotenv.config({ path: "./config.env" });
 
 exports.registerUser = catchAsync(async (req, res) => {
   const { error, value } = validator.userSignupSchemaValidation.validate(
