@@ -79,10 +79,9 @@ exports.playerSchemaValidation = Joi.object({
     "string.base": "Current semester should be a string",
     "any.required": "Current semester is required",
   }),
-  dateOfBirth: Joi.date().iso().required().messages({
-    "date.base": "Date of birth should be a valid date",
-    "date.isoDate": "Date of birth should be in ISO date format",
-    "any.required": "Date of birth is required",
+  course: Joi.string().required().messages({
+    "string.base": "Course should be a string",
+    "any.required": "Course is required",
   }),
   phoneNumber: Joi.number().required().messages({
     "number.base": "Phone number should be a number",
@@ -100,10 +99,6 @@ exports.playerSchemaValidation = Joi.object({
     "number.base": "Bid price should be a number",
     "number.min": "Bid price should be at least {#limit}",
   }),
-  previousTeam: Joi.string().required().messages({
-    "string.base": "Previous team should be a string",
-    "any.required": "Previous team is required",
-  }),
   currentTeam: Joi.string().required().messages({
     "string.base": "Current team should be a string",
     "any.required": "Current team is required",
@@ -112,51 +107,16 @@ exports.playerSchemaValidation = Joi.object({
     "string.base": "Player type should be a string",
     "any.required": "Player type is required",
   }),
-  battingHand: Joi.string().messages({
+  battingHand: Joi.string().required().messages({
     "string.base": "Batting hand should be a string",
+    "any.required": "Batting hand is required",
   }),
-  fours: Joi.number().min(0).messages({
-    "number.base": "Fours should be a number",
-    "number.min": "Fours should be at least {#limit}",
-  }),
-  sixes: Joi.number().min(0).messages({
-    "number.base": "Sixes should be a number",
-    "number.min": "Sixes should be at least {#limit}",
-  }),
-  bowlingStyle: Joi.string().messages({
+  bowlingStyle: Joi.string().required().messages({
     "string.base": "Bowling style should be a string",
+    "any.required": "Bowling style is required",
   }),
-  HighestWicket: Joi.number().min(0).messages({
-    "number.base": "Highest wicket should be a number",
-    "number.min": "Highest wicket should be at least {#limit}",
-  }),
-  overs: Joi.number().min(0).messages({
-    "number.base": "Overs should be a number",
-    "number.min": "Overs should be at least {#limit}",
-  }),
-  innings: Joi.number().min(0).messages({
-    "number.base": "Innings should be a number",
-    "number.min": "Innings should be at least {#limit}",
-  }),
-  totalRuns: Joi.number().min(0).messages({
-    "number.base": "Total runs should be a number",
-    "number.min": "Total runs should be at least {#limit}",
-  }),
-  totalWickets: Joi.number().min(0).messages({
-    "number.base": "Total wickets should be a number",
-    "number.min": "Total wickets should be at least {#limit}",
-  }),
-  average: Joi.number().min(0).messages({
-    "number.base": "Average should be a number",
-    "number.min": "Average should be at least {#limit}",
-  }),
-  strikeRate: Joi.number().min(0).messages({
-    "number.base": "Strike rate should be a number",
-    "number.min": "Strike rate should be at least {#limit}",
-  }),
-  economyRate: Joi.number().min(0).messages({
-    "number.base": "Economy rate should be a number",
-    "number.min": "Economy rate should be at least {#limit}",
+  status: Joi.string().optional().messages({
+    "string.base": "Status should be a string",
   }),
 });
 

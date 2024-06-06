@@ -17,27 +17,17 @@ exports.createPlayer = async (req, res) => {
   const data = {
     image: req.file?.filename || "none",
     name: req.body.name,
+    bidPrice: req.body.bidPrice,
+    basePrice: req.body.basePrice,
+    course: req.body.course,
     currentSemester: req.body.currentSemester,
-    dateOfBirth: req.body.dateOfBirth,
     phoneNumber: req.body.phoneNumber,
     branch: req.body.branch,
-    basePrice: req.body.basePrice,
-    bidPrice: req.body.bidPrice,
-    previousTeam: req.body.previousTeam,
     currentTeam: req.body.currentTeam,
     playerType: req.body.playerType,
     battingHand: req.body.battingHand,
-    fours: req.body.fours,
-    sixes: req.body.sixes,
     bowlingStyle: req.body.bowlingStyle,
-    HighestWicket: req.body.HighestWicket,
-    overs: req.body.overs,
-    innings: req.body.innings,
-    totalRuns: req.body.totalRuns,
-    totalWickets: req.body.totalWickets,
-    average: req.body.average,
-    strikeRate: req.body.strikeRate,
-    economyRate: req.body.economyRate,
+    status: req.body.status,
   };
   console.log("hello-----------------------------------------", data);
 
@@ -60,27 +50,17 @@ exports.updatePlayer = catchAsync(async (req, res) => {
   const data = {
     name: req.body.name,
     image: Boolean(req.file?.filename) ? req.file?.filename : req.body.image,
+    bidPrice: req.body.bidPrice,
+    basePrice: req.body.basePrice,
+    course: req.body.course,
     currentSemester: req.body.currentSemester,
-    dateOfBirth: req.body.dateOfBirth,
     phoneNumber: req.body.phoneNumber,
     branch: req.body.branch,
-    basePrice: req.body.basePrice,
-    bidPrice: req.body.bidPrice,
-    previousTeam: req.body.previousTeam,
     currentTeam: req.body.currentTeam,
     playerType: req.body.playerType,
     battingHand: req.body.battingHand,
-    fours: req.body.fours,
-    sixes: req.body.sixes,
     bowlingStyle: req.body.bowlingStyle,
-    HighestWicket: req.body.HighestWicket,
-    overs: req.body.overs,
-    innings: req.body.innings,
-    totalRuns: req.body.totalRuns,
-    totalWickets: req.body.totalWickets,
-    average: req.body.average,
-    strikeRate: req.body.strikeRate,
-    economyRate: req.body.economyRate,
+    status: req.body.status,
   };
   const { error, value } = playerSchemaValidation.validate(data);
   if (error) {
@@ -302,8 +282,15 @@ function paginate(query, page = 1, perPage = 1) {
 
 exports.getRandomPlayerByPlayerType = catchAsync(async (req, res) => {
   try {
+    const id = req.params.playerId
+    const player = await Player.findById(id)
+    if (!player){
+      return sendResponse(res, 204, "player not found");
+    }
+    await Player.updateOne({ _id: id }, {status:'skip'});
+
     const type = req.params.playerType;
-    let filter = { currentTeam: "None" };
+    let filter = { currentTeam: "None",status: null };
 
     if (type !== "any") {
       filter.playerType = type;
@@ -321,7 +308,7 @@ exports.getRandomPlayerByPlayerType = catchAsync(async (req, res) => {
     ]);
 
     if (!randomPlayer || randomPlayer.length === 0) {
-      return sendResponse(res, 204, "No players found");
+      return sendResponse(res, 204, "No players found,Move to next round");
     }
 
     return sendResponse(res, 200, "Random player found", randomPlayer[0]);
@@ -350,6 +337,11 @@ exports.getPlayersByType = catchAsync(async (req, res) => {
     return sendResponse(res, 500, "Internal Server Error");
   }
 });
+
+exports.nextRound = catchAsync(async (req,res)=>{
+  await Player.updateMany({status:'skip'},{status:null});
+  return sendResponse(res, 200, `Players updated successfully for the next round`);
+})
 
 exports.getAllPlayerByTeamName = catchAsync(async (req, res) => {
   try {

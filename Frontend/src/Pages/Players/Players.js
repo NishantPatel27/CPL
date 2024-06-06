@@ -10,7 +10,7 @@ import batterlogo from "../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../Assets/Images/player_type_icons/bowler.png";
 import allrounderlogo from "../Assets/Images/player_type_icons/All_rounder.png";
 // const dotenv = require("dotenv");
-// dotenv.config({ path: "../../../config.env" });
+// dotenv.config({ path: "../../../config..env" });
 const Players = () => {
   const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;

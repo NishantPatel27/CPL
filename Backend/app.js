@@ -11,7 +11,7 @@ const playerRouter = require("./routes/player-routes");
 const auctionRouter = require("./routes/auction-routes");
 
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./config..env" });
 const app = express();
 
 app.use(

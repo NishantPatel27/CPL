@@ -6,7 +6,7 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 // const dotenv = require("dotenv");
-// dotenv.config({ path: "../../../config.env" });
+// dotenv.config({ path: "../../../config..env" });
 const Teams = () => {
   const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;

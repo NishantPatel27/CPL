@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 const { promisify } = require("util");
 const validator = require("./../validator");
 
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./config..env" });
 
 exports.registerUser = catchAsync(async (req, res) => {
   const { error, value } = validator.userSignupSchemaValidation.validate(
@@ -33,7 +33,7 @@ exports.registerUser = catchAsync(async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 60 * 60 * 1000 * 24, // Cookie expires in 1 hour
+      maxAge: 365 * 24 * 60 * 60 * 1000, // Cookie expires in 1 year
       sameSite: "strict",
     });
 
@@ -73,7 +73,7 @@ exports.loginUser = catchAsync(async (req, res) => {
     console.log("Setting cookie...");
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 60 * 60 * 1000 * 24,
+      maxAge: 365 * 24 * 60 * 60 * 1000, // Cookie expires in 1 year
       // sameSite: 'strict'
     });
     console.log("Cookie set.");
@@ -164,7 +164,7 @@ exports.loginTeam = catchAsync(async (req, res) => {
     console.log("Setting cookie...");
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 60 * 60 * 1000 * 24,
+      maxAge: 365 * 24 * 60 * 60 * 1000, // Cookie expires in 1 year
       // sameSite: 'strict'
     });
     console.log("Cookie set.");

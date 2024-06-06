@@ -6,7 +6,7 @@ import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // const dotenv = require("dotenv");
-// dotenv.config({ path: "../../../../config.env" });
+// dotenv.config({ path: "../../../../config..env" });
 const Form = () => {
   const fileuploadicon = <FontAwesomeIcon icon={faArrowUpFromBracket} />;
 

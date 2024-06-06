@@ -2,7 +2,6 @@ const { date } = require('joi');
 const mongoose = require('mongoose');
 
 const playerSchema = new mongoose.Schema({
-    //Personal Details
     image: {
         type: String,
         required: true,
@@ -11,13 +10,21 @@ const playerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    bidPrice: {
+        type: Number,
+        min: 0,
+    },
+    basePrice: {
+        type: Number,
+        min: 0,
+    },
+    course : {
+        type:String,
+        required:true
+    },
     currentSemester: {
         type: String,
         required: true,
-    },
-    dateOfBirth: {
-        type: Date,
-        require: true
     },
     phoneNumber: {
         type: Number,
@@ -27,20 +34,6 @@ const playerSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-
-    // Auction
-    basePrice: {
-        type: Number,
-        min: 0,
-    },
-    bidPrice: {
-        type: Number,
-        min: 0,
-    },
-    previousTeam: {
-        type: String,
-        required: true,
-    },
     currentTeam: {
         type: String,
         required: true,
@@ -49,61 +42,15 @@ const playerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-
-    //Statics
-
-    //Batsman
-
-    battingHand: String,
-    fours: {
-        type: Number,
-        min: 0,
+    battingHand: {
+        type:String,
+        required:true
     },
-    sixes: {
-        type: Number,
-        min: 0,
+    bowlingStyle: {
+        type:String,
+        required:true
     },
-
-    //Bowler
-
-    bowlingStyle: String,
-    HighestWicket: {
-        type: Number,
-        min: 0,
-    },
-    overs: {
-        type: Number,
-        min: 0,
-    },
-
-
-    //All Rounders
-
-    innings: {
-        type: Number,
-        min: 0,
-    },
-    totalRuns: {
-        type: Number,
-        min: 0,
-    },
-    totalWickets: {
-        type: Number,
-        min: 0,
-    },
-    average: {
-        type: Number,
-        min: 0,
-    },
-    strikeRate: {
-        type: Number,
-        min: 0,
-    },
-    economyRate: {
-        type: Number,
-        min: 0,
-    },
-
+    status: String
 });
 
-module.exports = mongoose.model('Player', playerSchema);
+module.exports = mongoose.model('New_Players', playerSchema);

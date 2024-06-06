@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 // const dotenv = require("dotenv");
-// dotenv.config({ path: "./config.env" });
+// dotenv.config({ path: "./config..env" });
 
 const SignUp_URL = process.env.REACT_APP_BACKEND_URL + "/cpl/signup";
 const logIn_URL = process.env.REACT_APP_BACKEND_URL + "/cpl/login";

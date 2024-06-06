@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 // const dotenv = require("dotenv");
-// dotenv.config({ path: "../../config.env" });
+// dotenv.config({ path: "../../config..env" });
 
 const Signup = () => {
   const editIcon = <FontAwesomeIcon icon={faPencilAlt} />;

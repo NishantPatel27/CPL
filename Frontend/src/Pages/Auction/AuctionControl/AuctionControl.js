@@ -9,7 +9,7 @@ import { useParams } from "react-router";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 // const dotenv = require("dotenv");
-// dotenv.config({ path: "../../../../config.env" });
+// dotenv.config({ path: "../../../../config..env" });
 
 const AuctionControl = ({ socket }) => {
   // const playerImage = playerlogo;
@@ -58,7 +58,7 @@ const AuctionControl = ({ socket }) => {
           bidPrice: bidprice,
           currentTeam: newTeam,
         },
-      });
+      });~
 
       console.log("Sold player", updatedPlayer);
       if (updatedPlayer.status === 200) {

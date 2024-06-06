@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 // const dotenv = require("dotenv");
-// dotenv.config({ path: "./config.env" });
+// dotenv.config({ path: "./config..env" });
 const Update = () => {
   const [image, setImage] = useState({ preview: "", data: "" });
   const [formData, setFormData] = useState({

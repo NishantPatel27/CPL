@@ -34,6 +34,7 @@ async function updatePlayerAndTeam(playerId, bidPrice, newTeamName) {
       {
         currentTeam: newTeamName,
         bidPrice: bidPrice,
+        status:'sold'
       },
       { new: true, session }
     );
