@@ -58,7 +58,7 @@ const AuctionControl = ({ socket }) => {
           bidPrice: bidprice,
           currentTeam: newTeam,
         },
-      });~
+      });
 
       // console.log("Sold player", updatedPlayer);
       if (updatedPlayer.status === 200) {

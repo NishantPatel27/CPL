@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b74f480a-0dd7-4188-a1b5-5cff074a9d74" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/Pages/Auction/AuctionControl/AuctionControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/Pages/Auction/AuctionControl/AuctionControl.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +75,7 @@
       <workItem from="1717432252473" duration="1815000" />
       <workItem from="1717607182765" duration="5814000" />
       <workItem from="1717683717356" duration="5165000" />
+      <workItem from="1717692525378" duration="938000" />
     </task>
     <servers />
   </component>
