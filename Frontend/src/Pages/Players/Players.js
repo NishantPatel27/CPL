@@ -34,7 +34,7 @@ const Players = () => {
         withCredentials: true,
       })
       .then((response) => {
-        console.log("Player data:", response.data.data);
+        // console.log("Player data:", response.data.data);
         setData(response.data.data);
       })
       .catch((err) => console.log("Error fetching player data:", err));

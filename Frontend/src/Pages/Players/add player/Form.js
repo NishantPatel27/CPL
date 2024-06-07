@@ -1,41 +1,25 @@
 import React, { useState } from "react";
 import "./form.css";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// const dotenv = require("dotenv");
-// dotenv.config({ path: "../../../../config..env" });
-const Form = () => {
-  const fileuploadicon = <FontAwesomeIcon icon={faArrowUpFromBracket} />;
 
+const Form = () => {
   const [formData, setFormData] = useState({
+    image: "",
     name: "",
-    phoneNumber: "",
-    currentSemester: "1",
-    dateOfBirth: null,
-    branch: "software",
-    image: null,
-    basePrice: "",
     bidPrice: "",
-    previousTeam: "None",
+    basePrice: "",
+    course: "software",
+    currentSemester: "1",
+    phoneNumber: "",
     currentTeam: "None",
     playerType: "batsman",
-    totalRuns: "0",
-    innings: "0",
-    strikeRate: "0",
-    average: "0",
-    totalWickets: "0",
-    economyRate: "0",
     battingHand: "None",
-    fours: "0",
-    sixes: "0",
     bowlingStyle: "None",
-    HighestWicket: "0",
-    overs: "0",
   });
-  const [image, setImage] = useState({ preview: "", data: "" });
+  // const [image, setImage] = useState({ preview: "", data: "" });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -44,19 +28,19 @@ const Form = () => {
     });
   };
   // Image upload
-  const handleFileChange = (e) => {
-    const img = {
-      preview: URL.createObjectURL(e.target.files[0]),
-      data: e.target.files[0],
-    };
-    setImage(img);
-  };
+  // const handleFileChange = (e) => {
+  //   const img = {
+  //     preview: URL.createObjectURL(e.target.files[0]),
+  //     data: e.target.files[0],
+  //   };
+  //   setImage(img);
+  // };
 
   // FORM SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
     const d = new FormData();
-    d.append("file", image.data);
+
     Object.keys(formData).forEach((key) => {
       console.log(key, formData[key]);
       d.append(key, formData[key]);
@@ -73,29 +57,17 @@ const Form = () => {
         toast.success("Player added successfully.");
         // clear the form
         let clearForm = {
+          image: "None",
           name: "",
-          phoneNumber: "",
-          currentSemester: "1",
-          dateOfBirth: null,
-          branch: "software",
-          image: null,
-          basePrice: "",
           bidPrice: "",
-          previousTeam: "None",
+          basePrice: "",
+          course: "software",
+          currentSemester: "1",
+          phoneNumber: "",
           currentTeam: "None",
           playerType: "batsman",
-          totalRuns: "0",
-          innings: "0",
-          strikeRate: "0",
-          average: "0",
-          totalWickets: "0",
-          economyRate: "0",
           battingHand: "None",
-          fours: "0",
-          sixes: "0",
           bowlingStyle: "None",
-          HighestWicket: "0",
-          overs: "0",
         };
         setFormData(clearForm);
       })
@@ -179,7 +151,7 @@ const Form = () => {
             </div>
 
             <div className="row">
-              <div>
+              {/* <div>
                 <label htmlFor="DOB">Date of Birth</label>
                 <input
                   className="form-inputs"
@@ -190,14 +162,14 @@ const Form = () => {
                   value={formData.dateOfBirth}
                   onChange={handleInputChange}
                 />
-              </div>
+              </div> */}
               <div>
-                <label htmlFor="branch">Branch</label>
+                <label htmlFor="course">Course</label>
 
                 <select
-                  name="branch"
+                  name="course"
                   className="dropdown"
-                  value={formData.branch}
+                  value={formData.course}
                   onChange={handleInputChange}
                 >
                   <option value="software">Software</option>
@@ -213,21 +185,18 @@ const Form = () => {
                 </select>
               </div>
               <div>
-                <label>Players Photo</label>
-                <label className="fileupload-lable" htmlFor="playerphoto">
-                  <span className="upload-icon">{fileuploadicon}</span>
-                  Upload image
-                </label>
+                <label htmlFor="image">Player image</label>
+
                 <input
-                  type="file"
-                  name="file"
-                  id="playerphoto"
                   className="form-inputs"
-                  onChange={handleFileChange}
+                  type="text"
+                  name="image"
+                  id="image"
+                  placeholder="Enter image"
+                  value={formData.image}
+                  required
+                  onChange={handleInputChange}
                 />
-                {image.preview && (
-                  <img alt="" src={image.preview} width="100" height="100" />
-                )}
               </div>
             </div>
           </div>
@@ -267,7 +236,7 @@ const Form = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div>
+              {/* <div>
                 <label htmlFor="previousteam">Previous Team</label>
 
                 <select
@@ -288,7 +257,7 @@ const Form = () => {
                   <option value="SUPER GIANTS">SUPER GIANTS</option>
                   <option value="SUPER KINGS">SUPER KINGS</option>
                 </select>
-              </div>
+              </div> */}
               <div>
                 <label htmlFor="currentteam">Current Team</label>
 
@@ -334,7 +303,7 @@ const Form = () => {
         <fieldset>
           <legend>Statistics</legend>
           <div className="form-container auction">
-            <div className="row">
+            {/* <div className="row">
               <div>
                 <label htmlFor="totalruns">Total Runs</label>
 
@@ -405,9 +374,9 @@ const Form = () => {
                   onChange={handleInputChange}
                 />
               </div>
-            </div>
+            </div> */}
             <div className="row">
-              <div>
+              {/* <div>
                 <label htmlFor="eco">Ecomony</label>
 
                 <input
@@ -420,10 +389,10 @@ const Form = () => {
                   value={formData.economyRate}
                   onChange={handleInputChange}
                 />
-              </div>
+              </div> */}
 
               <div>
-                <label htmlFor="previousteam">Batting Hand</label>
+                <label htmlFor="battingHand">Batting Hand</label>
 
                 <select
                   name="battingHand"
@@ -464,7 +433,7 @@ const Form = () => {
                 </select>
               </div>
 
-              <div>
+              {/* <div>
                 <label htmlFor="fours">Fours</label>
 
                 <input
@@ -491,10 +460,10 @@ const Form = () => {
                   value={formData.sixes}
                   onChange={handleInputChange}
                 />
-              </div>
+              </div> */}
             </div>
 
-            <div className="row">
+            {/* <div className="row">
               <div>
                 <label htmlFor="eco">Highest Wicket</label>
 
@@ -523,7 +492,7 @@ const Form = () => {
                   onChange={handleInputChange}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </fieldset>
       </form>

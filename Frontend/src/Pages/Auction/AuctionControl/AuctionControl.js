@@ -1,5 +1,5 @@
 import "./Auction.css";
-import playerlogo from "../../Assets/Images/player/player image.png";
+// import playerlogo from "../../Assets/Images/player/player image.png";
 import allRounderlogo from "../../Assets/Images/player_type_icons/All_rounder.png";
 import batterlogo from "../../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler.png";
@@ -24,12 +24,14 @@ const AuctionControl = ({ socket }) => {
   };
 
   const fetchStats = async () => {
+    console.log("my stats");
     try {
       const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/player/stat/details`
+        `${process.env.REACT_APP_BACKEND_URL}/player/stat/details`
       );
       if (response.status === 200) {
         setStats(response.data.status);
+        console.log("STATS: ", response.data);
       }
     } catch (e) {
       console.log(e);
@@ -38,7 +40,9 @@ const AuctionControl = ({ socket }) => {
 
   const nextRound = async () => {
     try {
-      await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/player/nextRound`);
+      await axios.patch(
+        `${process.env.REACT_APP_BACKEND_URL}/player/nextRound`
+      );
       toast.success("Players updated successfully for the next round");
       await refreshPlayer(nextPlayerType);
     } catch (error) {
@@ -49,30 +53,30 @@ const AuctionControl = ({ socket }) => {
 
   const handleNoPlayerDataFound = async () => {
     // Display toast informing the user about the situation
-    toast.info(
-        "No more players of this type found. Moving to next round.",
-        {
-          position: "top-center",
-          autoClose: 3000,
-          // Render a button in the toast notification to allow the user to proceed to the next round manually
-          closeButton: (
-              <button onClick={nextRound} className="update-bid-btn">
-                Next Round
-              </button>
-          )
-        }
-    );
+    toast.info("No more players of this type found. Moving to next round.", {
+      position: "top-center",
+      autoClose: 3000,
+      // Render a button in the toast notification to allow the user to proceed to the next round manually
+      closeButton: (
+        <button onClick={nextRound} className="update-bid-btn">
+          Next Round
+        </button>
+      ),
+    });
   };
 
   const refreshPlayer = async (type) => {
     setLoaderText("Loading next player...");
     setIsLoading(true);
-    const playerId = playerData?._id === undefined ? "652b9ef11f1cc22b42569818" : playerData._id;
+    const playerId =
+      playerData?._id === undefined
+        ? "652b9ef11f1cc22b42569818"
+        : playerData._id;
 
     try {
       const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/player/random/${type}/${playerId}`,
-          { withCredentials: true }
+        `${process.env.REACT_APP_BACKEND_URL}/player/random/${type}/${playerId}`,
+        { withCredentials: true }
       );
       if (response.status === 200) {
         setPlayerData(response.data.data);
@@ -115,7 +119,6 @@ const AuctionControl = ({ socket }) => {
     };
   }, []);
 
-
   useEffect(() => {
     socket.emit("update_bid", Number(bidprice));
   }, [bidprice]);
@@ -127,13 +130,13 @@ const AuctionControl = ({ socket }) => {
 
     try {
       const updatedPlayer = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/auction/sell`,
-          {
-            playerId: playerData._id,
-            bidPrice: bidprice,
-            currentTeam: newTeam,
-          },
-          { withCredentials: true }
+        `${process.env.REACT_APP_BACKEND_URL}/auction/sell`,
+        {
+          playerId: playerData._id,
+          bidPrice: bidprice,
+          currentTeam: newTeam,
+        },
+        { withCredentials: true }
       );
 
       if (updatedPlayer.status === 200) {
@@ -171,190 +174,195 @@ const AuctionControl = ({ socket }) => {
   };
 
   return (
-      <div className="wrapper">
-        {!isLoading ? (
-            playerData ? (
-                <>
-                  <div className="profile">
-                    <img
-                        src={"/assets/images/players/" + playerData?.image}
-                        alt="current player logo"
-                    />
-                    <div>
-                      <h3 className="playerName">{playerData.name}</h3>
-                      <div className="player-summary">
-                        <div>
-                          <div className="summary-title">Base Price</div>
-                          <div className="summary-stats">{playerData.basePrice}</div>
-                        </div>
-                        <div>
-                          <div className="summary-title">Type</div>
-                          <div className="summary-stats">{playerData.playerType}</div>
-                        </div>
-                      </div>
-                      <div className="sold-wrapper">
-                        <button onClick={handleSelling} className="soldbtn">
-                          SOLD
-                        </button>
-                      </div>
-                    </div>
+    <div className="wrapper">
+      {!isLoading ? (
+        playerData ? (
+          <>
+            <div className="profile">
+              <img
+                src={"/assets/images/players/" + playerData?.image}
+                alt="current player logo"
+              />
+              <div>
+                <h3 className="playerName">{playerData.name}</h3>
+                <div className="player-summary">
+                  <div>
+                    <div className="summary-title">Base Price</div>
+                    <div className="summary-stats">{playerData.basePrice}</div>
                   </div>
-                  <div className="auction-control">
-                    <h3>Auction Control</h3>
-                    <div className="bid-control">
-                      <div>
-                        <label>Biding Price</label>
-                        <input
-                            onChange={(e) => setbidprice(Number(e.target.value))}
-                            id="bid-input"
-                            className="bid-input"
-                            type="number"
-                            value={bidprice}
-                        />
-                      </div>
-                      <button onClick={() => incrementBidPrice(100)}>+ 100</button>
-                      <button onClick={() => incrementBidPrice(500)}>+ 500</button>
-                      <button onClick={() => incrementBidPrice(1000)}>+ 1000</button>
-                    </div>
-                    <div className="right-side">
-                      <div className="update-bid-wrapper">
-                        <button onClick={handleSkip} className="update-bid-btn">
-                          Skip
-                        </button>
-                      </div>
-                      <div className="update-bid-wrapper">
-                        <button onClick={nextRound} className="update-bid-btn">
-                          Next Round
-                        </button>
-                      </div>
-                    </div>
+                  <div>
+                    <div className="summary-title">Type</div>
+                    <div className="summary-stats">{playerData.playerType}</div>
+                  </div>
+                </div>
+                <div className="sold-wrapper">
+                  <button onClick={handleSelling} className="soldbtn">
+                    SOLD
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="auction-control">
+              <h3>Auction Control</h3>
+              <div className="bid-control">
+                <div>
+                  <label>Biding Price</label>
+                  <input
+                    onChange={(e) => setbidprice(Number(e.target.value))}
+                    id="bid-input"
+                    className="bid-input"
+                    type="number"
+                    value={bidprice}
+                  />
+                </div>
+                <button onClick={() => incrementBidPrice(100)}>+ 100</button>
+                <button onClick={() => incrementBidPrice(500)}>+ 500</button>
+                <button onClick={() => incrementBidPrice(1000)}>+ 1000</button>
+              </div>
+              <div className="right-side">
+                <div className="update-bid-wrapper">
+                  <button onClick={handleSkip} className="update-bid-btn">
+                    Skip
+                  </button>
+                </div>
+                <div className="update-bid-wrapper">
+                  <button onClick={nextRound} className="update-bid-btn">
+                    Next Round
+                  </button>
+                </div>
+              </div>
 
-                    <div className="nextplayer">
-                      <div className="nextplayer-left">
-                        <table>
-                          <tr>
-                            <td>
-                              <label>New Team</label>
-                            </td>
-                            <td>
-                              <select
-                                  name="team"
-                                  id="team-dropdown"
-                                  title="team"
-                                  className="nextplayer-input"
-                                  onChange={(e) => {
-                                    setnewTeam(e.target.value);
-                                    socket.emit("change_wining_bid_team", e.target.value);
-                                  }}
-                              >
-                                <option value="None">None</option>
-                                <option value="ROYAL CHALLENGERS">ROYAL CHALLENGERS</option>
-                                <option value="KINGS XI">KINGS XI</option>
-                                <option value="TITANS">TITANS</option>
-                                <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
-                                <option value="INDIANS">INDIANS</option>
-                                <option value="ROYALS">ROYALS</option>
-                                <option value="SUNRISES">SUNRISES</option>
-                                <option value="CAPITALS">CAPITALS</option>
-                                <option value="SUPER GIANTS">SUPER GIANTS</option>
-                                <option value="SUPER KINGS">SUPER KINGS</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <label>Next Player</label>
-                            </td>
-                            <td>
-                              <select
-                                  className="nextplayer-input"
-                                  onChange={(e) => setnextPlayerType(e.target.value)}
-                              >
-                                <option value="allrounder">All rounder</option>
-                                <option value="batsman">Batsman</option>
-                                <option value="bowler">Bowler</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </table>
+              <div className="nextplayer">
+                <div className="nextplayer-left">
+                  <table>
+                    <tr>
+                      <td>
+                        <label>New Team</label>
+                      </td>
+                      <td>
+                        <select
+                          name="team"
+                          id="team-dropdown"
+                          title="team"
+                          className="nextplayer-input"
+                          onChange={(e) => {
+                            setnewTeam(e.target.value);
+                            socket.emit(
+                              "change_wining_bid_team",
+                              e.target.value
+                            );
+                          }}
+                        >
+                          <option value="None">None</option>
+                          <option value="ROYAL CHALLENGERS">
+                            ROYAL CHALLENGERS
+                          </option>
+                          <option value="KINGS XI">KINGS XI</option>
+                          <option value="TITANS">TITANS</option>
+                          <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
+                          <option value="INDIANS">INDIANS</option>
+                          <option value="ROYALS">ROYALS</option>
+                          <option value="SUNRISES">SUNRISES</option>
+                          <option value="CAPITALS">CAPITALS</option>
+                          <option value="SUPER GIANTS">SUPER GIANTS</option>
+                          <option value="SUPER KINGS">SUPER KINGS</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Next Player</label>
+                      </td>
+                      <td>
+                        <select
+                          className="nextplayer-input"
+                          onChange={(e) => setnextPlayerType(e.target.value)}
+                        >
+                          <option value="allrounder">All rounder</option>
+                          <option value="batsman">Batsman</option>
+                          <option value="bowler">Bowler</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div className="nextplayer-right">
+                  <div className="soldplayer-stats stats-box">
+                    SOLD PLAYERS
+                    <div className="player-digit">{stats?.countSold}</div>
+                    <div className="icon-wrapper">
+                      <div>
+                        <img
+                          className="player-type-icon"
+                          src={batterlogo}
+                          alt="current player logo"
+                        />
+                        <span>{stats?.batsmanCountSold}</span>
                       </div>
-                      <div className="nextplayer-right">
-                        <div className="soldplayer-stats stats-box">
-                          SOLD PLAYERS
-                          <div className="player-digit">{stats?.countSold}</div>
-                          <div className="icon-wrapper">
-                            <div>
-                              <img
-                                  className="player-type-icon"
-                                  src={batterlogo}
-                                  alt="current player logo"
-                              />
-                              <span>{stats?.batsmanCountSold}</span>
-                            </div>
-                            <div>
-                              <img
-                                  className="player-type-icon"
-                                  src={allRounderlogo}
-                                  alt="current player logo"
-                              />
-                              <span>{stats?.allRounderCountSold}</span>
-                            </div>
-                            <div>
-                              <img
-                                  className="player-type-icon"
-                                  src={bowlerlogo}
-                                  alt="current player logo"
-                              />
-                              <span>{stats?.bowlerCountSold}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="soldplayer-stats stats-box">
-                          UNSOLD PLAYERS
-                          <div className="player-digit">{stats?.countUnsold}</div>
-                          <div className="icon-wrapper">
-                            <div>
-                              <img
-                                  className="player-type-icon"
-                                  src={batterlogo}
-                                  alt="current player logo"
-                              />
-                              <span>{stats?.batsmanCountUnsold}</span>
-                            </div>
-                            <div>
-                              <img
-                                  className="player-type-icon"
-                                  src={allRounderlogo}
-                                  alt="current player logo"
-                              />
-                              <span>{stats?.allRounderCountUnsold}</span>
-                            </div>
-                            <div>
-                              <img
-                                  className="player-type-icon"
-                                  src={bowlerlogo}
-                                  alt="current player logo"
-                              />
-                              <span>{stats?.bowlerCountUnsold}</span>
-                            </div>
-                          </div>
-                        </div>
+                      <div>
+                        <img
+                          className="player-type-icon"
+                          src={allRounderlogo}
+                          alt="current player logo"
+                        />
+                        <span>{stats?.allRounderCountSold}</span>
+                      </div>
+                      <div>
+                        <img
+                          className="player-type-icon"
+                          src={bowlerlogo}
+                          alt="current player logo"
+                        />
+                        <span>{stats?.bowlerCountSold}</span>
                       </div>
                     </div>
                   </div>
-                </>
-            ) : (
-                <>
-                  <h3 style={{ textAlign: "center", color: "red" }}>{message}</h3>
-                </>
-            )
+                  <div className="soldplayer-stats stats-box">
+                    UNSOLD PLAYERS
+                    <div className="player-digit">{stats?.countUnsold}</div>
+                    <div className="icon-wrapper">
+                      <div>
+                        <img
+                          className="player-type-icon"
+                          src={batterlogo}
+                          alt="current player logo"
+                        />
+                        <span>{stats?.batsmanCountUnsold}</span>
+                      </div>
+                      <div>
+                        <img
+                          className="player-type-icon"
+                          src={allRounderlogo}
+                          alt="current player logo"
+                        />
+                        <span>{stats?.allRounderCountUnsold}</span>
+                      </div>
+                      <div>
+                        <img
+                          className="player-type-icon"
+                          src={bowlerlogo}
+                          alt="current player logo"
+                        />
+                        <span>{stats?.bowlerCountUnsold}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
         ) : (
-            <>
-              <h3 style={{ textAlign: "center" }}>{loaderText}</h3>
-            </>
-        )}
-        <ToastContainer position="top-center" autoClose={3000} />
-      </div>
+          <>
+            <h3 style={{ textAlign: "center", color: "red" }}>{message}</h3>
+          </>
+        )
+      ) : (
+        <>
+          <h3 style={{ textAlign: "center" }}>{loaderText}</h3>
+        </>
+      )}
+      <ToastContainer position="top-center" autoClose={3000} />
+    </div>
   );
 };
 

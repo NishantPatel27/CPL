@@ -9,19 +9,14 @@ const unlinkAsync = promisify(fs.unlink);
 
 // Create Player
 exports.createPlayer = async (req, res) => {
-  // if (!req.file) {
-  //     // If no file is uploaded, respond with a 400 Bad Request status
-  //     return res.status(400).json({ success: false, message: 'No file uploaded' });
-  // }
   const data = {
-    image: req.file?.filename || "none",
+    image: req.body.image,
     name: req.body.name,
     bidPrice: req.body.bidPrice,
     basePrice: req.body.basePrice,
     course: req.body.course,
     currentSemester: req.body.currentSemester,
     phoneNumber: req.body.phoneNumber,
-    branch: req.body.branch,
     currentTeam: req.body.currentTeam,
     playerType: req.body.playerType,
     battingHand: req.body.battingHand,
@@ -35,7 +30,7 @@ exports.createPlayer = async (req, res) => {
   }
 
   return sendResponse(res, 200, "Player created successfully", {
-    team: await Player.create(Object.assign(value,{status:null})),
+    team: await Player.create(Object.assign(value, { status: null })),
   });
 };
 
@@ -43,14 +38,13 @@ exports.createPlayer = async (req, res) => {
 exports.updatePlayer = catchAsync(async (req, res) => {
   const playerId = req.params.playerID;
   const data = {
+    image: req.body.image,
     name: req.body.name,
-    image: Boolean(req.file?.filename) ? req.file?.filename : req.body.image,
     bidPrice: req.body.bidPrice,
     basePrice: req.body.basePrice,
     course: req.body.course,
     currentSemester: req.body.currentSemester,
     phoneNumber: req.body.phoneNumber,
-    branch: req.body.branch,
     currentTeam: req.body.currentTeam,
     playerType: req.body.playerType,
     battingHand: req.body.battingHand,
@@ -162,7 +156,7 @@ exports.getPlayerById = catchAsync(async (req, res) => {
 // Get random player
 exports.getRandomPlayer = catchAsync(async (req, res) => {
   const randomPlayer = await Player.aggregate([
-    { $match: { currentTeam: "None" ,status:null} },
+    { $match: { currentTeam: "None", status: null } },
     { $sample: { size: 1 } },
   ]);
   if (!randomPlayer) {
@@ -273,15 +267,19 @@ function paginate(query, page = 1, perPage = 1) {
 
 exports.getRandomPlayerByPlayerType = catchAsync(async (req, res) => {
   try {
-    if (req.params.playerId !== "652b9ef11f1cc22b42569818"){
-      const playerId = req.params.playerId
-      const player = await Player.findByIdAndUpdate(playerId,{status:'skip'}, {new: true})
-      if (!player){
+    if (req.params.playerId !== "652b9ef11f1cc22b42569818") {
+      const playerId = req.params.playerId;
+      const player = await Player.findByIdAndUpdate(
+        playerId,
+        { status: "skip" },
+        { new: true }
+      );
+      if (!player) {
         return sendResponse(res, 204, "player not found");
       }
     }
     const type = req.params.playerType;
-    let filter = { currentTeam: "None",status: null };
+    let filter = { currentTeam: "None", status: null };
 
     if (type !== "any") {
       filter.playerType = type;
@@ -329,10 +327,14 @@ exports.getPlayersByType = catchAsync(async (req, res) => {
   }
 });
 
-exports.nextRound = catchAsync(async (req,res)=>{
-  await Player.updateMany({status:'skip'},{status:null});
-  return sendResponse(res, 200, `Players updated successfully for the next round`);
-})
+exports.nextRound = catchAsync(async (req, res) => {
+  await Player.updateMany({ status: "skip" }, { status: null });
+  return sendResponse(
+    res,
+    200,
+    `Players updated successfully for the next round`
+  );
+});
 
 exports.getAllPlayerByTeamName = catchAsync(async (req, res) => {
   try {

@@ -43,7 +43,7 @@ const Dashboard = () => {
         <div className="stats-card">
           <div>
             <p className="card-numbers">
-              {stats?.countSold + stats?.countUnsold}
+              {stats?.countSold | (0 + stats?.countUnsold) | 0}
             </p>
             <p className="card-text">Total Players</p>
           </div>
@@ -62,8 +62,8 @@ const Dashboard = () => {
         </div>
         <div className="stats-card">
           <div>
-            <p className="card-numbers">{stats?.countSold}</p>
-            <p className="card-text">Sold Sold</p>
+            <p className="card-numbers">{stats?.countSold | 0}</p>
+            <p className="card-text">Sold Players</p>
           </div>
           <div>
             <span className="card-icons">{SoldIcon}</span>
@@ -71,7 +71,7 @@ const Dashboard = () => {
         </div>
         <div className="stats-card">
           <div>
-            <p className="card-numbers">{stats?.countUnsold}</p>
+            <p className="card-numbers">{stats?.countUnsold | 0}</p>
             <p className="card-text">Unsold Players</p>
           </div>
           <div>

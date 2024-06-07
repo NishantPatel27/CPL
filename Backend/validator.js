@@ -87,10 +87,6 @@ exports.playerSchemaValidation = Joi.object({
     "number.base": "Phone number should be a number",
     "any.required": "Phone number is required",
   }),
-  branch: Joi.string().required().messages({
-    "string.base": "Branch should be a string",
-    "any.required": "Branch is required",
-  }),
   basePrice: Joi.number().min(0).messages({
     "number.base": "Base price should be a number",
     "number.min": "Base price should be at least {#limit}",
@@ -114,7 +110,7 @@ exports.playerSchemaValidation = Joi.object({
   bowlingStyle: Joi.string().required().messages({
     "string.base": "Bowling style should be a string",
     "any.required": "Bowling style is required",
-  })
+  }),
 });
 
 // module.exports = { userSignupSchemaValidation, userLoginSchemaValidation, teamSchemaValidation, playerSchemaValidation };
