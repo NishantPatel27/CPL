@@ -14,11 +14,14 @@
     border-radius: 10px;
     text-align: center;
     padding: 2vw 4vw;
+    display: flex;
+    flex-direction: column;
     
 }
 
 .login-form-wrapper img{
-    margin-left: 100px;
+    /* margin-left: 100px; */
+    /* background-color: green; */
 }
 
 .child-position form{
@@ -29,6 +32,7 @@
     text-align: center;
     width: auto;
     padding: 2vw 0px;
+    /* background-color: red; */
 }
 
 .login-form-input{
@@ -39,8 +43,8 @@
     border: none;
     border-radius: 7px;
     background-color: rgb(226, 234, 241);
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .child-position form input:nth-of-type(1){

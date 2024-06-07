@@ -99,7 +99,7 @@ const DashboardTeam = ({ socket }) => {
 
         <div className="TM-progress-wrapper">
           <div className="TM-pgbr1">
-            <h3>{players?.length} / 12 players</h3>
+            <h3>{players?.length} / 10 players</h3>
            
               <div id="players-progress-wrapper">
                 <div id="players-progress-bar" style={{ width: `${progress}%`}}>

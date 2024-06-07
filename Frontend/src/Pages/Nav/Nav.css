@@ -1,7 +1,8 @@
 
 .navbar img{
    padding-top: 1rem;
-   padding-left: 0.5rem;
+   /* padding-left: 0.5rem; */
+   height: 4vw;
 }
 .navbar ul {
    margin-top: 1vw;
@@ -25,7 +26,7 @@
 .logo{
    height: 62px;
    margin-top: 30px;
-   margin-left: 22px;
+   margin-left: 10px;
 }
 
 .nav-icons{

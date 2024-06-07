@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import "./login.css";
-import logo from "../Assets/Images/logo/logo.png";
+import logo from "../Assets/Images/logo/logo_dark.png";
 import authService from "../../Services/auth.service";
 import { useNavigate } from "react-router-dom";
 
@@ -108,7 +108,7 @@ const Loginform = ({ flag }) => {
               name="team"
               id="team"
               title="team"
-              className="login-form-input"
+              className="login-form-input login-dropdown"
               style={{ display: roleDropdown === "team" ? "block" : "none" }}
               onChange={(e) => {
                 setteamDropdown(e.target.value);
