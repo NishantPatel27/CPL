@@ -1,5 +1,4 @@
 import "./Auction.css";
-// import playerlogo from "../../Assets/Images/player/player image.png";
 import allRounderlogo from "../../Assets/Images/player_type_icons/All_rounder.png";
 import batterlogo from "../../Assets/Images/player_type_icons/batter.png";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler.png";
@@ -9,7 +8,7 @@ import { useParams } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 
 const AuctionControl = ({ socket }) => {
-  const [playerData, setPlayerData] = useState();
+  const [playerData, setPlayerData] = useState(null);
   const { id } = useParams();
   const [bidprice, setbidprice] = useState(0);
   const [newTeam, setnewTeam] = useState("Knights");
@@ -24,14 +23,12 @@ const AuctionControl = ({ socket }) => {
   };
 
   const fetchStats = async () => {
-    console.log("my stats");
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/player/stat/details`
       );
       if (response.status === 200) {
         setStats(response.data.status);
-        console.log("STATS: ", response.data);
       }
     } catch (e) {
       console.log(e);
@@ -52,11 +49,9 @@ const AuctionControl = ({ socket }) => {
   };
 
   const handleNoPlayerDataFound = async () => {
-    // Display toast informing the user about the situation
     toast.info("No more players of this type found. Moving to next round.", {
       position: "top-center",
       autoClose: 3000,
-      // Render a button in the toast notification to allow the user to proceed to the next round manually
       closeButton: (
         <button onClick={nextRound} className="update-bid-btn">
           Next Round
@@ -103,21 +98,22 @@ const AuctionControl = ({ socket }) => {
     }
   };
 
-  useEffect(async () => {
-    await refreshPlayer(nextPlayerType);
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      await refreshPlayer(nextPlayerType);
 
-    // Check if there are no players with status null
-    const hasNoNullPlayers = !playerData || playerData.length === 0;
+      const hasNoNullPlayers = !playerData || playerData.length === 0;
+      if (hasNoNullPlayers) {
+        await handleNoPlayerDataFound();
+      }
+    };
 
-    // If there are no players with status null, initiate next round logic
-    if (hasNoNullPlayers) {
-      await handleNoPlayerDataFound();
-    }
+    fetchInitialData();
 
     return () => {
       socket.emit("player_data", {});
     };
-  }, []);
+  }, [nextPlayerType]);
 
   useEffect(() => {
     socket.emit("update_bid", Number(bidprice));
@@ -141,8 +137,8 @@ const AuctionControl = ({ socket }) => {
 
       if (updatedPlayer.status === 200) {
         socket.emit("sell_player", updatedPlayer.data);
-        setPlayerData();
-        socket.emit("change_selling_status", "selling_successfull");
+        setPlayerData(null);
+        socket.emit("change_selling_status", "selling_successful");
         toast.success("Player sold successfully");
         await fetchStats();
         await refreshPlayer(nextPlayerType);
@@ -235,55 +231,59 @@ const AuctionControl = ({ socket }) => {
               <div className="nextplayer">
                 <div className="nextplayer-left">
                   <table>
-                    <tr>
-                      <td>
-                        <label>New Team</label>
-                      </td>
-                      <td>
-                        <select
-                          name="team"
-                          id="team-dropdown"
-                          title="team"
-                          className="nextplayer-input"
-                          onChange={(e) => {
-                            setnewTeam(e.target.value);
-                            socket.emit(
-                              "change_wining_bid_team",
-                              e.target.value
-                            );
-                          }}
-                        >
-                          <option value="None">None</option>
-                          <option value="ROYAL CHALLENGERS">
-                            ROYAL CHALLENGERS
-                          </option>
-                          <option value="KINGS XI">KINGS XI</option>
-                          <option value="TITANS">TITANS</option>
-                          <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
-                          <option value="INDIANS">INDIANS</option>
-                          <option value="ROYALS">ROYALS</option>
-                          <option value="SUNRISES">SUNRISES</option>
-                          <option value="CAPITALS">CAPITALS</option>
-                          <option value="SUPER GIANTS">SUPER GIANTS</option>
-                          <option value="SUPER KINGS">SUPER KINGS</option>
-                        </select>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>Next Player</label>
-                      </td>
-                      <td>
-                        <select
-                          className="nextplayer-input"
-                          onChange={(e) => setnextPlayerType(e.target.value)}
-                        >
-                          <option value="allrounder">All rounder</option>
-                          <option value="batsman">Batsman</option>
-                          <option value="bowler">Bowler</option>
-                        </select>
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label>New Team</label>
+                        </td>
+                        <td>
+                          <select
+                            name="team"
+                            id="team-dropdown"
+                            title="team"
+                            className="nextplayer-input"
+                            onChange={(e) => {
+                              setnewTeam(e.target.value);
+                              socket.emit(
+                                "change_winning_bid_team",
+                                e.target.value
+                              );
+                            }}
+                          >
+                            <option value="None">None</option>
+                            <option value="ROYAL CHALLENGERS">
+                              ROYAL CHALLENGERS
+                            </option>
+                            <option value="KINGS XI">KINGS XI</option>
+                            <option value="TITANS">TITANS</option>
+                            <option value="KNIGHT RIDERS">
+                              KNIGHT RIDERS
+                            </option>
+                            <option value="INDIANS">INDIANS</option>
+                            <option value="ROYALS">ROYALS</option>
+                            <option value="SUNRISES">SUNRISES</option>
+                            <option value="CAPITALS">CAPITALS</option>
+                            <option value="SUPER GIANTS">SUPER GIANTS</option>
+                            <option value="SUPER KINGS">SUPER KINGS</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label>Next Player</label>
+                        </td>
+                        <td>
+                          <select
+                            className="nextplayer-input"
+                            onChange={(e) => setnextPlayerType(e.target.value)}
+                          >
+                            <option value="allrounder">All rounder</option>
+                            <option value="batsman">Batsman</option>
+                            <option value="bowler">Bowler</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
                 <div className="nextplayer-right">
