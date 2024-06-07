@@ -5,20 +5,21 @@ const { upload, resizeImagePlayer } = require("./../utils/image-upload");
 
 const router = express.Router();
 
-// get random player
+// move to next round
+router.patch("/nextRound", playerController.nextRound);
+
+// get random playe
+router.get(
+  "/randomPlayer",
+  authController.isLoggedIn,
+  playerController.getRandomPlayer
+);
+
+// get random player by type
 router.get(
   "/random/:playerType/:playerId",
   authController.isLoggedIn,
   playerController.getRandomPlayerByPlayerType
-);
-
-// move to next round
-router.patch("/nextRound",playerController.nextRound)
-
-router.get(
-    "/randomPlayer",
-    authController.isLoggedIn,
-    playerController.getRandomPlayer
 );
 
 // Get all players

@@ -63,20 +63,23 @@ const AuctionControl = ({ socket }) => {
   const refreshPlayer = async (type) => {
     setLoaderText("Loading next player...");
     setIsLoading(true);
-    const playerId =
-      playerData?._id === undefined
-        ? "652b9ef11f1cc22b42569818"
-        : playerData._id;
+    // const playerId = playerData?._id === undefined? "652b9ef11f1cc22b42569818": playerData._id;
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/player/random/${type}/${playerId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/player/randomPlayer`,
         { withCredentials: true }
       );
+      // const response = await axios.get(
+      //   `${process.env.REACT_APP_BACKEND_URL}/player/random/${type}/${playerId}`,
+      //   { withCredentials: true }
+      // );
       if (response.status === 200) {
-        setPlayerData(response.data.data);
-        setbidprice(Number(response.data.data.bidPrice));
-        socket.emit("player_data", response.data.data);
+        let myplayer = response.data.data;
+        console.log(myplayer);
+        setPlayerData(myplayer);
+        setbidprice(Number(myplayer.bidPrice));
+        socket.emit("player_data", myplayer);
       } else {
         setMessage(response.statusText);
       }
@@ -84,8 +87,8 @@ const AuctionControl = ({ socket }) => {
       setIsLoading(false);
     } catch (err) {
       if (err.response && err.response.status === 404) {
-        console.warn("Player data not found. Initiating next round.");
-        await handleNoPlayerDataFound();
+        console.warn("Player data not found.");
+        // await handleNoPlayerDataFound();
       } else {
         setLoaderText("");
         setIsLoading(false);
@@ -101,10 +104,11 @@ const AuctionControl = ({ socket }) => {
   useEffect(() => {
     const fetchInitialData = async () => {
       await refreshPlayer(nextPlayerType);
-
+      console.log("intial stage");
       const hasNoNullPlayers = !playerData || playerData.length === 0;
       if (hasNoNullPlayers) {
-        await handleNoPlayerDataFound();
+        // await handleNoPlayerDataFound();
+        // toast.error("no player found");
       }
     };
 
@@ -159,13 +163,70 @@ const AuctionControl = ({ socket }) => {
   };
 
   const handleSkip = async () => {
+    // try {
+    //   await refreshPlayer(nextPlayerType);
+    // } catch (error) {
+    //   setLoaderText("");
+    //   setIsLoading(false);
+    //   setMessage(error);
+    //   console.log("error", error);
+    // }
+
+    setIsLoading(true);
+    setLoaderText("Skipping the player...");
+    socket.emit("change_selling_status", "selling_started");
+
+    const playerId = playerData._id;
+    let mystatus = "";
+
+    if (playerData.status === "skipped") {
+      mystatus = "unsold";
+    } else {
+      mystatus = "skipped";
+    }
+
+    const skipdata = {
+      image: playerData.image,
+      name: playerData.name,
+      bidPrice: playerData.bidPrice,
+      basePrice: playerData.basePrice,
+      course: playerData.course,
+      currentSemester: playerData.currentSemester,
+      phoneNumber: playerData.phoneNumber,
+      currentTeam: playerData.currentTeam,
+      playerType: playerData.playerType,
+      battingHand: playerData.battingHand,
+      bowlingStyle: playerData.bowlingStyle,
+      status: mystatus,
+    };
+
     try {
-      await refreshPlayer(nextPlayerType);
-    } catch (error) {
+      const updatedPlayer = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/player/update/${playerId}`,
+        skipdata,
+        { withCredentials: true }
+      );
+
+      if (updatedPlayer.status === 200) {
+        socket.emit("sell_player", updatedPlayer.data);
+        setPlayerData(null);
+        socket.emit("change_selling_status", "selling_successful");
+        toast.success("Player Skipped");
+        await fetchStats();
+        await refreshPlayer(nextPlayerType);
+      } else {
+        socket.emit("change_selling_status", "selling_error");
+        toast.error(updatedPlayer.statusText);
+      }
+    } catch (e) {
+      setIsLoading(false);
+      setLoaderText("");
+      socket.emit("change_selling_status", "selling_error");
+      toast.error(e.response.data.status);
+    } finally {
       setLoaderText("");
       setIsLoading(false);
-      setMessage(error);
-      console.log("error", error);
+      socket.emit("change_selling_status", "none");
     }
   };
 
@@ -185,6 +246,21 @@ const AuctionControl = ({ socket }) => {
                   <div>
                     <div className="summary-title">Base Price</div>
                     <div className="summary-stats">{playerData.basePrice}</div>
+                  </div>
+                  <div>
+                    <div className="summary-title">Status</div>
+                    <div
+                      style={{
+                        backgroundColor:
+                          playerData.status === "available" ? "green" : "red",
+                        fontWeight: "700",
+                        color: "white",
+                        padding: "10px",
+                      }}
+                      className="summary-stats"
+                    >
+                      <span>{playerData.status.toUpperCase()}</span>
+                    </div>
                   </div>
                   <div>
                     <div className="summary-title">Type</div>
@@ -256,9 +332,7 @@ const AuctionControl = ({ socket }) => {
                             </option>
                             <option value="KINGS XI">KINGS XI</option>
                             <option value="TITANS">TITANS</option>
-                            <option value="KNIGHT RIDERS">
-                              KNIGHT RIDERS
-                            </option>
+                            <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
                             <option value="INDIANS">INDIANS</option>
                             <option value="ROYALS">ROYALS</option>
                             <option value="SUNRISES">SUNRISES</option>

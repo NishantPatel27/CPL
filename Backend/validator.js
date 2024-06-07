@@ -111,6 +111,10 @@ exports.playerSchemaValidation = Joi.object({
     "string.base": "Bowling style should be a string",
     "any.required": "Bowling style is required",
   }),
+  status: Joi.string().required().messages({
+    "string.base": "status  should be a string",
+    "any.required": "Status style is required",
+  }),
 });
 
 // module.exports = { userSignupSchemaValidation, userLoginSchemaValidation, teamSchemaValidation, playerSchemaValidation };

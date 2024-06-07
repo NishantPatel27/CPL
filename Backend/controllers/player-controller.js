@@ -49,6 +49,7 @@ exports.updatePlayer = catchAsync(async (req, res) => {
     playerType: req.body.playerType,
     battingHand: req.body.battingHand,
     bowlingStyle: req.body.bowlingStyle,
+    status: req.body.status,
   };
   const { error, value } = playerSchemaValidation.validate(data);
   if (error) {
@@ -155,14 +156,31 @@ exports.getPlayerById = catchAsync(async (req, res) => {
 
 // Get random player
 exports.getRandomPlayer = catchAsync(async (req, res) => {
-  const randomPlayer = await Player.aggregate([
-    { $match: { currentTeam: "None", status: null } },
+  let player;
+
+  const randomAvailablePlayer = await Player.aggregate([
+    { $match: { currentTeam: "None", status: "available" } },
     { $sample: { size: 1 } },
   ]);
-  if (!randomPlayer) {
-    return sendResponse(res, 204, "No players found");
+
+  if (randomAvailablePlayer.length > 0) {
+    player = randomAvailablePlayer[0];
+  } else {
+    const randomSkippedPlayer = await Player.aggregate([
+      { $match: { currentTeam: "None", status: "skipped" } },
+      { $sample: { size: 1 } },
+    ]);
+
+    if (randomSkippedPlayer.length > 0) {
+      player = randomSkippedPlayer[0];
+    }
   }
-  return sendResponse(res, 200, "Random player found", randomPlayer);
+
+  if (!player) {
+    return sendResponse(res, 204, "Random player not found");
+  }
+
+  return sendResponse(res, 200, "Random player found", player);
 });
 
 //player LIVE STATS
@@ -267,17 +285,17 @@ function paginate(query, page = 1, perPage = 1) {
 
 exports.getRandomPlayerByPlayerType = catchAsync(async (req, res) => {
   try {
-    if (req.params.playerId !== "652b9ef11f1cc22b42569818") {
-      const playerId = req.params.playerId;
-      const player = await Player.findByIdAndUpdate(
-        playerId,
-        { status: "skip" },
-        { new: true }
-      );
-      if (!player) {
-        return sendResponse(res, 204, "player not found");
-      }
-    }
+    // if (req.params.playerId !== "652b9ef11f1cc22b42569818") {
+    //   const playerId = req.params.playerId;
+    //   const player = await Player.findByIdAndUpdate(
+    //     playerId,
+    //     { status: "skip" },
+    //     { new: true }
+    //   );
+    //   if (!player) {
+    //     return sendResponse(res, 204, "player not found");
+    //   }
+    // }
     const type = req.params.playerType;
     let filter = { currentTeam: "None", status: null };
 

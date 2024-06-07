@@ -65,7 +65,7 @@ const Players = () => {
               <th>Bid Price</th>
               <th>SOLD/UNSOLD</th>
               <th>Current Team</th>
-              <th>ECO</th>
+              <th>STATUS</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -105,7 +105,17 @@ const Players = () => {
                     <td>
                       {player.currentTeam === "None" ? "-" : player.currentTeam}
                     </td>
-                    <td>{player.economyRate}</td>
+                    <td>
+                      <span
+                        style={{
+                          color:
+                            player.status === "available" ? "green" : "black",
+                          fontWeight: "700",
+                        }}
+                      >
+                        {player.status}
+                      </span>
+                    </td>
                     <td>
                       <Link to={`/update/${player._id}`}>
                         <span className="nav-icons">{editIcon}</span>
