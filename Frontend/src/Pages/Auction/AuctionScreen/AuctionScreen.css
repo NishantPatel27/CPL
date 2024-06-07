@@ -3,7 +3,8 @@
   background: linear-gradient(
     124deg,
     rgba(23, 90, 143, 1) 0%,
-    rgba(52, 36, 105, 1) 50%,
+    rgb(35, 24, 73) 35%,
+    rgb(35,24,73) 70%,
     rgba(10, 82, 135, 1) 100%
   );
   height: 100vh;
@@ -52,13 +53,14 @@
 #AC-lineB1,
 #AC-lineB2,
 #AC-lineB3 {
-  height: 8vh;
+  /* height: 7vh; */
+  width: 35vw;
   position: absolute;
   top: 80vh;
-  left: 24vh;
+  left: 22vh;
 }
 #AC-lineB2 {
-  left: 70vh;
+  left: 97vh;
 }
 #AC-lineB3 {
   left: 113vh;
@@ -90,7 +92,8 @@
 #cpllogo{
   position: absolute;
   top:16vh;
-  left: 87vh;
+  left: 25vh;
+  height: 8vw;
 }
 #vibranium_logo{
   position: absolute;
@@ -164,24 +167,24 @@
 #AC-runstext,
 #AC-wicketstext {
   position: absolute;
-  top: 82vh;
-  left: 35vh;
-  font-size: 3vh;
+  top: 83vh;
+  left: 26vh;
+  font-size: 2vh;
 }
-#AC-runstext {
-  left: 83vh;
-}
+/* #AC-runstext {
+  left: 50vh;
+} */
 #AC-wicketstext {
-  left: 120vh;
+  left: 100vh;
 }
 
 #AC-bidwinningteam{
     position: absolute;
     /* background-color: red; */
     text-align: center;
-    top: 56vh;
+    top: 55vh;
     left: 126vh;
-    font-size: 3vh;
+    font-size: 2.6vh;
     opacity: 1;
     width: 200px;
     color: rgb(243, 242, 242);

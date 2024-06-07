@@ -15,8 +15,8 @@ const Form = () => {
     phoneNumber: "",
     currentTeam: "None",
     playerType: "batsman",
-    battingHand: "None",
-    bowlingStyle: "None",
+    battingHand: "",
+    bowlingStyle: "",
     status: "available",
   });
   // const [image, setImage] = useState({ preview: "", data: "" });
@@ -28,14 +28,6 @@ const Form = () => {
       [name]: value,
     });
   };
-  // Image upload
-  // const handleFileChange = (e) => {
-  //   const img = {
-  //     preview: URL.createObjectURL(e.target.files[0]),
-  //     data: e.target.files[0],
-  //   };
-  //   setImage(img);
-  // };
 
   // FORM SUBMIT
   const handleSubmit = (e) => {
@@ -174,6 +166,7 @@ const Form = () => {
                   onChange={handleInputChange}
                 >
                   <option value="software">Software</option>
+                  <option value="Fintech">Fintech</option>
                   <option value="itims">ITIMS</option>
                   <option value="animation">Animation</option>
                   <option value="digital design">Digital Desing</option>
@@ -253,7 +246,7 @@ const Form = () => {
                   <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
                   <option value="INDIANS">INDIANS</option>
                   <option value="ROYALS">ROYALS</option>
-                  <option value="SUNRISES">SUNRISES</option>
+                  <option value="SUNRISERS">SUNRISERS</option>
                   <option value="CAPITALS">CAPITALS</option>
                   <option value="SUPER GIANTS">SUPER GIANTS</option>
                   <option value="SUPER KINGS">SUPER KINGS</option>
@@ -275,7 +268,7 @@ const Form = () => {
                   <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
                   <option value="INDIANS">INDIANS</option>
                   <option value="ROYALS">ROYALS</option>
-                  <option value="SUNRISES">SUNRISES</option>
+                  <option value="SUNRISERS">SUNRISERS</option>
                   <option value="CAPITALS">CAPITALS</option>
                   <option value="SUPER GIANTS">SUPER GIANTS</option>
                   <option value="SUPER KINGS">SUPER KINGS</option>
@@ -395,43 +388,28 @@ const Form = () => {
               <div>
                 <label htmlFor="battingHand">Batting Hand</label>
 
-                <select
+                <input
+                  className="form-inputs"
+                  type="text"
                   name="battingHand"
-                  className="dropdown"
+                  id="battingHand"
+                  placeholder="Batting hand"
                   value={formData.battingHand}
                   onChange={handleInputChange}
-                >
-                  <option value="None">None</option>
-                  <option value="righthand">Right hand</option>
-                  <option value="lefthand">Left hand</option>
-                  <option value="both">Both</option>
-                </select>
+                />
               </div>
-
               <div>
-                <label htmlFor="previousteam">Bowling Style</label>
+                <label htmlFor="bowlingStyle">Bowling Style</label>
 
-                <select
+                <input
+                  className="form-inputs"
+                  type="text"
                   name="bowlingStyle"
-                  className="dropdown"
+                  id="bowlingStyle"
+                  placeholder="Batting hand"
                   value={formData.bowlingStyle}
                   onChange={handleInputChange}
-                >
-                  <option value="None">None</option>
-                  <option value="Right-arm fast">Right-arm fast</option>
-                  <option value="Right-arm medium">Right-arm medium</option>
-                  <option value="Right-arm Leg Break">
-                    Right-arm Leg Break
-                  </option>
-                  <option value="Slow left-arm orthodox">
-                    Slow left-arm orthodox
-                  </option>
-                  <option value="Left-arm medium">Left-arm medium</option>
-                  <option value="Left-arm fast">Left-arm fast</option>
-                  <option value="Right-arm Off Break">
-                    Right-arm Off Break
-                  </option>
-                </select>
+                />
               </div>
 
               {/* <div>

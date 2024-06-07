@@ -11,7 +11,7 @@ const AuctionControl = ({ socket }) => {
   const [playerData, setPlayerData] = useState(null);
   const { id } = useParams();
   const [bidprice, setbidprice] = useState(0);
-  const [newTeam, setnewTeam] = useState("Knights");
+  const [newTeam, setnewTeam] = useState("None");
   const [nextPlayerType, setnextPlayerType] = useState("any");
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
@@ -35,30 +35,30 @@ const AuctionControl = ({ socket }) => {
     }
   };
 
-  const nextRound = async () => {
-    try {
-      await axios.patch(
-        `${process.env.REACT_APP_BACKEND_URL}/player/nextRound`
-      );
-      toast.success("Players updated successfully for the next round");
-      await refreshPlayer(nextPlayerType);
-    } catch (error) {
-      console.error("Error fetching next round data:", error);
-      toast.error("Error fetching next round data");
-    }
-  };
+  // const nextRound = async () => {
+  //   try {
+  //     await axios.patch(
+  //       `${process.env.REACT_APP_BACKEND_URL}/player/nextRound`
+  //     );
+  //     toast.success("Players updated successfully for the next round");
+  //     await refreshPlayer(nextPlayerType);
+  //   } catch (error) {
+  //     console.error("Error fetching next round data:", error);
+  //     toast.error("Error fetching next round data");
+  //   }
+  // };
 
-  const handleNoPlayerDataFound = async () => {
-    toast.info("No more players of this type found. Moving to next round.", {
-      position: "top-center",
-      autoClose: 3000,
-      closeButton: (
-        <button onClick={nextRound} className="update-bid-btn">
-          Next Round
-        </button>
-      ),
-    });
-  };
+  // const handleNoPlayerDataFound = async () => {
+  //   toast.info("No more players of this type found. Moving to next round.", {
+  //     position: "top-center",
+  //     autoClose: 3000,
+  //     closeButton: (
+  //       <button onClick={nextRound} className="update-bid-btn">
+  //         Next Round
+  //       </button>
+  //     ),
+  //   });
+  // };
 
   const refreshPlayer = async (type) => {
     setLoaderText("Loading next player...");
@@ -297,11 +297,11 @@ const AuctionControl = ({ socket }) => {
                     Skip
                   </button>
                 </div>
-                <div className="update-bid-wrapper">
+                {/* <div className="update-bid-wrapper">
                   <button onClick={nextRound} className="update-bid-btn">
                     Next Round
                   </button>
-                </div>
+                </div> */}
               </div>
 
               <div className="nextplayer">
@@ -321,7 +321,7 @@ const AuctionControl = ({ socket }) => {
                             onChange={(e) => {
                               setnewTeam(e.target.value);
                               socket.emit(
-                                "change_winning_bid_team",
+                                "change_wining_bid_team",
                                 e.target.value
                               );
                             }}
@@ -335,7 +335,7 @@ const AuctionControl = ({ socket }) => {
                             <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
                             <option value="INDIANS">INDIANS</option>
                             <option value="ROYALS">ROYALS</option>
-                            <option value="SUNRISES">SUNRISES</option>
+                            <option value="SUNRISERS">SUNRISERS</option>
                             <option value="CAPITALS">CAPITALS</option>
                             <option value="SUPER GIANTS">SUPER GIANTS</option>
                             <option value="SUPER KINGS">SUPER KINGS</option>

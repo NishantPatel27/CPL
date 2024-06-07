@@ -120,7 +120,7 @@ const Loginform = ({ flag }) => {
               <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
               <option value="INDIANS">INDIANS</option>
               <option value="ROYALS">ROYALS</option>
-              <option value="SUNRISES">SUNRISES</option>
+              <option value="SUNRISERS">SUNRISERS</option>
               <option value="CAPITALS">CAPITALS</option>
               <option value="SUPER GIANTS">SUPER GIANTS</option>
               <option value="SUPER KINGS">SUPER KINGS</option>

@@ -12,16 +12,16 @@ import allRounderlogo from "../../Assets/Images/player_type_icons/all_rounder_wh
 import batterlogo from "../../Assets/Images/player_type_icons/batter_white.svg";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler_white.svg";
 
-import cpl_logo from "../../Assets/Images/logo/logo.png";
+import cpl_logo from "../../Assets/Images/logo/gupl.png";
 import vibranium_logo from "../../Assets/Images/logo/vibranium.png";
 
-import axios from "axios";
 // import image from "../../../../../Backend/public/images"
 const imgFolder = "../../../../../Backend/public/images";
 const AuctionScreen = ({ socket }) => {
   const [bidPrice, setBidPrice] = useState(0);
   const [playerData, setPlayerData] = useState();
   const [sellStatus, setSellStatus] = useState("none");
+
   useEffect(() => {
     socket.emit("get_focused_player", "get me focused player");
     socket.on("get_focused_player", (player) => {
@@ -101,7 +101,7 @@ const AuctionScreen = ({ socket }) => {
       </div>
 
       <img alt="cpllogo" id="cpllogo" src={cpl_logo} />
-      <img alt="vibranium_logo" id="vibranium_logo" src={vibranium_logo} />
+      {/* <img alt="vibranium_logo" id="vibranium_logo" src={vibranium_logo} /> */}
 
       <div className="black-blend"></div>
       {/* player Frame */}
@@ -116,16 +116,14 @@ const AuctionScreen = ({ socket }) => {
       <img id="AC-lineA1" src={boxA1} alt="" />
       {/* Semester  */}
       <img id="AC-lineA2" src={boxA2} alt="" />
-      {/* Semester  */}
+      {/* player type  */}
       <img id="AC-lineA3" src={boxA1} alt="" />
 
       {/* -------------------------------------LINE 2------------------------------ */}
-      {/* course  */}
+      {/* batting style  */}
       <img id="AC-lineB1" src={reactanglebox} alt="" />
-      {/* Semester  */}
+      {/* bowling style  */}
       <img id="AC-lineB2" src={reactanglebox} alt="" />
-      {/* Semester  */}
-      <img id="AC-lineB3" src={reactanglebox} alt="" />
 
       <div id="AC-playerimage-wrapper">
         <img
@@ -167,19 +165,32 @@ const AuctionScreen = ({ socket }) => {
         </div>
 
         <div>
-          <div id="AC-semestertext">Semester {playerData?.currentSemester}</div>
+          <div id="AC-branchtext">Course : {playerData?.course}</div>
         </div>
         <div>
-          <div id="AC-prevteamtext">Group A</div>
+          <div id="AC-semestertext">
+            Semester : {playerData?.currentSemester}
+          </div>
+        </div>
+        <div>
+          <div id="AC-prevteamtext">type : {playerData?.playerType}</div>
         </div>
 
-        <div id="AC-inningstext">{playerData?.playerType}</div>
-        <div id="AC-runstext">RH Bastman</div>
-        <div id="AC-wicketstext">Wickets : {playerData?.totalWickets}</div>
+        <div id="AC-inningstext">Batting hand : {playerData?.battingHand}</div>
 
-        <div id="AC-bidwinningteam">
+        <div id="AC-wicketstext">
+          Bolwing Style : {playerData?.bowlingStyle}
+        </div>
+
+        <div
+          style={{
+            top:
+              playerData?.currentTeam === "ROYAL CHALLENGERS" ? "54vh" : "55vh",
+          }}
+          id="AC-bidwinningteam"
+        >
           BY <br></br>
-          {playerData?.currentTeam}
+          <span style={{ color: "gold" }}>{playerData?.currentTeam}</span>
         </div>
       </div>
     </div>
