@@ -17,6 +17,7 @@ const Form = () => {
     playerType: "batsman",
     battingHand: "None",
     bowlingStyle: "None",
+    status: "available",
   });
   // const [image, setImage] = useState({ preview: "", data: "" });
 
@@ -42,7 +43,7 @@ const Form = () => {
     const d = new FormData();
 
     Object.keys(formData).forEach((key) => {
-      console.log(key, formData[key]);
+      // console.log(key, formData[key]);
       d.append(key, formData[key]);
     });
     axios
@@ -53,7 +54,7 @@ const Form = () => {
         withCredentials: true,
       })
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         toast.success("Player added successfully.");
         // clear the form
         let clearForm = {

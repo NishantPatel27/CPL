@@ -21,6 +21,7 @@ exports.createPlayer = async (req, res) => {
     playerType: req.body.playerType,
     battingHand: req.body.battingHand,
     bowlingStyle: req.body.bowlingStyle,
+    status: req.body.status,
   };
 
   const { error, value } = playerSchemaValidation.validate(data);
@@ -30,7 +31,7 @@ exports.createPlayer = async (req, res) => {
   }
 
   return sendResponse(res, 200, "Player created successfully", {
-    team: await Player.create(Object.assign(value, { status: null })),
+    team: await Player.create(Object.assign(value)),
   });
 };
 

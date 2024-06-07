@@ -18,6 +18,7 @@ const Update = () => {
     playerType: "batsman",
     battingHand: "None",
     bowlingStyle: "None",
+    status: "available",
   });
 
   const handleInputChange = (e) => {
@@ -212,6 +213,21 @@ const Update = () => {
                   required
                   onChange={handleInputChange}
                 />
+              </div>
+              <div>
+                <label htmlFor="status">Course</label>
+
+                <select
+                  name="status"
+                  id="status"
+                  className="dropdown"
+                  value={formData.status}
+                  onChange={handleInputChange}
+                >
+                  <option value="available">available</option>
+                  <option value="skipped">skipped</option>
+                  <option value="unsold">unsold</option>
+                </select>
               </div>
             </div>
           </div>
