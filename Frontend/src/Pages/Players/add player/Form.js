@@ -168,6 +168,9 @@ const Form = () => {
                   <option value="software">Software</option>
                   <option value="Fintech">Fintech</option>
                   <option value="itims">ITIMS</option>
+                  <option value="Arch & NS">
+                    Architecture & Network Security
+                  </option>
                   <option value="animation">Animation</option>
                   <option value="digital design">Digital Desing</option>
                   <option value="services">Services</option>

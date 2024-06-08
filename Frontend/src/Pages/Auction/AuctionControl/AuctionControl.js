@@ -27,6 +27,7 @@ const AuctionControl = ({ socket }) => {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/player/stat/details`
       );
+      console.log(response);
       if (response.status === 200) {
         setStats(response.data.status);
       }
@@ -34,6 +35,9 @@ const AuctionControl = ({ socket }) => {
       console.log(e);
     }
   };
+  useEffect(() => {
+    fetchStats();
+  }, []);
 
   // const nextRound = async () => {
   //   try {

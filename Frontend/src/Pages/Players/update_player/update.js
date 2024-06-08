@@ -191,6 +191,9 @@ const Update = () => {
                 >
                   <option value="software">Software</option>
                   <option value="itims">ITIMS</option>
+                  <option value="Arch & NS">
+                    Architecture & Network Security
+                  </option>
                   <option value="animation">Animation</option>
                   <option value="digital design">Digital Desing</option>
                   <option value="services">Services</option>
@@ -215,7 +218,7 @@ const Update = () => {
                 />
               </div>
               <div>
-                <label htmlFor="status">Course</label>
+                <label htmlFor="status">Status</label>
 
                 <select
                   name="status"

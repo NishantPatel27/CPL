@@ -57,13 +57,13 @@ const Players = () => {
               <th>Image</th>
               <th>Name</th>
               <th>Semester</th>
-              <th>Branch</th>
+              <th>Course</th>
               <th>Phone number</th>
               <th>Type</th>
+              <th>Base Price</th>
               <th>Bid Price</th>
-              <th>Avg</th>
-              <th>ECO</th>
-              <th>SR</th>
+              <th>Batting Hand</th>
+              <th>Bowling Style</th>
             </tr>
           </thead>
           <tbody>
@@ -83,7 +83,7 @@ const Players = () => {
                     </td>
                     <td>{player.name}</td>
                     <td>{player.currentSemester}</td>
-                    <td>{player.branch}</td>
+                    <td>{player.course}</td>
                     <td>{player.phoneNumber}</td>
                     <td>
                       <img
@@ -96,10 +96,10 @@ const Players = () => {
                         alt="current player logo"
                       />
                     </td>
+                    <td>{player.basePrice}</td>
                     <td>{player.bidPrice}</td>
-                    <td>{player.average}</td>
-                    <td>{player.economyRate}</td>
-                    <td>{player.strikeRate}</td>
+                    <td>{player.battingHand}</td>
+                    <td>{player.bowlingStyle}</td>
                   </tr>
                 );
               })}
