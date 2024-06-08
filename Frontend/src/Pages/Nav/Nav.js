@@ -53,7 +53,7 @@ const Nav = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link target="_blank" to="/auction">
+                  <Link to="/auction" target="_blank" rel="noopener noreferrer">
                     Auction Screen
                   </Link>
                 </li>
