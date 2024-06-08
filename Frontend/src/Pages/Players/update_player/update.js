@@ -197,6 +197,7 @@ const Update = () => {
                   <option value="Data Mgnt">Data Management</option>
                   <option value="Cloud & App">Cloud & Application</option>
                   <option value="IMBA">IMBA</option>
+                  <option value="Game Design">Game Design</option>
                   <option value="animation">Animation</option>
                   <option value="digital design">Digital Desing</option>
                   <option value="services">Services</option>
