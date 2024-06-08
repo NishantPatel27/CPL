@@ -13,7 +13,7 @@ import batterlogo from "../../Assets/Images/player_type_icons/batter_white.svg";
 import bowlerlogo from "../../Assets/Images/player_type_icons/bowler_white.svg";
 
 import cpl_logo from "../../Assets/Images/logo/gupl.png";
-import vibranium_logo from "../../Assets/Images/logo/vibranium.png";
+import gulogo from "../../Assets/Images/logo/gulogo.png";
 
 // import image from "../../../../../Backend/public/images"
 const imgFolder = "../../../../../Backend/public/images";
@@ -101,7 +101,7 @@ const AuctionScreen = ({ socket }) => {
       </div>
 
       <img alt="cpllogo" id="cpllogo" src={cpl_logo} />
-      {/* <img alt="vibranium_logo" id="vibranium_logo" src={vibranium_logo} /> */}
+      <img alt="Gu_logo" id="vibranium_logo" src={gulogo} />
 
       <div className="black-blend"></div>
       {/* player Frame */}
