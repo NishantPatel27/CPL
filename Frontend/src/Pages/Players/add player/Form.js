@@ -171,6 +171,9 @@ const Form = () => {
                   <option value="Arch & NS">
                     Architecture & Network Security
                   </option>
+                  <option value="Data Mgnt">Data Management</option>
+                  <option value="IMBA">IMBA</option>
+                  <option value="Cloud & App">Cloud & Application</option>
                   <option value="animation">Animation</option>
                   <option value="digital design">Digital Desing</option>
                   <option value="services">Services</option>

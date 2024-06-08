@@ -18,7 +18,7 @@ const Update = () => {
     playerType: "batsman",
     battingHand: "None",
     bowlingStyle: "None",
-    status: "available",
+    status: "",
   });
 
   const handleInputChange = (e) => {
@@ -194,6 +194,9 @@ const Update = () => {
                   <option value="Arch & NS">
                     Architecture & Network Security
                   </option>
+                  <option value="Data Mgnt">Data Management</option>
+                  <option value="Cloud & App">Cloud & Application</option>
+                  <option value="IMBA">IMBA</option>
                   <option value="animation">Animation</option>
                   <option value="digital design">Digital Desing</option>
                   <option value="services">Services</option>
@@ -229,6 +232,7 @@ const Update = () => {
                 >
                   <option value="available">available</option>
                   <option value="skipped">skipped</option>
+                  <option value="sold">sold</option>
                   <option value="unsold">unsold</option>
                 </select>
               </div>
@@ -430,45 +434,29 @@ const Update = () => {
               <div>
                 <label htmlFor="battingHand">Batting Hand</label>
 
-                <select
+                <input
+                  className="form-inputs"
+                  type="text"
                   name="battingHand"
                   id="battingHand"
-                  className="dropdown"
+                  placeholder="Batting hand"
                   value={formData.battingHand}
                   onChange={handleInputChange}
-                >
-                  <option value="None">None</option>
-                  <option value="righthand">Right hand</option>
-                  <option value="lefthand">Left hand</option>
-                  <option value="both">Both</option>
-                </select>
+                />
               </div>
 
               <div>
                 <label htmlFor="bowlingStyle">Bowling Style</label>
 
-                <select
+                <input
+                  className="form-inputs"
+                  type="text"
                   name="bowlingStyle"
                   id="bowlingStyle"
-                  className="dropdown"
+                  placeholder="Batting hand"
                   value={formData.bowlingStyle}
                   onChange={handleInputChange}
-                >
-                  <option value="None">None</option>
-                  <option value="Right-arm fast">Right-arm fast</option>
-                  <option value="Right-arm medium">Right-arm medium</option>
-                  <option value="Right-arm Leg Break">
-                    Right-arm Leg Break
-                  </option>
-                  <option value="Slow left-arm orthodox">
-                    Slow left-arm orthodox
-                  </option>
-                  <option value="Left-arm medium">Left-arm medium</option>
-                  <option value="Left-arm fast">Left-arm fast</option>
-                  <option value="Right-arm Off Break">
-                    Right-arm Off Break
-                  </option>
-                </select>
+                />
               </div>
 
               {/* <div>
