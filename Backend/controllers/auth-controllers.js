@@ -33,9 +33,8 @@ exports.registerUser = catchAsync(async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 365 * 24 * 60 * 60 * 1000, // Cookie expires in 1 year
-      sameSite: "none",
-      secure: true
+      maxAge: 365 * 24 * 60 * 60 * 1000,
+      sameSite: "strict",
     });
 
     return sendResponse(res, 200, "Success", { user, token });
@@ -74,9 +73,9 @@ exports.loginUser = catchAsync(async (req, res) => {
     console.log("Setting cookie...");
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 365 * 24 * 60 * 60 * 1000, // Cookie expires in 1 year
-      sameSite: "none",
-      secure: true
+      maxAge: 365 * 24 * 60 * 60 * 1000,
+      // sameSite: "none",
+      // secure: true
     });
     console.log("Cookie set.");
     myuser = { name: user.name, role: user.role };
@@ -167,8 +166,8 @@ exports.loginTeam = catchAsync(async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 365 * 24 * 60 * 60 * 1000, // Cookie expires in 1 year
-      sameSite: "none",
-      secure: true
+      // sameSite: "none",
+      // secure: true
     });
     console.log("Cookie set.");
     myuser = { name: team.name, role: "team" };
