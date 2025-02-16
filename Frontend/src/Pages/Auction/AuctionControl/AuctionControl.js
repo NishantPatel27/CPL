@@ -190,20 +190,20 @@ const AuctionControl = ({ socket }) => {
     }
 
     const skipdata = {
-      image: playerData.image,
-      name: playerData.name,
-      bidPrice: playerData.bidPrice,
-      basePrice: playerData.basePrice,
-      course: playerData.course,
-      currentSemester: playerData.currentSemester,
-      phoneNumber: playerData.phoneNumber,
-      currentTeam: playerData.currentTeam,
-      playerType: playerData.playerType,
-      battingHand: playerData.battingHand,
-      bowlingStyle: playerData.bowlingStyle,
+      image: playerData.image || "",
+      name: playerData.name || "",
+      bidPrice: playerData.bidPrice || 0,
+      basePrice: playerData.basePrice || 0,
+      course: playerData.course || "",
+      currentSemester: playerData.currentSemester || "",
+      phoneNumber: playerData.phoneNumber || 0,
+      currentTeam: playerData.currentTeam || "",
+      playerType: playerData.playerType || "",
+      battingHand: playerData.battingHand || "",
+      bowlingStyle: playerData.bowlingStyle || "",
       status: mystatus,
-      playerNumber: playerData.playerNumber,
-      PlayersGrade: playerData.PlayersGrade,
+      playerNumber: playerData.playerNumber || "",
+      PlayersGrade: playerData.PlayersGrade || "",
     };
 
     try {

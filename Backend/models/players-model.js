@@ -54,6 +54,10 @@ const playerSchema = new mongoose.Schema({
         type:String,
         // required:true
     },
+    playerGrade: {
+        type:String,
+        // required:true
+    },
     status: String
 });
 

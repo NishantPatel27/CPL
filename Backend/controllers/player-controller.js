@@ -468,23 +468,22 @@ exports.getPlayerDetails = catchAsync(async (req, res) => {
 
         const sheet = workbook.Sheets[sheetName];
         let data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
-        const gradeToBasePrice = {
-            "A": 1000,
-            "B": 500,
-            "C": 300
-        };
         const players = data.slice(2, 219).map((row,index) => {
-            let grade = row[8]?.toString().trim();
             return {
-                name: row[1] || "",
-                course: row[2] || "",
-                currentSemester: row[3] || "",
-                playerType: row[4] || "",
-                battingHand: row[5] || "",
-                bowlingStyle: row[6] || "",
-                playerNumber: row[7] || "",
-                basePrice: gradeToBasePrice[grade] || 0,
-                status: "available"
+                image:row[1] || "",
+                name: row[2]?.trim() || "",
+                bidPrice: row[3] || 0,
+                basePrice: row[4] || 0,
+                course: row[5]?.trim() || "",
+                currentSemester: row[6] || "",
+                phoneNumber: row[7] || "",
+                currentTeam: row[8] || "",
+                playerType: row[9]?.trim() || "",
+                battingHand: row[10]?.trim() || "",
+                bowlingStyle: row[11]?.trim() || "",
+                status: row[12] || "available",
+                playerNumber: row[13] || "",
+                playerGrade: row[14] || ""
             };
         });
         await Player.insertMany(players);
