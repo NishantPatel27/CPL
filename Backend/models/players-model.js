@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const playerSchema = new mongoose.Schema({
     image: {
         type: String,
-        required: true,
+        // required: true,
     },
     name: {
         type: String,
-        required: true,
+        // required: true,
     },
     bidPrice: {
         type: Number,
@@ -20,35 +20,39 @@ const playerSchema = new mongoose.Schema({
     },
     course : {
         type:String,
-        required:true
+        // required:true
     },
     currentSemester: {
         type: String,
-        required: true,
+        // required: true,
     },
     phoneNumber: {
         type: Number,
-        require: true
+        // require: true
     },
     branch: {
         type: String,
-        require: true
+        // require: true
     },
     currentTeam: {
         type: String,
-        required: true,
+        // required: true,
     },
     playerType: {
         type: String,
-        required: true,
+        // required: true,
     },
     battingHand: {
         type:String,
-        required:true
+        // required:true
     },
     bowlingStyle: {
         type:String,
-        required:true
+        // required:true
+    },
+    playerNumber: {
+        type:String,
+        // required:true
     },
     status: String
 });

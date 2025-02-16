@@ -68,4 +68,8 @@ router.get(
   playerController.getPlayersByType
 );
 
+router.post(
+    "/uploadExcel",
+    playerController.uploadExcel
+);
 module.exports = router;

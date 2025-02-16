@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b74f480a-0dd7-4188-a1b5-5cff074a9d74" name="Changes" comment="" />
+    <list default="true" id="b74f480a-0dd7-4188-a1b5-5cff074a9d74" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_6_24,_10_20_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_6_24__10_20_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/controllers/auth-controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/controllers/auth-controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/controllers/player-controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/controllers/player-controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/models/players-model.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/models/players-model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/routes/player-routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/routes/player-routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/Pages/Auction/AuctionControl/AuctionControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/Pages/Auction/AuctionControl/AuctionControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/Pages/Auction/AuctionScreen/AuctionScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/Pages/Auction/AuctionScreen/AuctionScreen.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +48,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/tilak-patel/CPL/Backend&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -43,7 +56,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/377/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/431/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -51,11 +64,14 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Backend" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Backend/public" />
+    </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.17011.90" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-WS-243.23654.157" />
       </set>
     </attachedChunks>
   </component>
@@ -73,6 +89,8 @@
       <workItem from="1717607182765" duration="5814000" />
       <workItem from="1717683717356" duration="5165000" />
       <workItem from="1717692525378" duration="938000" />
+      <workItem from="1739594059317" duration="8140000" />
+      <workItem from="1739688841192" duration="3688000" />
     </task>
     <servers />
   </component>

@@ -80,8 +80,10 @@ const AuctionScreen = ({ socket }) => {
           Selling the player..
         </h1>
       );
-    } else if (sellStatus === "selling_successfull") {
+    } else if (sellStatus === "selling_successful") {
       return <img src="/assets/images/sold.png" />;
+    } else if (sellStatus === "selling_unsuccessful"){
+        return <img src="/assets/images/un_sold.png" />;
     }
     return <></>;
   };

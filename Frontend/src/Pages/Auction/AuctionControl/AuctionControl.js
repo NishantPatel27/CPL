@@ -214,7 +214,7 @@ const AuctionControl = ({ socket }) => {
       if (updatedPlayer.status === 200) {
         socket.emit("sell_player", updatedPlayer.data);
         setPlayerData(null);
-        socket.emit("change_selling_status", "selling_successful");
+        socket.emit("change_selling_status", "selling_unsuccessful");
         toast.success("Player Skipped");
         await fetchStats();
         await refreshPlayer(nextPlayerType);
