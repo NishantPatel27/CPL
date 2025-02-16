@@ -82,8 +82,8 @@ const AuctionScreen = ({ socket }) => {
       );
     } else if (sellStatus === "selling_successful") {
       return <img src="/assets/images/sold.png" />;
-    } else if (sellStatus === "selling_unsuccessful"){
-        return <img src="/assets/images/un_sold.png" />;
+    } else if (sellStatus === "selling_unsuccessful") {
+      return <img src="/assets/images/un_sold.png" />;
     }
     return <></>;
   };
@@ -134,15 +134,14 @@ const AuctionScreen = ({ socket }) => {
           alt="current player logo"
         />
       </div>
-
       <div>
         <h3 className="AC-playernametext">{playerData?.name}</h3>
 
-        <img
+        {/* <img
           id="AC-playerIcon"
           src={playerTypeicon(playerData?.playerType)}
           alt="current player logo"
-        />
+        /> */}
 
         <div id="AC-basepricetext">
           <div>Base Price</div>

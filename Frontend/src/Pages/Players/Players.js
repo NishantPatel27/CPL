@@ -78,7 +78,8 @@ const Players = () => {
                     <td>{index + 1}</td>
                     <td>{player.name}</td>
                     <td>{player.currentSemester}</td>
-                    <td>
+                    <td>{player.playerType}</td>
+                    {/* <td>
                       <img
                         style={{
                           height:
@@ -88,7 +89,7 @@ const Players = () => {
                         src={playerTypeicon(player.playerType)}
                         alt="current player logo"
                       />
-                    </td>
+                    </td> */}
                     <td>{player.basePrice.toLocaleString()}</td>
                     <td>{player.bidPrice.toLocaleString()}</td>
                     <td>
