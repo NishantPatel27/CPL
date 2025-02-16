@@ -19,32 +19,37 @@
 #AC-playerframe {
   height: 60vh;
   position: absolute;
-  top: 8vh;
+  top: 13vh;
   left: 18vh;
 }
 
 #AC-basepricebox {
   height: 17vh;
   position: absolute;
-  top: 12vh;
+  top: 16vh;
   left: 120vh;
 }
 #AC-bidpricebox {
-  height: 35vh;
+  height: 35.9vh;
   position: absolute;
-  top: 32vh;
-  left: 121vh;
+  top: 37vh;
+  left: 120vh;
 }
 #AC-lineA1,
 #AC-lineA2,
 #AC-lineA3 {
-  height: 6vh;
+  height: 6.3vh;
   position: absolute;
-  top: 71vh;
-  left: 24vh;
+  top: 76vh;
+ 
+}
+#AC-lineA1 {
+  left: 20vh;
 }
 #AC-lineA2 {
-  left: 69vh;
+  left: 120vh;
+  height: 17vh;
+  
 }
 #AC-lineA3 {
   left: 112vh;
@@ -54,16 +59,16 @@
 #AC-lineB2,
 #AC-lineB3 {
   /* height: 7vh; */
-  width: 35vw;
+  width: 25vw;
   position: absolute;
-  top: 80vh;
+  top: 85vh;
   left: 22vh;
 }
 #AC-lineB2 {
-  left: 97vh;
+  left: 70vh;
 }
 #AC-lineB3 {
-  left: 113vh;
+  left: 50vh;
 }
 
 
@@ -72,11 +77,11 @@
 
 #AC-playerimage-wrapper{
     position: absolute;
-    top: 18vh;
-    left: 50vh;
-    height: 36vh;
+    top: 20vh;
+    left: 52vh;
+    height: 40vh;
     /* background-color: rgba(255, 255, 255, 1); */
-    width: 36vh;
+    width: 40vh;
 
     overflow: hidden;
     
@@ -91,13 +96,13 @@
 
 #cpllogo{
   position: absolute;
-  top:16vh;
+  top:22vh;
   left: 25vh;
   height: 8vw;
 }
 #vibranium_logo{
   position: absolute;
-  top:17.5vh;
+  top:22vh;
   left: 100vh;
   height: 10vh;
 }
@@ -109,9 +114,19 @@
   left: 103vh;
 }
 
+.AC-CPCtext {
+  position: absolute;
+  top: 1.4vh;
+  left: 60vh;
+  font-size: 3vh;
+  text-transform: uppercase;
+  /* background-color: red; */
+  width: 500px;
+  text-align: center;
+}
 .AC-playernametext {
   position: absolute;
-  top: 56vh;
+  top: 61vh;
   left: 40vh;
   font-size: 4vh;
   text-transform: uppercase;
@@ -122,11 +137,12 @@
 
 #AC-basepricetext {
   position: absolute;
-  top: 16vh;
+  top: 20.5vh;
   left: 131vh;
   text-align: center;
   font-size: 2vh;
 }
+
 #AC-basepriceamt{
   /* background-color: red; */
   font-size: 5vh;
@@ -134,7 +150,7 @@
 
 #AC-bidpricetext {
   position: absolute;
-  top: 36vh;
+  top: 41vh;
   left: 123vh;
   text-align: center;
   font-size: 3vh;
@@ -150,39 +166,69 @@
 
 #AC-branchtext,
 #AC-semestertext,
-#AC-prevteamtext {
+#AC-playerNoText,
+#AC-semtext,
+#AC-typetext {
   position: absolute;
-  top: 73vh;
-  left: 30vh;
+  top: 78vh;
+
   font-size: 2vh;
 }
-#AC-semestertext {
-  left: 83vh;
+#AC-branchtext {
+  left: 29vh;
 }
-#AC-prevteamtext {
-  left: 120vh;
+#AC-playerNoText {
+  left: 131vh;
+  top: 77vh;
+  font-size: 5vh;
 }
 
-#AC-inningstext,
+#AC-playerNo {
+  position: absolute;
+  top: 3vh;
+  left: -4vh;
+  text-align: center;
+  width: 20vh;
+  font-size: 2vh;
+}
+
+#AC-typetext {
+  top: 86.5vh;
+  left: 25vh;
+}
+#AC-semtext {
+  position: absolute;
+  top: 86.5vh;
+  left: 75vh;
+  font-size: 2vh;
+}
+#AC-gradetext {
+  position: absolute;
+  top: 86.5vh;
+  font-size: 2vh;
+    left: 95vh;
+}
+
+#AC-battinghand,
 #AC-runstext,
 #AC-wicketstext {
   position: absolute;
-  top: 83vh;
-  left: 26vh;
+  top: 94vh;
+  left: 24vh;
   font-size: 2vh;
 }
 /* #AC-runstext {
   left: 50vh;
 } */
 #AC-wicketstext {
-  left: 100vh;
+  left: 72vh;
 }
 
 #AC-bidwinningteam{
     position: absolute;
     /* background-color: red; */
     text-align: center;
-    top: 55vh;
+    top: 60vh;
     left: 126vh;
     font-size: 2.6vh;
     opacity: 1;

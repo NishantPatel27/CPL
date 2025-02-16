@@ -4,7 +4,7 @@ import "./AuctionScreen.css";
 import playerFramecut from "../../Assets/Images/AuctionScreen/frame.svg";
 import basePriceBoxcut from "../../Assets/Images/AuctionScreen/base_price_box.svg";
 import bidPriceBoxcut from "../../Assets/Images/AuctionScreen/bid_price_box.svg";
-import boxA1 from "../../Assets/Images/AuctionScreen/course_box_cut.svg";
+import boxA1 from "../../Assets/Images/AuctionScreen/base_price_box.svg";
 import boxA2 from "../../Assets/Images/AuctionScreen/course_box_cut2.svg";
 import reactanglebox from "../../Assets/Images/AuctionScreen/reactangle-box.svg";
 
@@ -115,11 +115,11 @@ const AuctionScreen = ({ socket }) => {
 
       {/* -------------------------------------LINE 1------------------------------ */}
       {/* course  */}
-      <img id="AC-lineA1" src={boxA1} alt="" />
+      <img id="AC-lineA1" src={boxA2} alt="" />
       {/* Semester  */}
-      <img id="AC-lineA2" src={boxA2} alt="" />
+      {/* <img id="AC-lineA2" src={boxA1} alt="" /> */}
       {/* player type  */}
-      <img id="AC-lineA3" src={boxA1} alt="" />
+      <img id="AC-lineA2" src={boxA1} alt="" />
 
       {/* -------------------------------------LINE 2------------------------------ */}
       {/* batting style  */}
@@ -135,6 +135,10 @@ const AuctionScreen = ({ socket }) => {
         />
       </div>
       <div>
+        <h3 className="AC-CPCtext">
+          CENTRE FOR PROFESSIONAL COURSES <br />
+          GUJARAT UNIVERSITY
+        </h3>
         <h3 className="AC-playernametext">{playerData?.name}</h3>
 
         {/* <img
@@ -164,32 +168,36 @@ const AuctionScreen = ({ socket }) => {
         <div id="AC-branchtext">
           <div>{playerData?.branch}</div>
         </div>
+        <div id="AC-playerNoText">
+          <span id="AC-playerNo">SELECTION NO</span> <br />
+          <div>{playerData?.playerNumber}</div>
+        </div>
 
         <div>
           <div id="AC-branchtext">Course : {playerData?.course}</div>
         </div>
-        <div>
+        {/* <div>
           <div id="AC-semestertext">
             Semester : {playerData?.currentSemester}
           </div>
+        </div> */}
+        <div>
+          <div id="AC-typetext">type : {playerData?.playerType}</div>
         </div>
         <div>
-          <div id="AC-prevteamtext">type : {playerData?.playerType}</div>
+          <div id="AC-semtext">SEMESTER : {playerData?.currentSemester}</div>
+        </div>
+        <div>
+          <div id="AC-gradetext">GRADE : {playerData?.playerGrade}</div>
         </div>
 
-        <div id="AC-inningstext">Batting hand : {playerData?.battingHand}</div>
+        <div id="AC-battinghand">Batting hand : {playerData?.battingHand}</div>
 
         <div id="AC-wicketstext">
           Bolwing Style : {playerData?.bowlingStyle}
         </div>
 
-        <div
-          style={{
-            top:
-              playerData?.currentTeam === "ROYAL CHALLENGERS" ? "54vh" : "55vh",
-          }}
-          id="AC-bidwinningteam"
-        >
+        <div id="AC-bidwinningteam">
           BY <br></br>
           <span style={{ color: "gold" }}>{playerData?.currentTeam}</span>
         </div>
