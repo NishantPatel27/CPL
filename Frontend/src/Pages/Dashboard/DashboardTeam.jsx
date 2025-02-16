@@ -15,8 +15,6 @@ const DashboardTeam = ({ socket }) => {
   
   const playersRef = useRef([]);
 
-
-
   const fetchTeamDetails = async () => {
     try {
       const res = await axios.get(
@@ -62,13 +60,13 @@ const DashboardTeam = ({ socket }) => {
 
   useEffect(() => {
     if (players?.length > 0) {
-      setProgress((players?.length /  12 ) * 100);
+      setProgress((players?.length /  14 ) * 100);
     }
   }, [players]);
 
   useEffect(() => {
     if (team?.bidPointBalance > 0) {
-      let balance =  (team?.bidPointBalance * 100) / 70000
+      let balance =  (team?.bidPointBalance * 100) / 100000
       setteamProgress(balance);
     }
   }, [team]);
@@ -99,7 +97,7 @@ const DashboardTeam = ({ socket }) => {
 
         <div className="TM-progress-wrapper">
           <div className="TM-pgbr1">
-            <h3>{players?.length} / 12 players</h3>
+            <h3>{players?.length} / 14 players</h3>
            
               <div id="players-progress-wrapper">
                 <div id="players-progress-bar" style={{ width: `${progress}%`}}>
@@ -120,7 +118,6 @@ const DashboardTeam = ({ socket }) => {
           <div className="TM-pgbr3">
             <h3>Mentor : {team?.mentor}</h3>
             <h3>Captian : {team?.captain}</h3>
-            <h3>Vice Captian : {team?.viceCaptain}</h3>
            
               
           </div>

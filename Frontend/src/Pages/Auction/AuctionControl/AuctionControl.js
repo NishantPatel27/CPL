@@ -202,6 +202,8 @@ const AuctionControl = ({ socket }) => {
       battingHand: playerData.battingHand,
       bowlingStyle: playerData.bowlingStyle,
       status: mystatus,
+      playerNumber: playerData.playerNumber,
+      PlayersGrade: playerData.PlayersGrade,
     };
 
     try {
@@ -331,18 +333,24 @@ const AuctionControl = ({ socket }) => {
                             }}
                           >
                             <option value="None">None</option>
-                            <option value="ROYAL CHALLENGERS">
-                              ROYAL CHALLENGERS
+                            <option value="VEER YODHA">VEER YODHA</option>
+                            <option value="AGNI PUTRA">AGNI PUTRA</option>
+                            <option value="VAYU SHAKTI">VAYU SHAKTI</option>
+                            <option value="TRISHUL TITANS">
+                              TRISHUL TITANS
                             </option>
-                            <option value="KINGS XI">KINGS XI</option>
-                            <option value="TITANS">TITANS</option>
-                            <option value="KNIGHT RIDERS">KNIGHT RIDERS</option>
-                            <option value="INDIANS">INDIANS</option>
-                            <option value="ROYALS">ROYALS</option>
-                            <option value="SUNRISERS">SUNRISERS</option>
-                            <option value="CAPITALS">CAPITALS</option>
-                            <option value="SUPER GIANTS">SUPER GIANTS</option>
-                            <option value="SUPER KINGS">SUPER KINGS</option>
+                            <option value="CHHATRAPATI SENA">
+                              CHHATRAPATI SENA
+                            </option>
+                            <option value="KARNA VIJAY">KARNA VIJAY</option>
+                            <option value="GARUDA FORCE">GARUDA FORCE</option>
+                            <option value="DHARMA RAKSHAK">
+                              DHARMA RAKSHAK
+                            </option>
+                            <option value="RUDRA AVATAR">RUDRA AVATAR</option>
+                            <option value="ASHOKA WARRIORS">
+                              ASHOKA WARRIORS
+                            </option>
                           </select>
                         </td>
                       </tr>
