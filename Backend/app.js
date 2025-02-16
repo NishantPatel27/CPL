@@ -92,7 +92,7 @@ app.use(`${process.env.API_PREFIX}/auction`, auctionRouter);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(err.status || 500).json({
+  res.status(500).json({
     status: "Error",
     message: err.message || "Something went wrong!",
   });
